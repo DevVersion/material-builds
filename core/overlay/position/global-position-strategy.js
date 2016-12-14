@@ -86,7 +86,7 @@ export var GlobalPositionStrategy = (function () {
     };
     /**
      * Apply the position to the element.
-     * TODO: internal
+     * @docs-private
      */
     GlobalPositionStrategy.prototype.apply = function (element) {
         if (!this._wrapper) {

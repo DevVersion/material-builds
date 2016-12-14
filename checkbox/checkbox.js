@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { ChangeDetectorRef, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, Output, Renderer, ViewEncapsulation, forwardRef, NgModule, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { coerceBooleanProperty } from '../core/coersion/boolean-property';
+import { coerceBooleanProperty } from '../core/coercion/boolean-property';
 import { MdRippleModule, DefaultStyleCompatibilityModeModule } from '../core';
 import { ViewportRuler } from '../core/overlay/position/viewport-ruler';
 /**
@@ -191,30 +191,19 @@ export var MdCheckbox = (function () {
     MdCheckbox.prototype._isRippleDisabled = function () {
         return this.disableRipple || this.disabled;
     };
-    /**
-     * Implemented as part of ControlValueAccessor.
-     * TODO: internal
-     */
+    /** Implemented as part of ControlValueAccessor. */
     MdCheckbox.prototype.writeValue = function (value) {
         this.checked = !!value;
     };
-    /**
-     * Implemented as part of ControlValueAccessor.
-     * TODO: internal
-     */
+    /** Implemented as part of ControlValueAccessor. */
     MdCheckbox.prototype.registerOnChange = function (fn) {
         this._controlValueAccessorChangeFn = fn;
     };
-    /**
-     * Implemented as part of ControlValueAccessor.
-     * TODO: internal
-     */
+    /** Implemented as part of ControlValueAccessor. */
     MdCheckbox.prototype.registerOnTouched = function (fn) {
         this.onTouched = fn;
     };
-    /**
-     * Implemented as a part of ControlValueAccessor.
-     */
+    /** Implemented as a part of ControlValueAccessor. */
     MdCheckbox.prototype.setDisabledState = function (isDisabled) {
         this.disabled = isDisabled;
     };

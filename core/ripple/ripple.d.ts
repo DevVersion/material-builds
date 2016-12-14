@@ -38,11 +38,8 @@ export declare class MdRipple implements OnInit, OnDestroy, OnChanges {
     private _rippleRenderer;
     _ruler: ViewportRuler;
     constructor(_elementRef: ElementRef, _ngZone: NgZone, _ruler: ViewportRuler);
-    /** TODO: internal */
     ngOnInit(): void;
-    /** TODO: internal */
     ngOnDestroy(): void;
-    /** TODO: internal */
     ngOnChanges(changes: {
         [propertyName: string]: SimpleChange;
     }): void;

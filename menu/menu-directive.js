@@ -31,7 +31,6 @@ export var MdMenu = (function () {
         }
         this.setPositionClasses(this.positionX, this.positionY);
     }
-    // TODO: internal
     MdMenu.prototype.ngAfterContentInit = function () {
         var _this = this;
         this._keyManager = new ListKeyManager(this.items).withFocusWrap();
@@ -39,7 +38,6 @@ export var MdMenu = (function () {
             _this._emitCloseEvent();
         });
     };
-    // TODO: internal
     MdMenu.prototype.ngOnDestroy = function () {
         this._tabSubscription.unsubscribe();
     };
@@ -63,7 +61,6 @@ export var MdMenu = (function () {
     /**
      * Focus the first item in the menu. This method is used by the menu trigger
      * to focus the first item when the menu is opened by the ENTER key.
-     * TODO: internal
      */
     MdMenu.prototype.focusFirstItem = function () {
         this._keyManager.focusFirstItem();

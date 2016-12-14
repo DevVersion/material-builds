@@ -38,7 +38,7 @@ export declare class ConnectedPositionStrategy implements PositionStrategy {
     /**
      * Updates the position of the overlay element, using whichever preferred position relative
      * to the origin fits on-screen.
-     * TODO: internal
+     * @docs-private
      */
     apply(element: HTMLElement): Promise<void>;
     withFallbackPosition(originPos: OriginConnectionPosition, overlayPos: OverlayConnectionPosition): this;

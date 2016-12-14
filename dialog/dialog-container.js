@@ -19,6 +19,7 @@ import { FocusTrap } from '../core/a11y/focus-trap';
 import 'rxjs/add/operator/first';
 /**
  * Internal component that wraps user-provided dialog content.
+ * @docs-private
  */
 export var MdDialogContainer = (function (_super) {
     __extends(MdDialogContainer, _super);

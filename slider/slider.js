@@ -363,9 +363,7 @@ export var MdSlider = (function () {
     MdSlider.prototype._increment = function (numSteps) {
         this.value = this._clamp(this.value + this.step * numSteps, this.min, this.max);
     };
-    /**
-     * Calculate the new value from the new physical location. The value will always be snapped.
-     */
+    /** Calculate the new value from the new physical location. The value will always be snapped. */
     MdSlider.prototype._updateValueFromPosition = function (pos) {
         if (!this._sliderDimensions) {
             return;
@@ -396,9 +394,7 @@ export var MdSlider = (function () {
             this.change.emit(event_1);
         }
     };
-    /**
-     * Updates the amount of space between ticks as a percentage of the width of the slider.
-     */
+    /** Updates the amount of space between ticks as a percentage of the width of the slider. */
     MdSlider.prototype._updateTickIntervalPercent = function () {
         if (!this.tickInterval) {
             return;
@@ -414,47 +410,33 @@ export var MdSlider = (function () {
             this._tickIntervalPercent = this.tickInterval * this.step / (this.max - this.min);
         }
     };
-    /**
-     * Calculates the percentage of the slider that a value is.
-     */
+    /** Calculates the percentage of the slider that a value is. */
     MdSlider.prototype._calculatePercentage = function (value) {
         return (value - this.min) / (this.max - this.min);
     };
-    /**
-     * Calculates the value a percentage of the slider corresponds to.
-     */
+    /** Calculates the value a percentage of the slider corresponds to. */
     MdSlider.prototype._calculateValue = function (percentage) {
         return this.min + percentage * (this.max - this.min);
     };
-    /**
-     * Return a number between two numbers.
-     */
+    /** Return a number between two numbers. */
     MdSlider.prototype._clamp = function (value, min, max) {
         if (min === void 0) { min = 0; }
         if (max === void 0) { max = 1; }
         return Math.max(min, Math.min(value, max));
     };
-    /**
-     * Implemented as part of ControlValueAccessor.
-     */
+    /** Implemented as part of ControlValueAccessor. */
     MdSlider.prototype.writeValue = function (value) {
         this.value = value;
     };
-    /**
-     * Implemented as part of ControlValueAccessor.
-     */
+    /** Implemented as part of ControlValueAccessor. */
     MdSlider.prototype.registerOnChange = function (fn) {
         this._controlValueAccessorChangeFn = fn;
     };
-    /**
-     * Implemented as part of ControlValueAccessor.
-     */
+    /** Implemented as part of ControlValueAccessor. */
     MdSlider.prototype.registerOnTouched = function (fn) {
         this.onTouched = fn;
     };
-    /**
-     * Implemented as part of ControlValueAccessor.
-     */
+    /** Implemented as part of ControlValueAccessor. */
     MdSlider.prototype.setDisabledState = function (isDisabled) {
         this.disabled = isDisabled;
     };
@@ -535,6 +517,7 @@ export var MdSlider = (function () {
 }());
 /**
  * Renderer class in order to keep all dom manipulation in one place and outside of the main class.
+ * @docs-private
  */
 export var SliderRenderer = (function () {
     function SliderRenderer(elementRef) {

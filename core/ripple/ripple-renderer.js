@@ -1,4 +1,4 @@
-/** TODO: internal */
+/** @docs-private */
 export var ForegroundRippleState;
 (function (ForegroundRippleState) {
     ForegroundRippleState[ForegroundRippleState["NEW"] = 0] = "NEW";
@@ -7,7 +7,7 @@ export var ForegroundRippleState;
 })(ForegroundRippleState || (ForegroundRippleState = {}));
 /**
  * Wrapper for a foreground ripple DOM element and its animation state.
- * TODO: internal
+ * @docs-private
  */
 export var ForegroundRipple = (function () {
     function ForegroundRipple(rippleElement) {
@@ -32,7 +32,7 @@ var distanceToFurthestCorner = function (x, y, rect) {
  * The constructor takes a reference to the ripple directive's host element and a map of DOM
  * event handlers to be installed on the element that triggers ripple animations.
  * This will eventually become a custom renderer once Angular support exists.
- * TODO: internal
+ * @docs-private
  */
 export var RippleRenderer = (function () {
     function RippleRenderer(_elementRef, _eventHandlers, _ngZone) {

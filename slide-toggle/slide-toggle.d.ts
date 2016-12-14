@@ -31,7 +31,6 @@ export declare class MdSlideToggle implements AfterContentInit, ControlValueAcce
     getInputId: () => string;
     _inputElement: ElementRef;
     constructor(_elementRef: ElementRef, _renderer: Renderer);
-    /** TODO: internal */
     ngAfterContentInit(): void;
     /**
      * The onChangeEvent method will be also called on click.
@@ -43,24 +42,13 @@ export declare class MdSlideToggle implements AfterContentInit, ControlValueAcce
     _setMousedown(): void;
     _onInputFocus(): void;
     _onInputBlur(): void;
-    /**
-     * Implemented as part of ControlValueAccessor.
-     * TODO: internal
-     */
+    /** Implemented as part of ControlValueAccessor. */
     writeValue(value: any): void;
-    /**
-     * Implemented as part of ControlValueAccessor.
-     * TODO: internal
-     */
+    /** Implemented as part of ControlValueAccessor. */
     registerOnChange(fn: any): void;
-    /**
-     * Implemented as part of ControlValueAccessor.
-     * TODO: internal
-     */
+    /** Implemented as part of ControlValueAccessor. */
     registerOnTouched(fn: any): void;
-    /**
-     * Implemented as a part of ControlValueAccessor.
-     */
+    /** Implemented as a part of ControlValueAccessor. */
     setDisabledState(isDisabled: boolean): void;
     focus(): void;
     checked: boolean;
@@ -70,11 +58,8 @@ export declare class MdSlideToggle implements AfterContentInit, ControlValueAcce
     private _setElementColor(color, isAdd);
     /** Emits the change event to the `change` output EventEmitter */
     private _emitChangeEvent();
-    /** TODO: internal */
     _onDragStart(): void;
-    /** TODO: internal */
     _onDrag(event: HammerInput): void;
-    /** TODO: internal */
     _onDragEnd(): void;
 }
 export declare class MdSlideToggleModule {

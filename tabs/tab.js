@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { TemplatePortal } from '../core/portal/portal';
 import { ViewContainerRef, Input, TemplateRef, ViewChild, ContentChild, Component } from '@angular/core';
-import { coerceBooleanProperty } from '../core/coersion/boolean-property';
+import { coerceBooleanProperty } from '../core/coercion/boolean-property';
 import { MdTabLabel } from './tab-label';
 export var MdTab = (function () {
     function MdTab(_viewContainerRef) {

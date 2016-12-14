@@ -44,7 +44,6 @@ export declare class MdRadioGroup implements AfterContentInit, ControlValueAcces
     /**
      * Initialize properties once content children are available.
      * This allows us to propagate relevant attributes to associated buttons.
-     * TODO: internal
      */
     ngAfterContentInit(): void;
     /**
@@ -57,24 +56,13 @@ export declare class MdRadioGroup implements AfterContentInit, ControlValueAcces
     private _updateSelectedRadioFromValue();
     /** Dispatch change event with current selection and group value. */
     _emitChangeEvent(): void;
-    /**
-      * Implemented as part of ControlValueAccessor.
-      * TODO: internal
-      */
+    /** Implemented as part of ControlValueAccessor. */
     writeValue(value: any): void;
-    /**
-     * Implemented as part of ControlValueAccessor.
-     * TODO: internal
-     */
+    /** Implemented as part of ControlValueAccessor. */
     registerOnChange(fn: (value: any) => void): void;
-    /**
-     * Implemented as part of ControlValueAccessor.
-     * TODO: internal
-     */
+    /** Implemented as part of ControlValueAccessor. */
     registerOnTouched(fn: any): void;
-    /**
-     * Implemented as a part of ControlValueAccessor.
-     */
+    /** Implemented as a part of ControlValueAccessor. */
     setDisabledState(isDisabled: boolean): void;
 }
 export declare class MdRadioButton implements OnInit {
@@ -113,7 +101,6 @@ export declare class MdRadioButton implements OnInit {
     private _align;
     align: 'start' | 'end';
     disabled: boolean;
-    /** TODO: internal */
     ngOnInit(): void;
     /** Dispatch change event with current value. */
     private _emitChangeEvent();
@@ -125,14 +112,11 @@ export declare class MdRadioButton implements OnInit {
      */
     _onInputFocus(): void;
     focus(): void;
-    /** TODO: internal */
     _onInputBlur(): void;
-    /** TODO: internal */
     _onInputClick(event: Event): void;
     /**
      * Triggered when the radio button received a click or the input recognized any change.
      * Clicking on a label element, will trigger a change event on the associated input.
-     * TODO: internal
      */
     _onInputChange(event: Event): void;
     getHostElement(): any;

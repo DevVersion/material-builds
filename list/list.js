@@ -57,7 +57,6 @@ export var MdListItem = (function () {
         enumerable: true,
         configurable: true
     });
-    /** TODO: internal */
     MdListItem.prototype.ngAfterContentInit = function () {
         this._lineSetter = new MdLineSetter(this._lines, this._renderer, this._element);
     };

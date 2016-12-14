@@ -113,7 +113,6 @@ export var MdIcon = (function () {
                 throw new MdIconInvalidNameError(iconName);
         }
     };
-    /** TODO: internal */
     MdIcon.prototype.ngOnChanges = function (changes) {
         var _this = this;
         var changedInputs = Object.keys(changes);
@@ -132,7 +131,6 @@ export var MdIcon = (function () {
         }
         this._updateAriaLabel();
     };
-    /** TODO: internal */
     MdIcon.prototype.ngOnInit = function () {
         // Update font classes because ngOnChanges won't be called if none of the inputs are present,
         // e.g. <md-icon>arrow</md-icon>. In this case we need to add a CSS class for the default font.
@@ -140,7 +138,6 @@ export var MdIcon = (function () {
             this._updateFontIconClasses();
         }
     };
-    /** TODO: internal */
     MdIcon.prototype.ngAfterViewChecked = function () {
         // Update aria label here because it may depend on the projected text content.
         // (e.g. <md-icon>home</md-icon> should use 'home').

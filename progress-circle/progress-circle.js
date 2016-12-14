@@ -59,11 +59,11 @@ export var MdProgressCircle = (function () {
         configurable: true
     });
     Object.defineProperty(MdProgressCircle.prototype, "interdeterminateInterval", {
-        /** TODO: internal */
+        /** @docs-private */
         get: function () {
             return this._interdeterminateInterval;
         },
-        /** TODO: internal */
+        /** @docs-private */
         set: function (interval) {
             clearInterval(this._interdeterminateInterval);
             this._interdeterminateInterval = interval;

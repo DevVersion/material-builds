@@ -130,7 +130,6 @@ export var ConnectedOverlayDirective = (function () {
         enumerable: true,
         configurable: true
     });
-    /** TODO: internal */
     ConnectedOverlayDirective.prototype.ngOnDestroy = function () {
         this._destroyOverlay();
     };

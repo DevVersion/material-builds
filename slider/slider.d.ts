@@ -106,47 +106,30 @@ export declare class MdSlider implements ControlValueAccessor {
     _onKeydown(event: KeyboardEvent): void;
     /** Increments the slider by the given number of steps (negative number decrements). */
     private _increment(numSteps);
-    /**
-     * Calculate the new value from the new physical location. The value will always be snapped.
-     */
+    /** Calculate the new value from the new physical location. The value will always be snapped. */
     private _updateValueFromPosition(pos);
     /** Emits a change event if the current value is different from the last emitted value. */
     private _emitValueIfChanged();
-    /**
-     * Updates the amount of space between ticks as a percentage of the width of the slider.
-     */
+    /** Updates the amount of space between ticks as a percentage of the width of the slider. */
     private _updateTickIntervalPercent();
-    /**
-     * Calculates the percentage of the slider that a value is.
-     */
+    /** Calculates the percentage of the slider that a value is. */
     private _calculatePercentage(value);
-    /**
-     * Calculates the value a percentage of the slider corresponds to.
-     */
+    /** Calculates the value a percentage of the slider corresponds to. */
     private _calculateValue(percentage);
-    /**
-     * Return a number between two numbers.
-     */
+    /** Return a number between two numbers. */
     private _clamp(value, min?, max?);
-    /**
-     * Implemented as part of ControlValueAccessor.
-     */
+    /** Implemented as part of ControlValueAccessor. */
     writeValue(value: any): void;
-    /**
-     * Implemented as part of ControlValueAccessor.
-     */
+    /** Implemented as part of ControlValueAccessor. */
     registerOnChange(fn: (value: any) => void): void;
-    /**
-     * Implemented as part of ControlValueAccessor.
-     */
+    /** Implemented as part of ControlValueAccessor. */
     registerOnTouched(fn: any): void;
-    /**
-     * Implemented as part of ControlValueAccessor.
-     */
+    /** Implemented as part of ControlValueAccessor. */
     setDisabledState(isDisabled: boolean): void;
 }
 /**
  * Renderer class in order to keep all dom manipulation in one place and outside of the main class.
+ * @docs-private
  */
 export declare class SliderRenderer {
     private _sliderElement;

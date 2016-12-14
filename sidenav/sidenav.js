@@ -95,7 +95,7 @@ export var MdSidenav = (function () {
         });
     }
     Object.defineProperty(MdSidenav.prototype, "valid", {
-        /** Whether this md-sidenav is part of a valid md-sidenav-layout configuration. */
+        /** Whether this md-sidenav is part of a valid md-sidenav-container configuration. */
         get: function () {
             return this._valid;
         },
@@ -333,7 +333,7 @@ export var MdSidenav = (function () {
     MdSidenav = __decorate([
         Component({selector: 'md-sidenav, mat-sidenav',
             // TODO(mmalerba): move template to separate file.
-            template: "\n    <focus-trap class=\"md-sidenav-focus-trap\" [disabled]=\"isFocusTrapDisabled\">\n      <ng-content></ng-content>\n    </focus-trap>",
+            template: "<focus-trap class=\"md-sidenav-focus-trap\" [disabled]=\"isFocusTrapDisabled\"> <ng-content></ng-content> </focus-trap> ",
             host: {
                 '(transitionend)': '_onTransitionEnd($event)',
                 '(keydown)': 'handleKeydown($event)',
@@ -358,13 +358,13 @@ export var MdSidenav = (function () {
     return MdSidenav;
 }());
 /**
- * <md-sidenav-layout> component.
+ * <md-sidenav-container> component.
  *
  * This is the parent component to one or two <md-sidenav>s that validates the state internally
  * and coordinates the backdrop and content styling.
  */
-export var MdSidenavLayout = (function () {
-    function MdSidenavLayout(_dir, _element, _renderer) {
+export var MdSidenavContainer = (function () {
+    function MdSidenavContainer(_dir, _element, _renderer) {
         var _this = this;
         this._dir = _dir;
         this._element = _element;
@@ -377,17 +377,17 @@ export var MdSidenavLayout = (function () {
             _dir.dirChange.subscribe(function () { return _this._validateDrawers(); });
         }
     }
-    Object.defineProperty(MdSidenavLayout.prototype, "start", {
+    Object.defineProperty(MdSidenavContainer.prototype, "start", {
         get: function () { return this._start; },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdSidenavLayout.prototype, "end", {
+    Object.defineProperty(MdSidenavContainer.prototype, "end", {
         get: function () { return this._end; },
         enumerable: true,
         configurable: true
     });
-    MdSidenavLayout.prototype.ngAfterContentInit = function () {
+    MdSidenavContainer.prototype.ngAfterContentInit = function () {
         var _this = this;
         // On changes, assert on consistency.
         this._sidenavs.changes.subscribe(function () { return _this._validateDrawers(); });
@@ -398,35 +398,35 @@ export var MdSidenavLayout = (function () {
         this._validateDrawers();
     };
     /**
-     * Subscribes to sidenav events in order to set a class on the main layout element when the
-     * sidenav is open and the backdrop is visible. This ensures any overflow on the layout element is
-     * properly hidden.
+     * Subscribes to sidenav events in order to set a class on the main container element when the
+     * sidenav is open and the backdrop is visible. This ensures any overflow on the container element
+     * is properly hidden.
      */
-    MdSidenavLayout.prototype._watchSidenavToggle = function (sidenav) {
+    MdSidenavContainer.prototype._watchSidenavToggle = function (sidenav) {
         var _this = this;
         if (!sidenav || sidenav.mode === 'side') {
             return;
         }
-        sidenav.onOpen.subscribe(function () { return _this._setLayoutClass(sidenav, true); });
-        sidenav.onClose.subscribe(function () { return _this._setLayoutClass(sidenav, false); });
+        sidenav.onOpen.subscribe(function () { return _this._setContainerClass(sidenav, true); });
+        sidenav.onClose.subscribe(function () { return _this._setContainerClass(sidenav, false); });
     };
     /**
      * Subscribes to sidenav onAlignChanged event in order to re-validate drawers when the align
      * changes.
      */
-    MdSidenavLayout.prototype._watchSidenavAlign = function (sidenav) {
+    MdSidenavContainer.prototype._watchSidenavAlign = function (sidenav) {
         var _this = this;
         if (!sidenav) {
             return;
         }
         sidenav.onAlignChanged.subscribe(function () { return _this._validateDrawers(); });
     };
-    /** Toggles the 'md-sidenav-opened' class on the main 'md-sidenav-layout' element. */
-    MdSidenavLayout.prototype._setLayoutClass = function (sidenav, bool) {
+    /** Toggles the 'md-sidenav-opened' class on the main 'md-sidenav-container' element. */
+    MdSidenavContainer.prototype._setContainerClass = function (sidenav, bool) {
         this._renderer.setElementClass(this._element.nativeElement, 'md-sidenav-opened', bool);
     };
     /** Sets the valid state of the drawers. */
-    MdSidenavLayout.prototype._setDrawersValid = function (valid) {
+    MdSidenavContainer.prototype._setDrawersValid = function (valid) {
         this._sidenavs.forEach(function (sidenav) {
             sidenav.valid = valid;
         });
@@ -435,7 +435,7 @@ export var MdSidenavLayout = (function () {
         }
     };
     /** Validate the state of the sidenav children components. */
-    MdSidenavLayout.prototype._validateDrawers = function () {
+    MdSidenavContainer.prototype._validateDrawers = function () {
         this._start = this._end = null;
         // Ensure that we have at most one start and one end sidenav.
         // NOTE: We must call toArray on _sidenavs even though it's iterable
@@ -469,11 +469,11 @@ export var MdSidenavLayout = (function () {
         }
         this._setDrawersValid(true);
     };
-    MdSidenavLayout.prototype._onBackdropClicked = function () {
+    MdSidenavContainer.prototype._onBackdropClicked = function () {
         this.onBackdropClicked.emit();
         this._closeModalSidenav();
     };
-    MdSidenavLayout.prototype._closeModalSidenav = function () {
+    MdSidenavContainer.prototype._closeModalSidenav = function () {
         if (this._start != null && this._start.mode != 'side') {
             this._start.close();
         }
@@ -481,11 +481,11 @@ export var MdSidenavLayout = (function () {
             this._end.close();
         }
     };
-    MdSidenavLayout.prototype._isShowingBackdrop = function () {
+    MdSidenavContainer.prototype._isShowingBackdrop = function () {
         return (this._isSidenavOpen(this._start) && this._start.mode != 'side')
             || (this._isSidenavOpen(this._end) && this._end.mode != 'side');
     };
-    MdSidenavLayout.prototype._isSidenavOpen = function (side) {
+    MdSidenavContainer.prototype._isSidenavOpen = function (side) {
         return side != null && side.opened;
     };
     /**
@@ -494,19 +494,19 @@ export var MdSidenavLayout = (function () {
      * @param sidenav
      * @param mode
      */
-    MdSidenavLayout.prototype._getSidenavEffectiveWidth = function (sidenav, mode) {
+    MdSidenavContainer.prototype._getSidenavEffectiveWidth = function (sidenav, mode) {
         return (this._isSidenavOpen(sidenav) && sidenav.mode == mode) ? sidenav._width : 0;
     };
-    MdSidenavLayout.prototype._getMarginLeft = function () {
+    MdSidenavContainer.prototype._getMarginLeft = function () {
         return this._getSidenavEffectiveWidth(this._left, 'side');
     };
-    MdSidenavLayout.prototype._getMarginRight = function () {
+    MdSidenavContainer.prototype._getMarginRight = function () {
         return this._getSidenavEffectiveWidth(this._right, 'side');
     };
-    MdSidenavLayout.prototype._getPositionLeft = function () {
+    MdSidenavContainer.prototype._getPositionLeft = function () {
         return this._getSidenavEffectiveWidth(this._left, 'push');
     };
-    MdSidenavLayout.prototype._getPositionRight = function () {
+    MdSidenavContainer.prototype._getPositionRight = function () {
         return this._getSidenavEffectiveWidth(this._right, 'push');
     };
     /**
@@ -514,14 +514,14 @@ export var MdSidenavLayout = (function () {
      * left and right, so by subtracting the right value from the left value, we should always get
      * the appropriate offset.
      */
-    MdSidenavLayout.prototype._getPositionOffset = function () {
+    MdSidenavContainer.prototype._getPositionOffset = function () {
         return this._getPositionLeft() - this._getPositionRight();
     };
     /**
      * This is using [ngStyle] rather than separate [style...] properties because [style.transform]
      * doesn't seem to work right now.
      */
-    MdSidenavLayout.prototype._getStyles = function () {
+    MdSidenavContainer.prototype._getStyles = function () {
         return {
             marginLeft: this._getMarginLeft() + "px",
             marginRight: this._getMarginRight() + "px",
@@ -531,25 +531,28 @@ export var MdSidenavLayout = (function () {
     __decorate([
         ContentChildren(MdSidenav), 
         __metadata('design:type', QueryList)
-    ], MdSidenavLayout.prototype, "_sidenavs", void 0);
+    ], MdSidenavContainer.prototype, "_sidenavs", void 0);
     __decorate([
         Output('backdrop-clicked'), 
         __metadata('design:type', Object)
-    ], MdSidenavLayout.prototype, "onBackdropClicked", void 0);
-    MdSidenavLayout = __decorate([
-        Component({selector: 'md-sidenav-layout, mat-sidenav-layout',
+    ], MdSidenavContainer.prototype, "onBackdropClicked", void 0);
+    MdSidenavContainer = __decorate([
+        Component({selector: 'md-sidenav-container, mat-sidenav-container, md-sidenav-layout, mat-sidenav-layout',
             // Do not use ChangeDetectionStrategy.OnPush. It does not work for this component because
             // technically it is a sibling of MdSidenav (on the content tree) and isn't updated when MdSidenav
             // changes its state.
             template: "<div class=\"md-sidenav-backdrop\" (click)=\"_onBackdropClicked()\" [class.md-sidenav-shown]=\"_isShowingBackdrop()\"></div> <ng-content select=\"md-sidenav, mat-sidenav\"></ng-content> <div class=\"md-sidenav-content\" [ngStyle]=\"_getStyles()\"> <ng-content></ng-content> </div> ",
-            styles: ["/** * Applies styles for users in high contrast mode. Note that this only applies * to Microsoft browsers. Chrome can be included by checking for the `html[hc]` * attribute, however Chrome handles high contrast differently. */ md-sidenav-layout { position: relative; transform: translate3d(0, 0, 0); box-sizing: border-box; -webkit-overflow-scrolling: touch; display: block; overflow: hidden; } md-sidenav-layout[fullscreen] { position: absolute; top: 0; left: 0; right: 0; bottom: 0; } md-sidenav-layout[fullscreen].md-sidenav-opened { overflow: hidden; } .md-sidenav-backdrop { position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: block; z-index: 2; visibility: hidden; } .md-sidenav-backdrop.md-sidenav-shown { visibility: visible; } @media screen and (-ms-high-contrast: active) { .md-sidenav-backdrop { opacity: 0.5; } } .md-sidenav-content { position: relative; transform: translate3d(0, 0, 0); display: block; height: 100%; overflow: auto; } md-sidenav { position: relative; transform: translate3d(0, 0, 0); display: block; position: absolute; top: 0; bottom: 0; z-index: 3; min-width: 5%; outline: 0; transform: translate3d(-100%, 0, 0); } md-sidenav.md-sidenav-closed { visibility: hidden; } md-sidenav.md-sidenav-closing { transform: translate3d(-100%, 0, 0); } md-sidenav.md-sidenav-opening { box-shadow: 0px 8px 10px -5px rgba(0, 0, 0, 0.2), 0px 16px 24px 2px rgba(0, 0, 0, 0.14), 0px 6px 30px 5px rgba(0, 0, 0, 0.12); visibility: visible; transform: translate3d(0, 0, 0); } md-sidenav.md-sidenav-opened { box-shadow: 0px 8px 10px -5px rgba(0, 0, 0, 0.2), 0px 16px 24px 2px rgba(0, 0, 0, 0.14), 0px 6px 30px 5px rgba(0, 0, 0, 0.12); transform: translate3d(0, 0, 0); } md-sidenav.md-sidenav-side { z-index: 1; } md-sidenav.md-sidenav-end { right: 0; transform: translate3d(100%, 0, 0); } md-sidenav.md-sidenav-end.md-sidenav-closed { visibility: hidden; } md-sidenav.md-sidenav-end.md-sidenav-closing { transform: translate3d(100%, 0, 0); } md-sidenav.md-sidenav-end.md-sidenav-opening { box-shadow: 0px 8px 10px -5px rgba(0, 0, 0, 0.2), 0px 16px 24px 2px rgba(0, 0, 0, 0.14), 0px 6px 30px 5px rgba(0, 0, 0, 0.12); visibility: visible; transform: translate3d(0, 0, 0); } md-sidenav.md-sidenav-end.md-sidenav-opened { box-shadow: 0px 8px 10px -5px rgba(0, 0, 0, 0.2), 0px 16px 24px 2px rgba(0, 0, 0, 0.14), 0px 6px 30px 5px rgba(0, 0, 0, 0.12); transform: translate3d(0, 0, 0); } [dir='rtl'] md-sidenav { transform: translate3d(100%, 0, 0); } [dir='rtl'] md-sidenav.md-sidenav-closed { visibility: hidden; } [dir='rtl'] md-sidenav.md-sidenav-closing { transform: translate3d(100%, 0, 0); } [dir='rtl'] md-sidenav.md-sidenav-opening { box-shadow: 0px 8px 10px -5px rgba(0, 0, 0, 0.2), 0px 16px 24px 2px rgba(0, 0, 0, 0.14), 0px 6px 30px 5px rgba(0, 0, 0, 0.12); visibility: visible; transform: translate3d(0, 0, 0); } [dir='rtl'] md-sidenav.md-sidenav-opened { box-shadow: 0px 8px 10px -5px rgba(0, 0, 0, 0.2), 0px 16px 24px 2px rgba(0, 0, 0, 0.14), 0px 6px 30px 5px rgba(0, 0, 0, 0.12); transform: translate3d(0, 0, 0); } [dir='rtl'] md-sidenav.md-sidenav-end { left: 0; right: auto; transform: translate3d(-100%, 0, 0); } [dir='rtl'] md-sidenav.md-sidenav-end.md-sidenav-closed { visibility: hidden; } [dir='rtl'] md-sidenav.md-sidenav-end.md-sidenav-closing { transform: translate3d(-100%, 0, 0); } [dir='rtl'] md-sidenav.md-sidenav-end.md-sidenav-opening { box-shadow: 0px 8px 10px -5px rgba(0, 0, 0, 0.2), 0px 16px 24px 2px rgba(0, 0, 0, 0.14), 0px 6px 30px 5px rgba(0, 0, 0, 0.12); visibility: visible; transform: translate3d(0, 0, 0); } [dir='rtl'] md-sidenav.md-sidenav-end.md-sidenav-opened { box-shadow: 0px 8px 10px -5px rgba(0, 0, 0, 0.2), 0px 16px 24px 2px rgba(0, 0, 0, 0.14), 0px 6px 30px 5px rgba(0, 0, 0, 0.12); transform: translate3d(0, 0, 0); } .md-sidenav-focus-trap { height: 100%; } .md-sidenav-focus-trap > .cdk-focus-trap-content { box-sizing: border-box; height: 100%; overflow-y: auto; } .md-sidenav-invalid { display: none; } /*# sourceMappingURL=sidenav.css.map */ ",
+            styles: ["/** * Applies styles for users in high contrast mode. Note that this only applies * to Microsoft browsers. Chrome can be included by checking for the `html[hc]` * attribute, however Chrome handles high contrast differently. */ .md-sidenav-container { position: relative; transform: translate3d(0, 0, 0); box-sizing: border-box; -webkit-overflow-scrolling: touch; display: block; overflow: hidden; } .md-sidenav-container[fullscreen] { position: absolute; top: 0; left: 0; right: 0; bottom: 0; } .md-sidenav-container[fullscreen].md-sidenav-opened { overflow: hidden; } .md-sidenav-backdrop { position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: block; z-index: 2; visibility: hidden; } .md-sidenav-backdrop.md-sidenav-shown { visibility: visible; } @media screen and (-ms-high-contrast: active) { .md-sidenav-backdrop { opacity: 0.5; } } .md-sidenav-content { position: relative; transform: translate3d(0, 0, 0); display: block; height: 100%; overflow: auto; } md-sidenav { position: relative; transform: translate3d(0, 0, 0); display: block; position: absolute; top: 0; bottom: 0; z-index: 3; min-width: 5%; outline: 0; transform: translate3d(-100%, 0, 0); } md-sidenav.md-sidenav-closed { visibility: hidden; } md-sidenav.md-sidenav-closing { transform: translate3d(-100%, 0, 0); } md-sidenav.md-sidenav-opening { box-shadow: 0px 8px 10px -5px rgba(0, 0, 0, 0.2), 0px 16px 24px 2px rgba(0, 0, 0, 0.14), 0px 6px 30px 5px rgba(0, 0, 0, 0.12); visibility: visible; transform: translate3d(0, 0, 0); } md-sidenav.md-sidenav-opened { box-shadow: 0px 8px 10px -5px rgba(0, 0, 0, 0.2), 0px 16px 24px 2px rgba(0, 0, 0, 0.14), 0px 6px 30px 5px rgba(0, 0, 0, 0.12); transform: translate3d(0, 0, 0); } md-sidenav.md-sidenav-side { z-index: 1; } md-sidenav.md-sidenav-end { right: 0; transform: translate3d(100%, 0, 0); } md-sidenav.md-sidenav-end.md-sidenav-closed { visibility: hidden; } md-sidenav.md-sidenav-end.md-sidenav-closing { transform: translate3d(100%, 0, 0); } md-sidenav.md-sidenav-end.md-sidenav-opening { box-shadow: 0px 8px 10px -5px rgba(0, 0, 0, 0.2), 0px 16px 24px 2px rgba(0, 0, 0, 0.14), 0px 6px 30px 5px rgba(0, 0, 0, 0.12); visibility: visible; transform: translate3d(0, 0, 0); } md-sidenav.md-sidenav-end.md-sidenav-opened { box-shadow: 0px 8px 10px -5px rgba(0, 0, 0, 0.2), 0px 16px 24px 2px rgba(0, 0, 0, 0.14), 0px 6px 30px 5px rgba(0, 0, 0, 0.12); transform: translate3d(0, 0, 0); } [dir='rtl'] md-sidenav { transform: translate3d(100%, 0, 0); } [dir='rtl'] md-sidenav.md-sidenav-closed { visibility: hidden; } [dir='rtl'] md-sidenav.md-sidenav-closing { transform: translate3d(100%, 0, 0); } [dir='rtl'] md-sidenav.md-sidenav-opening { box-shadow: 0px 8px 10px -5px rgba(0, 0, 0, 0.2), 0px 16px 24px 2px rgba(0, 0, 0, 0.14), 0px 6px 30px 5px rgba(0, 0, 0, 0.12); visibility: visible; transform: translate3d(0, 0, 0); } [dir='rtl'] md-sidenav.md-sidenav-opened { box-shadow: 0px 8px 10px -5px rgba(0, 0, 0, 0.2), 0px 16px 24px 2px rgba(0, 0, 0, 0.14), 0px 6px 30px 5px rgba(0, 0, 0, 0.12); transform: translate3d(0, 0, 0); } [dir='rtl'] md-sidenav.md-sidenav-end { left: 0; right: auto; transform: translate3d(-100%, 0, 0); } [dir='rtl'] md-sidenav.md-sidenav-end.md-sidenav-closed { visibility: hidden; } [dir='rtl'] md-sidenav.md-sidenav-end.md-sidenav-closing { transform: translate3d(-100%, 0, 0); } [dir='rtl'] md-sidenav.md-sidenav-end.md-sidenav-opening { box-shadow: 0px 8px 10px -5px rgba(0, 0, 0, 0.2), 0px 16px 24px 2px rgba(0, 0, 0, 0.14), 0px 6px 30px 5px rgba(0, 0, 0, 0.12); visibility: visible; transform: translate3d(0, 0, 0); } [dir='rtl'] md-sidenav.md-sidenav-end.md-sidenav-opened { box-shadow: 0px 8px 10px -5px rgba(0, 0, 0, 0.2), 0px 16px 24px 2px rgba(0, 0, 0, 0.14), 0px 6px 30px 5px rgba(0, 0, 0, 0.12); transform: translate3d(0, 0, 0); } .md-sidenav-focus-trap { height: 100%; } .md-sidenav-focus-trap > .cdk-focus-trap-content { box-sizing: border-box; height: 100%; overflow-y: auto; } .md-sidenav-invalid { display: none; } /*# sourceMappingURL=sidenav.css.map */ ",
 "md-sidenav { transition: transform 400ms cubic-bezier(0.25, 0.8, 0.25, 1); } .md-sidenav-content { transition: transform 400ms cubic-bezier(0.25, 0.8, 0.25, 1); } .md-sidenav-backdrop.md-sidenav-shown { transition: background-color 400ms cubic-bezier(0.25, 0.8, 0.25, 1); } /*# sourceMappingURL=sidenav-transitions.css.map */ "],
+            host: {
+                'class': 'md-sidenav-container',
+            },
             encapsulation: ViewEncapsulation.None,
         }),
         __param(0, Optional()), 
         __metadata('design:paramtypes', [Dir, ElementRef, Renderer])
-    ], MdSidenavLayout);
-    return MdSidenavLayout;
+    ], MdSidenavContainer);
+    return MdSidenavContainer;
 }());
 export var MdSidenavModule = (function () {
     function MdSidenavModule() {
@@ -563,8 +566,8 @@ export var MdSidenavModule = (function () {
     MdSidenavModule = __decorate([
         NgModule({
             imports: [CommonModule, DefaultStyleCompatibilityModeModule, A11yModule],
-            exports: [MdSidenavLayout, MdSidenav, DefaultStyleCompatibilityModeModule],
-            declarations: [MdSidenavLayout, MdSidenav],
+            exports: [MdSidenavContainer, MdSidenav, DefaultStyleCompatibilityModeModule],
+            declarations: [MdSidenavContainer, MdSidenav],
         }), 
         __metadata('design:paramtypes', [])
     ], MdSidenavModule);

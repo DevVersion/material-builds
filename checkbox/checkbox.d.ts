@@ -102,24 +102,13 @@ export declare class MdCheckbox implements ControlValueAccessor {
     _updateColor(newColor: string): void;
     _setElementColor(color: string, isAdd: boolean): void;
     _isRippleDisabled(): boolean;
-    /**
-     * Implemented as part of ControlValueAccessor.
-     * TODO: internal
-     */
+    /** Implemented as part of ControlValueAccessor. */
     writeValue(value: any): void;
-    /**
-     * Implemented as part of ControlValueAccessor.
-     * TODO: internal
-     */
+    /** Implemented as part of ControlValueAccessor. */
     registerOnChange(fn: (value: any) => void): void;
-    /**
-     * Implemented as part of ControlValueAccessor.
-     * TODO: internal
-     */
+    /** Implemented as part of ControlValueAccessor. */
     registerOnTouched(fn: any): void;
-    /**
-     * Implemented as a part of ControlValueAccessor.
-     */
+    /** Implemented as a part of ControlValueAccessor. */
     setDisabledState(isDisabled: boolean): void;
     private _transitionCheckState(newState);
     private _emitChangeEvent();

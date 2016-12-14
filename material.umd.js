@@ -86,7 +86,10 @@ var MdLine = (function () {
     ], MdLine);
     return MdLine;
 }());
-/* Helper that takes a query list of lines and sets the correct class on the host */
+/**
+ * Helper that takes a query list of lines and sets the correct class on the host.
+ * @docs-private
+ */
 var MdLineSetter = (function () {
     function MdLineSetter(_lines, _renderer, _element) {
         var _this = this;
@@ -212,7 +215,7 @@ var RtlModule = (function () {
     return RtlModule;
 }());
 
-/** TODO: internal */
+/** @docs-private */
 var ForegroundRippleState;
 (function (ForegroundRippleState) {
     ForegroundRippleState[ForegroundRippleState["NEW"] = 0] = "NEW";
@@ -221,7 +224,7 @@ var ForegroundRippleState;
 })(ForegroundRippleState || (ForegroundRippleState = {}));
 /**
  * Wrapper for a foreground ripple DOM element and its animation state.
- * TODO: internal
+ * @docs-private
  */
 var ForegroundRipple = (function () {
     function ForegroundRipple(rippleElement) {
@@ -246,7 +249,7 @@ var distanceToFurthestCorner = function (x, y, rect) {
  * The constructor takes a reference to the ripple directive's host element and a map of DOM
  * event handlers to be installed on the element that triggers ripple animations.
  * This will eventually become a custom renderer once Angular support exists.
- * TODO: internal
+ * @docs-private
  */
 var RippleRenderer = (function () {
     function RippleRenderer(_elementRef, _eventHandlers, _ngZone) {
@@ -380,7 +383,7 @@ var __metadata$5 = (this && this.__metadata) || function (k, v) {
 };
 /**
  * Simple utility for getting the bounds of the browser viewport.
- * TODO: internal
+ * @docs-private
  */
 var ViewportRuler = (function () {
     function ViewportRuler() {
@@ -465,7 +468,6 @@ var MdRipple = (function () {
         this._rippleRenderer = new RippleRenderer(_elementRef, eventHandlers, _ngZone);
         this._ruler = _ruler;
     }
-    /** TODO: internal */
     MdRipple.prototype.ngOnInit = function () {
         // If no trigger element was explicity set, use the host element
         if (!this.trigger) {
@@ -475,12 +477,10 @@ var MdRipple = (function () {
             this._rippleRenderer.createBackgroundIfNeeded();
         }
     };
-    /** TODO: internal */
     MdRipple.prototype.ngOnDestroy = function () {
         // Remove event listeners on the trigger element.
         this._rippleRenderer.clearTriggerElement();
     };
-    /** TODO: internal */
     MdRipple.prototype.ngOnChanges = function (changes) {
         // If the trigger element changed (or is being initially set), add event listeners to it.
         var changedInputs = Object.keys(changes);
@@ -627,6 +627,7 @@ var __extends$3 = (this && this.__extends) || function (d, b) {
 };
 /**
  * Wrapper around Error that sets the error message.
+ * @docs-private
  */
 var MdError = (function (_super) {
     __extends$3(MdError, _super);
@@ -642,7 +643,10 @@ var __extends$2 = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-/** Exception thrown when attempting to attach a null portal to a host. */
+/**
+ * Exception thrown when attempting to attach a null portal to a host.
+ * @docs-private
+ */
 var MdNullPortalError = (function (_super) {
     __extends$2(MdNullPortalError, _super);
     function MdNullPortalError() {
@@ -650,7 +654,10 @@ var MdNullPortalError = (function (_super) {
     }
     return MdNullPortalError;
 }(MdError));
-/** Exception thrown when attempting to attach a portal to a host that is already attached. */
+/**
+ * Exception thrown when attempting to attach a portal to a host that is already attached.
+ * @docs-private
+ */
 var MdPortalAlreadyAttachedError = (function (_super) {
     __extends$2(MdPortalAlreadyAttachedError, _super);
     function MdPortalAlreadyAttachedError() {
@@ -658,7 +665,10 @@ var MdPortalAlreadyAttachedError = (function (_super) {
     }
     return MdPortalAlreadyAttachedError;
 }(MdError));
-/** Exception thrown when attempting to attach a portal to an already-disposed host. */
+/**
+ * Exception thrown when attempting to attach a portal to an already-disposed host.
+ * @docs-private
+ */
 var MdPortalHostAlreadyDisposedError = (function (_super) {
     __extends$2(MdPortalHostAlreadyDisposedError, _super);
     function MdPortalHostAlreadyDisposedError() {
@@ -666,7 +676,10 @@ var MdPortalHostAlreadyDisposedError = (function (_super) {
     }
     return MdPortalHostAlreadyDisposedError;
 }(MdError));
-/** Exception thrown when attempting to attach an unknown portal type. */
+/**
+ * Exception thrown when attempting to attach an unknown portal type.
+ * @docs-private
+ */
 var MdUnknownPortalTypeError = (function (_super) {
     __extends$2(MdUnknownPortalTypeError, _super);
     function MdUnknownPortalTypeError() {
@@ -675,7 +688,10 @@ var MdUnknownPortalTypeError = (function (_super) {
     }
     return MdUnknownPortalTypeError;
 }(MdError));
-/** Exception thrown when attempting to attach a portal to a null host. */
+/**
+ * Exception thrown when attempting to attach a portal to a null host.
+ * @docs-private
+ */
 var MdNullPortalHostError = (function (_super) {
     __extends$2(MdNullPortalHostError, _super);
     function MdNullPortalHostError() {
@@ -683,7 +699,10 @@ var MdNullPortalHostError = (function (_super) {
     }
     return MdNullPortalHostError;
 }(MdError));
-/** Exception thrown when attempting to detach a portal that is not attached. */
+/**
+ * Exception thrown when attempting to detach a portal that is not attached.
+ * @docs-private
+ */
 var MdNoPortalAttachedError = (function (_super) {
     __extends$2(MdNoPortalAttachedError, _super);
     function MdNoPortalAttachedError() {
@@ -1288,7 +1307,7 @@ var ConnectedPositionStrategy = (function () {
     /**
      * Updates the position of the overlay element, using whichever preferred position relative
      * to the origin fits on-screen.
-     * TODO: internal
+     * @docs-private
      */
     ConnectedPositionStrategy.prototype.apply = function (element) {
         // We need the bounding rects for the origin and the overlay to determine how to position
@@ -1521,7 +1540,7 @@ var GlobalPositionStrategy = (function () {
     };
     /**
      * Apply the position to the element.
-     * TODO: internal
+     * @docs-private
      */
     GlobalPositionStrategy.prototype.apply = function (element) {
         if (!this._wrapper) {
@@ -1829,7 +1848,6 @@ var ConnectedOverlayDirective = (function () {
         enumerable: true,
         configurable: true
     });
-    /** TODO: internal */
     ConnectedOverlayDirective.prototype.ngOnDestroy = function () {
         this._destroyOverlay();
     };
@@ -2029,6 +2047,7 @@ var hasV8BreakIterator = (window.Intl && window.Intl.v8BreakIterator);
 /**
  * Service to detect the current platform by comparing the userAgent strings and
  * checking browser-specific global properties.
+ * @docs-private
  */
 var MdPlatform = (function () {
     function MdPlatform() {
@@ -2503,6 +2522,7 @@ var __metadata$16 = (this && this.__metadata) || function (k, v) {
 function _replaceWith(toReplaceEl, otherEl) {
     toReplaceEl.parentElement.replaceChild(otherEl, toReplaceEl);
 }
+/** @docs-private */
 var DomProjectionHost = (function () {
     function DomProjectionHost(ref) {
         this.ref = ref;
@@ -2515,6 +2535,7 @@ var DomProjectionHost = (function () {
     ], DomProjectionHost);
     return DomProjectionHost;
 }());
+/** @docs-private */
 var DomProjection = (function () {
     function DomProjection() {
     }
@@ -2573,6 +2594,7 @@ var DomProjection = (function () {
     ], DomProjection);
     return DomProjection;
 }());
+/** @docs-private */
 var ProjectionModule = (function () {
     function ProjectionModule() {
     }
@@ -2784,6 +2806,7 @@ var SPACE = 32;
 var TAB = 9;
 var ESCAPE = 27;
 
+/** @docs-private */
 var AnimationCurves = (function () {
     function AnimationCurves() {
     }
@@ -2793,7 +2816,7 @@ var AnimationCurves = (function () {
     AnimationCurves.SHARP_CURVE = 'cubic-bezier(0.4,0.0,0.6,1)';
     return AnimationCurves;
 }());
-;
+/** @docs-private */
 var AnimationDurations = (function () {
     function AnimationDurations() {
     }
@@ -2802,7 +2825,6 @@ var AnimationDurations = (function () {
     AnimationDurations.EXITING = '195ms';
     return AnimationDurations;
 }());
-;
 
 /** Coerces a data-bound value (typically a string) to a number. */
 function coerceNumberProperty(value, fallbackValue) {
@@ -2947,7 +2969,6 @@ var MdButtonToggleGroup = (function () {
         enumerable: true,
         configurable: true
     });
-    /** TODO: internal */
     MdButtonToggleGroup.prototype.ngAfterViewInit = function () {
         this._isInitialized = true;
     };
@@ -3047,24 +3068,15 @@ var MdButtonToggleGroup = (function () {
         this._controlValueAccessorChangeFn(event.value);
         this._change.emit(event);
     };
-    /**
-     * Implemented as part of ControlValueAccessor.
-     * TODO: internal
-     */
+    /** Implemented as part of ControlValueAccessor. */
     MdButtonToggleGroup.prototype.writeValue = function (value) {
         this.value = value;
     };
-    /**
-     * Implemented as part of ControlValueAccessor.
-     * TODO: internal
-     */
+    /** Implemented as part of ControlValueAccessor. */
     MdButtonToggleGroup.prototype.registerOnChange = function (fn) {
         this._controlValueAccessorChangeFn = fn;
     };
-    /**
-     * Implemented as part of ControlValueAccessor.
-     * TODO: internal
-     */
+    /** Implemented as part of ControlValueAccessor. */
     MdButtonToggleGroup.prototype.registerOnTouched = function (fn) {
         this.onTouched = fn;
     };
@@ -3287,7 +3299,6 @@ var MdButtonToggle = (function () {
         // Emit a change event when the native input does.
         this._emitChangeEvent();
     };
-    /** TODO: internal */
     MdButtonToggle.prototype._onInputClick = function (event) {
         // We have to stop propagation for click events on the visual hidden input element.
         // By default, when a user clicks on a label element, a generated click event will be
@@ -3751,30 +3762,19 @@ var MdCheckbox = (function () {
     MdCheckbox.prototype._isRippleDisabled = function () {
         return this.disableRipple || this.disabled;
     };
-    /**
-     * Implemented as part of ControlValueAccessor.
-     * TODO: internal
-     */
+    /** Implemented as part of ControlValueAccessor. */
     MdCheckbox.prototype.writeValue = function (value) {
         this.checked = !!value;
     };
-    /**
-     * Implemented as part of ControlValueAccessor.
-     * TODO: internal
-     */
+    /** Implemented as part of ControlValueAccessor. */
     MdCheckbox.prototype.registerOnChange = function (fn) {
         this._controlValueAccessorChangeFn = fn;
     };
-    /**
-     * Implemented as part of ControlValueAccessor.
-     * TODO: internal
-     */
+    /** Implemented as part of ControlValueAccessor. */
     MdCheckbox.prototype.registerOnTouched = function (fn) {
         this.onTouched = fn;
     };
-    /**
-     * Implemented as a part of ControlValueAccessor.
-     */
+    /** Implemented as a part of ControlValueAccessor. */
     MdCheckbox.prototype.setDisabledState = function (isDisabled) {
         this.disabled = isDisabled;
     };
@@ -4091,7 +4091,6 @@ var MdRadioGroup = (function () {
     /**
      * Initialize properties once content children are available.
      * This allows us to propagate relevant attributes to associated buttons.
-     * TODO: internal
      */
     MdRadioGroup.prototype.ngAfterContentInit = function () {
         // Mark this component as initialized in AfterContentInit because the initial value can
@@ -4140,30 +4139,19 @@ var MdRadioGroup = (function () {
             this.change.emit(event_1);
         }
     };
-    /**
-      * Implemented as part of ControlValueAccessor.
-      * TODO: internal
-      */
+    /** Implemented as part of ControlValueAccessor. */
     MdRadioGroup.prototype.writeValue = function (value) {
         this.value = value;
     };
-    /**
-     * Implemented as part of ControlValueAccessor.
-     * TODO: internal
-     */
+    /** Implemented as part of ControlValueAccessor. */
     MdRadioGroup.prototype.registerOnChange = function (fn) {
         this._controlValueAccessorChangeFn = fn;
     };
-    /**
-     * Implemented as part of ControlValueAccessor.
-     * TODO: internal
-     */
+    /** Implemented as part of ControlValueAccessor. */
     MdRadioGroup.prototype.registerOnTouched = function (fn) {
         this.onTouched = fn;
     };
-    /**
-     * Implemented as a part of ControlValueAccessor.
-     */
+    /** Implemented as a part of ControlValueAccessor. */
     MdRadioGroup.prototype.setDisabledState = function (isDisabled) {
         this.disabled = isDisabled;
     };
@@ -4310,7 +4298,6 @@ var MdRadioButton = (function () {
         enumerable: true,
         configurable: true
     });
-    /** TODO: internal */
     MdRadioButton.prototype.ngOnInit = function () {
         if (this.radioGroup) {
             // If the radio is inside a radio group, determine if it should be checked
@@ -4341,14 +4328,12 @@ var MdRadioButton = (function () {
         this._renderer.invokeElementMethod(this._inputElement.nativeElement, 'focus');
         this._onInputFocus();
     };
-    /** TODO: internal */
     MdRadioButton.prototype._onInputBlur = function () {
         this._isFocused = false;
         if (this.radioGroup) {
             this.radioGroup._touch();
         }
     };
-    /** TODO: internal */
     MdRadioButton.prototype._onInputClick = function (event) {
         // We have to stop propagation for click events on the visual hidden input element.
         // By default, when a user clicks on a label element, a generated click event will be
@@ -4362,7 +4347,6 @@ var MdRadioButton = (function () {
     /**
      * Triggered when the radio button received a click or the input recognized any change.
      * Clicking on a label element, will trigger a change event on the associated input.
-     * TODO: internal
      */
     MdRadioButton.prototype._onInputChange = function (event) {
         // We always have to stop propagation on the change event.
@@ -5458,7 +5442,6 @@ var MdSlideToggle = (function () {
         enumerable: true,
         configurable: true
     });
-    /** TODO: internal */
     MdSlideToggle.prototype.ngAfterContentInit = function () {
         this._slideRenderer = new SlideToggleRenderer(this._elementRef);
     };
@@ -5512,30 +5495,19 @@ var MdSlideToggle = (function () {
         this._hasFocus = false;
         this.onTouched();
     };
-    /**
-     * Implemented as part of ControlValueAccessor.
-     * TODO: internal
-     */
+    /** Implemented as part of ControlValueAccessor. */
     MdSlideToggle.prototype.writeValue = function (value) {
         this.checked = value;
     };
-    /**
-     * Implemented as part of ControlValueAccessor.
-     * TODO: internal
-     */
+    /** Implemented as part of ControlValueAccessor. */
     MdSlideToggle.prototype.registerOnChange = function (fn) {
         this.onChange = fn;
     };
-    /**
-     * Implemented as part of ControlValueAccessor.
-     * TODO: internal
-     */
+    /** Implemented as part of ControlValueAccessor. */
     MdSlideToggle.prototype.registerOnTouched = function (fn) {
         this.onTouched = fn;
     };
-    /**
-     * Implemented as a part of ControlValueAccessor.
-     */
+    /** Implemented as a part of ControlValueAccessor. */
     MdSlideToggle.prototype.setDisabledState = function (isDisabled) {
         this.disabled = isDisabled;
     };
@@ -5586,19 +5558,16 @@ var MdSlideToggle = (function () {
         event.checked = this.checked;
         this._change.emit(event);
     };
-    /** TODO: internal */
     MdSlideToggle.prototype._onDragStart = function () {
         if (!this.disabled) {
             this._slideRenderer.startThumbDrag(this.checked);
         }
     };
-    /** TODO: internal */
     MdSlideToggle.prototype._onDrag = function (event) {
         if (this._slideRenderer.isDragging()) {
             this._slideRenderer.updateThumbPosition(event.deltaX);
         }
     };
-    /** TODO: internal */
     MdSlideToggle.prototype._onDragEnd = function () {
         var _this = this;
         if (!this._slideRenderer.isDragging()) {
@@ -6098,9 +6067,7 @@ var MdSlider = (function () {
     MdSlider.prototype._increment = function (numSteps) {
         this.value = this._clamp(this.value + this.step * numSteps, this.min, this.max);
     };
-    /**
-     * Calculate the new value from the new physical location. The value will always be snapped.
-     */
+    /** Calculate the new value from the new physical location. The value will always be snapped. */
     MdSlider.prototype._updateValueFromPosition = function (pos) {
         if (!this._sliderDimensions) {
             return;
@@ -6131,9 +6098,7 @@ var MdSlider = (function () {
             this.change.emit(event_1);
         }
     };
-    /**
-     * Updates the amount of space between ticks as a percentage of the width of the slider.
-     */
+    /** Updates the amount of space between ticks as a percentage of the width of the slider. */
     MdSlider.prototype._updateTickIntervalPercent = function () {
         if (!this.tickInterval) {
             return;
@@ -6149,47 +6114,33 @@ var MdSlider = (function () {
             this._tickIntervalPercent = this.tickInterval * this.step / (this.max - this.min);
         }
     };
-    /**
-     * Calculates the percentage of the slider that a value is.
-     */
+    /** Calculates the percentage of the slider that a value is. */
     MdSlider.prototype._calculatePercentage = function (value) {
         return (value - this.min) / (this.max - this.min);
     };
-    /**
-     * Calculates the value a percentage of the slider corresponds to.
-     */
+    /** Calculates the value a percentage of the slider corresponds to. */
     MdSlider.prototype._calculateValue = function (percentage) {
         return this.min + percentage * (this.max - this.min);
     };
-    /**
-     * Return a number between two numbers.
-     */
+    /** Return a number between two numbers. */
     MdSlider.prototype._clamp = function (value, min, max) {
         if (min === void 0) { min = 0; }
         if (max === void 0) { max = 1; }
         return Math.max(min, Math.min(value, max));
     };
-    /**
-     * Implemented as part of ControlValueAccessor.
-     */
+    /** Implemented as part of ControlValueAccessor. */
     MdSlider.prototype.writeValue = function (value) {
         this.value = value;
     };
-    /**
-     * Implemented as part of ControlValueAccessor.
-     */
+    /** Implemented as part of ControlValueAccessor. */
     MdSlider.prototype.registerOnChange = function (fn) {
         this._controlValueAccessorChangeFn = fn;
     };
-    /**
-     * Implemented as part of ControlValueAccessor.
-     */
+    /** Implemented as part of ControlValueAccessor. */
     MdSlider.prototype.registerOnTouched = function (fn) {
         this.onTouched = fn;
     };
-    /**
-     * Implemented as part of ControlValueAccessor.
-     */
+    /** Implemented as part of ControlValueAccessor. */
     MdSlider.prototype.setDisabledState = function (isDisabled) {
         this.disabled = isDisabled;
     };
@@ -6270,6 +6221,7 @@ var MdSlider = (function () {
 }());
 /**
  * Renderer class in order to keep all dom manipulation in one place and outside of the main class.
+ * @docs-private
  */
 var SliderRenderer = (function () {
     function SliderRenderer(elementRef) {
@@ -6407,7 +6359,7 @@ var MdSidenav = (function () {
         });
     }
     Object.defineProperty(MdSidenav.prototype, "valid", {
-        /** Whether this md-sidenav is part of a valid md-sidenav-layout configuration. */
+        /** Whether this md-sidenav is part of a valid md-sidenav-container configuration. */
         get: function () {
             return this._valid;
         },
@@ -6645,7 +6597,7 @@ var MdSidenav = (function () {
     MdSidenav = __decorate$30([
         _angular_core.Component({selector: 'md-sidenav, mat-sidenav',
             // TODO(mmalerba): move template to separate file.
-            template: "\n    <focus-trap class=\"md-sidenav-focus-trap\" [disabled]=\"isFocusTrapDisabled\">\n      <ng-content></ng-content>\n    </focus-trap>",
+            template: "<focus-trap class=\"md-sidenav-focus-trap\" [disabled]=\"isFocusTrapDisabled\"> <ng-content></ng-content> </focus-trap> ",
             host: {
                 '(transitionend)': '_onTransitionEnd($event)',
                 '(keydown)': 'handleKeydown($event)',
@@ -6670,13 +6622,13 @@ var MdSidenav = (function () {
     return MdSidenav;
 }());
 /**
- * <md-sidenav-layout> component.
+ * <md-sidenav-container> component.
  *
  * This is the parent component to one or two <md-sidenav>s that validates the state internally
  * and coordinates the backdrop and content styling.
  */
-var MdSidenavLayout = (function () {
-    function MdSidenavLayout(_dir, _element, _renderer) {
+var MdSidenavContainer = (function () {
+    function MdSidenavContainer(_dir, _element, _renderer) {
         var _this = this;
         this._dir = _dir;
         this._element = _element;
@@ -6689,17 +6641,17 @@ var MdSidenavLayout = (function () {
             _dir.dirChange.subscribe(function () { return _this._validateDrawers(); });
         }
     }
-    Object.defineProperty(MdSidenavLayout.prototype, "start", {
+    Object.defineProperty(MdSidenavContainer.prototype, "start", {
         get: function () { return this._start; },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdSidenavLayout.prototype, "end", {
+    Object.defineProperty(MdSidenavContainer.prototype, "end", {
         get: function () { return this._end; },
         enumerable: true,
         configurable: true
     });
-    MdSidenavLayout.prototype.ngAfterContentInit = function () {
+    MdSidenavContainer.prototype.ngAfterContentInit = function () {
         var _this = this;
         // On changes, assert on consistency.
         this._sidenavs.changes.subscribe(function () { return _this._validateDrawers(); });
@@ -6710,35 +6662,35 @@ var MdSidenavLayout = (function () {
         this._validateDrawers();
     };
     /**
-     * Subscribes to sidenav events in order to set a class on the main layout element when the
-     * sidenav is open and the backdrop is visible. This ensures any overflow on the layout element is
-     * properly hidden.
+     * Subscribes to sidenav events in order to set a class on the main container element when the
+     * sidenav is open and the backdrop is visible. This ensures any overflow on the container element
+     * is properly hidden.
      */
-    MdSidenavLayout.prototype._watchSidenavToggle = function (sidenav) {
+    MdSidenavContainer.prototype._watchSidenavToggle = function (sidenav) {
         var _this = this;
         if (!sidenav || sidenav.mode === 'side') {
             return;
         }
-        sidenav.onOpen.subscribe(function () { return _this._setLayoutClass(sidenav, true); });
-        sidenav.onClose.subscribe(function () { return _this._setLayoutClass(sidenav, false); });
+        sidenav.onOpen.subscribe(function () { return _this._setContainerClass(sidenav, true); });
+        sidenav.onClose.subscribe(function () { return _this._setContainerClass(sidenav, false); });
     };
     /**
      * Subscribes to sidenav onAlignChanged event in order to re-validate drawers when the align
      * changes.
      */
-    MdSidenavLayout.prototype._watchSidenavAlign = function (sidenav) {
+    MdSidenavContainer.prototype._watchSidenavAlign = function (sidenav) {
         var _this = this;
         if (!sidenav) {
             return;
         }
         sidenav.onAlignChanged.subscribe(function () { return _this._validateDrawers(); });
     };
-    /** Toggles the 'md-sidenav-opened' class on the main 'md-sidenav-layout' element. */
-    MdSidenavLayout.prototype._setLayoutClass = function (sidenav, bool) {
+    /** Toggles the 'md-sidenav-opened' class on the main 'md-sidenav-container' element. */
+    MdSidenavContainer.prototype._setContainerClass = function (sidenav, bool) {
         this._renderer.setElementClass(this._element.nativeElement, 'md-sidenav-opened', bool);
     };
     /** Sets the valid state of the drawers. */
-    MdSidenavLayout.prototype._setDrawersValid = function (valid) {
+    MdSidenavContainer.prototype._setDrawersValid = function (valid) {
         this._sidenavs.forEach(function (sidenav) {
             sidenav.valid = valid;
         });
@@ -6747,7 +6699,7 @@ var MdSidenavLayout = (function () {
         }
     };
     /** Validate the state of the sidenav children components. */
-    MdSidenavLayout.prototype._validateDrawers = function () {
+    MdSidenavContainer.prototype._validateDrawers = function () {
         this._start = this._end = null;
         // Ensure that we have at most one start and one end sidenav.
         // NOTE: We must call toArray on _sidenavs even though it's iterable
@@ -6781,11 +6733,11 @@ var MdSidenavLayout = (function () {
         }
         this._setDrawersValid(true);
     };
-    MdSidenavLayout.prototype._onBackdropClicked = function () {
+    MdSidenavContainer.prototype._onBackdropClicked = function () {
         this.onBackdropClicked.emit();
         this._closeModalSidenav();
     };
-    MdSidenavLayout.prototype._closeModalSidenav = function () {
+    MdSidenavContainer.prototype._closeModalSidenav = function () {
         if (this._start != null && this._start.mode != 'side') {
             this._start.close();
         }
@@ -6793,11 +6745,11 @@ var MdSidenavLayout = (function () {
             this._end.close();
         }
     };
-    MdSidenavLayout.prototype._isShowingBackdrop = function () {
+    MdSidenavContainer.prototype._isShowingBackdrop = function () {
         return (this._isSidenavOpen(this._start) && this._start.mode != 'side')
             || (this._isSidenavOpen(this._end) && this._end.mode != 'side');
     };
-    MdSidenavLayout.prototype._isSidenavOpen = function (side) {
+    MdSidenavContainer.prototype._isSidenavOpen = function (side) {
         return side != null && side.opened;
     };
     /**
@@ -6806,19 +6758,19 @@ var MdSidenavLayout = (function () {
      * @param sidenav
      * @param mode
      */
-    MdSidenavLayout.prototype._getSidenavEffectiveWidth = function (sidenav, mode) {
+    MdSidenavContainer.prototype._getSidenavEffectiveWidth = function (sidenav, mode) {
         return (this._isSidenavOpen(sidenav) && sidenav.mode == mode) ? sidenav._width : 0;
     };
-    MdSidenavLayout.prototype._getMarginLeft = function () {
+    MdSidenavContainer.prototype._getMarginLeft = function () {
         return this._getSidenavEffectiveWidth(this._left, 'side');
     };
-    MdSidenavLayout.prototype._getMarginRight = function () {
+    MdSidenavContainer.prototype._getMarginRight = function () {
         return this._getSidenavEffectiveWidth(this._right, 'side');
     };
-    MdSidenavLayout.prototype._getPositionLeft = function () {
+    MdSidenavContainer.prototype._getPositionLeft = function () {
         return this._getSidenavEffectiveWidth(this._left, 'push');
     };
-    MdSidenavLayout.prototype._getPositionRight = function () {
+    MdSidenavContainer.prototype._getPositionRight = function () {
         return this._getSidenavEffectiveWidth(this._right, 'push');
     };
     /**
@@ -6826,14 +6778,14 @@ var MdSidenavLayout = (function () {
      * left and right, so by subtracting the right value from the left value, we should always get
      * the appropriate offset.
      */
-    MdSidenavLayout.prototype._getPositionOffset = function () {
+    MdSidenavContainer.prototype._getPositionOffset = function () {
         return this._getPositionLeft() - this._getPositionRight();
     };
     /**
      * This is using [ngStyle] rather than separate [style...] properties because [style.transform]
      * doesn't seem to work right now.
      */
-    MdSidenavLayout.prototype._getStyles = function () {
+    MdSidenavContainer.prototype._getStyles = function () {
         return {
             marginLeft: this._getMarginLeft() + "px",
             marginRight: this._getMarginRight() + "px",
@@ -6843,25 +6795,28 @@ var MdSidenavLayout = (function () {
     __decorate$30([
         _angular_core.ContentChildren(MdSidenav), 
         __metadata$30('design:type', _angular_core.QueryList)
-    ], MdSidenavLayout.prototype, "_sidenavs", void 0);
+    ], MdSidenavContainer.prototype, "_sidenavs", void 0);
     __decorate$30([
         _angular_core.Output('backdrop-clicked'), 
         __metadata$30('design:type', Object)
-    ], MdSidenavLayout.prototype, "onBackdropClicked", void 0);
-    MdSidenavLayout = __decorate$30([
-        _angular_core.Component({selector: 'md-sidenav-layout, mat-sidenav-layout',
+    ], MdSidenavContainer.prototype, "onBackdropClicked", void 0);
+    MdSidenavContainer = __decorate$30([
+        _angular_core.Component({selector: 'md-sidenav-container, mat-sidenav-container, md-sidenav-layout, mat-sidenav-layout',
             // Do not use ChangeDetectionStrategy.OnPush. It does not work for this component because
             // technically it is a sibling of MdSidenav (on the content tree) and isn't updated when MdSidenav
             // changes its state.
             template: "<div class=\"md-sidenav-backdrop\" (click)=\"_onBackdropClicked()\" [class.md-sidenav-shown]=\"_isShowingBackdrop()\"></div> <ng-content select=\"md-sidenav, mat-sidenav\"></ng-content> <div class=\"md-sidenav-content\" [ngStyle]=\"_getStyles()\"> <ng-content></ng-content> </div> ",
-            styles: ["/** * Applies styles for users in high contrast mode. Note that this only applies * to Microsoft browsers. Chrome can be included by checking for the `html[hc]` * attribute, however Chrome handles high contrast differently. */ md-sidenav-layout { position: relative; transform: translate3d(0, 0, 0); box-sizing: border-box; -webkit-overflow-scrolling: touch; display: block; overflow: hidden; } md-sidenav-layout[fullscreen] { position: absolute; top: 0; left: 0; right: 0; bottom: 0; } md-sidenav-layout[fullscreen].md-sidenav-opened { overflow: hidden; } .md-sidenav-backdrop { position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: block; z-index: 2; visibility: hidden; } .md-sidenav-backdrop.md-sidenav-shown { visibility: visible; } @media screen and (-ms-high-contrast: active) { .md-sidenav-backdrop { opacity: 0.5; } } .md-sidenav-content { position: relative; transform: translate3d(0, 0, 0); display: block; height: 100%; overflow: auto; } md-sidenav { position: relative; transform: translate3d(0, 0, 0); display: block; position: absolute; top: 0; bottom: 0; z-index: 3; min-width: 5%; outline: 0; transform: translate3d(-100%, 0, 0); } md-sidenav.md-sidenav-closed { visibility: hidden; } md-sidenav.md-sidenav-closing { transform: translate3d(-100%, 0, 0); } md-sidenav.md-sidenav-opening { box-shadow: 0px 8px 10px -5px rgba(0, 0, 0, 0.2), 0px 16px 24px 2px rgba(0, 0, 0, 0.14), 0px 6px 30px 5px rgba(0, 0, 0, 0.12); visibility: visible; transform: translate3d(0, 0, 0); } md-sidenav.md-sidenav-opened { box-shadow: 0px 8px 10px -5px rgba(0, 0, 0, 0.2), 0px 16px 24px 2px rgba(0, 0, 0, 0.14), 0px 6px 30px 5px rgba(0, 0, 0, 0.12); transform: translate3d(0, 0, 0); } md-sidenav.md-sidenav-side { z-index: 1; } md-sidenav.md-sidenav-end { right: 0; transform: translate3d(100%, 0, 0); } md-sidenav.md-sidenav-end.md-sidenav-closed { visibility: hidden; } md-sidenav.md-sidenav-end.md-sidenav-closing { transform: translate3d(100%, 0, 0); } md-sidenav.md-sidenav-end.md-sidenav-opening { box-shadow: 0px 8px 10px -5px rgba(0, 0, 0, 0.2), 0px 16px 24px 2px rgba(0, 0, 0, 0.14), 0px 6px 30px 5px rgba(0, 0, 0, 0.12); visibility: visible; transform: translate3d(0, 0, 0); } md-sidenav.md-sidenav-end.md-sidenav-opened { box-shadow: 0px 8px 10px -5px rgba(0, 0, 0, 0.2), 0px 16px 24px 2px rgba(0, 0, 0, 0.14), 0px 6px 30px 5px rgba(0, 0, 0, 0.12); transform: translate3d(0, 0, 0); } [dir='rtl'] md-sidenav { transform: translate3d(100%, 0, 0); } [dir='rtl'] md-sidenav.md-sidenav-closed { visibility: hidden; } [dir='rtl'] md-sidenav.md-sidenav-closing { transform: translate3d(100%, 0, 0); } [dir='rtl'] md-sidenav.md-sidenav-opening { box-shadow: 0px 8px 10px -5px rgba(0, 0, 0, 0.2), 0px 16px 24px 2px rgba(0, 0, 0, 0.14), 0px 6px 30px 5px rgba(0, 0, 0, 0.12); visibility: visible; transform: translate3d(0, 0, 0); } [dir='rtl'] md-sidenav.md-sidenav-opened { box-shadow: 0px 8px 10px -5px rgba(0, 0, 0, 0.2), 0px 16px 24px 2px rgba(0, 0, 0, 0.14), 0px 6px 30px 5px rgba(0, 0, 0, 0.12); transform: translate3d(0, 0, 0); } [dir='rtl'] md-sidenav.md-sidenav-end { left: 0; right: auto; transform: translate3d(-100%, 0, 0); } [dir='rtl'] md-sidenav.md-sidenav-end.md-sidenav-closed { visibility: hidden; } [dir='rtl'] md-sidenav.md-sidenav-end.md-sidenav-closing { transform: translate3d(-100%, 0, 0); } [dir='rtl'] md-sidenav.md-sidenav-end.md-sidenav-opening { box-shadow: 0px 8px 10px -5px rgba(0, 0, 0, 0.2), 0px 16px 24px 2px rgba(0, 0, 0, 0.14), 0px 6px 30px 5px rgba(0, 0, 0, 0.12); visibility: visible; transform: translate3d(0, 0, 0); } [dir='rtl'] md-sidenav.md-sidenav-end.md-sidenav-opened { box-shadow: 0px 8px 10px -5px rgba(0, 0, 0, 0.2), 0px 16px 24px 2px rgba(0, 0, 0, 0.14), 0px 6px 30px 5px rgba(0, 0, 0, 0.12); transform: translate3d(0, 0, 0); } .md-sidenav-focus-trap { height: 100%; } .md-sidenav-focus-trap > .cdk-focus-trap-content { box-sizing: border-box; height: 100%; overflow-y: auto; } .md-sidenav-invalid { display: none; } /*# sourceMappingURL=sidenav.css.map */ ",
+            styles: ["/** * Applies styles for users in high contrast mode. Note that this only applies * to Microsoft browsers. Chrome can be included by checking for the `html[hc]` * attribute, however Chrome handles high contrast differently. */ .md-sidenav-container { position: relative; transform: translate3d(0, 0, 0); box-sizing: border-box; -webkit-overflow-scrolling: touch; display: block; overflow: hidden; } .md-sidenav-container[fullscreen] { position: absolute; top: 0; left: 0; right: 0; bottom: 0; } .md-sidenav-container[fullscreen].md-sidenav-opened { overflow: hidden; } .md-sidenav-backdrop { position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: block; z-index: 2; visibility: hidden; } .md-sidenav-backdrop.md-sidenav-shown { visibility: visible; } @media screen and (-ms-high-contrast: active) { .md-sidenav-backdrop { opacity: 0.5; } } .md-sidenav-content { position: relative; transform: translate3d(0, 0, 0); display: block; height: 100%; overflow: auto; } md-sidenav { position: relative; transform: translate3d(0, 0, 0); display: block; position: absolute; top: 0; bottom: 0; z-index: 3; min-width: 5%; outline: 0; transform: translate3d(-100%, 0, 0); } md-sidenav.md-sidenav-closed { visibility: hidden; } md-sidenav.md-sidenav-closing { transform: translate3d(-100%, 0, 0); } md-sidenav.md-sidenav-opening { box-shadow: 0px 8px 10px -5px rgba(0, 0, 0, 0.2), 0px 16px 24px 2px rgba(0, 0, 0, 0.14), 0px 6px 30px 5px rgba(0, 0, 0, 0.12); visibility: visible; transform: translate3d(0, 0, 0); } md-sidenav.md-sidenav-opened { box-shadow: 0px 8px 10px -5px rgba(0, 0, 0, 0.2), 0px 16px 24px 2px rgba(0, 0, 0, 0.14), 0px 6px 30px 5px rgba(0, 0, 0, 0.12); transform: translate3d(0, 0, 0); } md-sidenav.md-sidenav-side { z-index: 1; } md-sidenav.md-sidenav-end { right: 0; transform: translate3d(100%, 0, 0); } md-sidenav.md-sidenav-end.md-sidenav-closed { visibility: hidden; } md-sidenav.md-sidenav-end.md-sidenav-closing { transform: translate3d(100%, 0, 0); } md-sidenav.md-sidenav-end.md-sidenav-opening { box-shadow: 0px 8px 10px -5px rgba(0, 0, 0, 0.2), 0px 16px 24px 2px rgba(0, 0, 0, 0.14), 0px 6px 30px 5px rgba(0, 0, 0, 0.12); visibility: visible; transform: translate3d(0, 0, 0); } md-sidenav.md-sidenav-end.md-sidenav-opened { box-shadow: 0px 8px 10px -5px rgba(0, 0, 0, 0.2), 0px 16px 24px 2px rgba(0, 0, 0, 0.14), 0px 6px 30px 5px rgba(0, 0, 0, 0.12); transform: translate3d(0, 0, 0); } [dir='rtl'] md-sidenav { transform: translate3d(100%, 0, 0); } [dir='rtl'] md-sidenav.md-sidenav-closed { visibility: hidden; } [dir='rtl'] md-sidenav.md-sidenav-closing { transform: translate3d(100%, 0, 0); } [dir='rtl'] md-sidenav.md-sidenav-opening { box-shadow: 0px 8px 10px -5px rgba(0, 0, 0, 0.2), 0px 16px 24px 2px rgba(0, 0, 0, 0.14), 0px 6px 30px 5px rgba(0, 0, 0, 0.12); visibility: visible; transform: translate3d(0, 0, 0); } [dir='rtl'] md-sidenav.md-sidenav-opened { box-shadow: 0px 8px 10px -5px rgba(0, 0, 0, 0.2), 0px 16px 24px 2px rgba(0, 0, 0, 0.14), 0px 6px 30px 5px rgba(0, 0, 0, 0.12); transform: translate3d(0, 0, 0); } [dir='rtl'] md-sidenav.md-sidenav-end { left: 0; right: auto; transform: translate3d(-100%, 0, 0); } [dir='rtl'] md-sidenav.md-sidenav-end.md-sidenav-closed { visibility: hidden; } [dir='rtl'] md-sidenav.md-sidenav-end.md-sidenav-closing { transform: translate3d(-100%, 0, 0); } [dir='rtl'] md-sidenav.md-sidenav-end.md-sidenav-opening { box-shadow: 0px 8px 10px -5px rgba(0, 0, 0, 0.2), 0px 16px 24px 2px rgba(0, 0, 0, 0.14), 0px 6px 30px 5px rgba(0, 0, 0, 0.12); visibility: visible; transform: translate3d(0, 0, 0); } [dir='rtl'] md-sidenav.md-sidenav-end.md-sidenav-opened { box-shadow: 0px 8px 10px -5px rgba(0, 0, 0, 0.2), 0px 16px 24px 2px rgba(0, 0, 0, 0.14), 0px 6px 30px 5px rgba(0, 0, 0, 0.12); transform: translate3d(0, 0, 0); } .md-sidenav-focus-trap { height: 100%; } .md-sidenav-focus-trap > .cdk-focus-trap-content { box-sizing: border-box; height: 100%; overflow-y: auto; } .md-sidenav-invalid { display: none; } /*# sourceMappingURL=sidenav.css.map */ ",
 "md-sidenav { transition: transform 400ms cubic-bezier(0.25, 0.8, 0.25, 1); } .md-sidenav-content { transition: transform 400ms cubic-bezier(0.25, 0.8, 0.25, 1); } .md-sidenav-backdrop.md-sidenav-shown { transition: background-color 400ms cubic-bezier(0.25, 0.8, 0.25, 1); } /*# sourceMappingURL=sidenav-transitions.css.map */ "],
+            host: {
+                'class': 'md-sidenav-container',
+            },
             encapsulation: _angular_core.ViewEncapsulation.None,
         }),
         __param$7(0, _angular_core.Optional()), 
         __metadata$30('design:paramtypes', [Dir, _angular_core.ElementRef, _angular_core.Renderer])
-    ], MdSidenavLayout);
-    return MdSidenavLayout;
+    ], MdSidenavContainer);
+    return MdSidenavContainer;
 }());
 var MdSidenavModule = (function () {
     function MdSidenavModule() {
@@ -6875,8 +6830,8 @@ var MdSidenavModule = (function () {
     MdSidenavModule = __decorate$30([
         _angular_core.NgModule({
             imports: [_angular_common.CommonModule, DefaultStyleCompatibilityModeModule, A11yModule],
-            exports: [MdSidenavLayout, MdSidenav, DefaultStyleCompatibilityModeModule],
-            declarations: [MdSidenavLayout, MdSidenav],
+            exports: [MdSidenavContainer, MdSidenav, DefaultStyleCompatibilityModeModule],
+            declarations: [MdSidenavContainer, MdSidenav],
         }), 
         __metadata$30('design:paramtypes', [])
     ], MdSidenavModule);
@@ -6940,7 +6895,6 @@ var MdListItem = (function () {
         enumerable: true,
         configurable: true
     });
-    /** TODO: internal */
     MdListItem.prototype.ngAfterContentInit = function () {
         this._lineSetter = new MdLineSetter(this._lines, this._renderer, this._element);
     };
@@ -7002,14 +6956,14 @@ var MdListModule = (function () {
 
 /**
  * Converts values into strings. Falsy values become empty strings.
- * TODO: internal
+ * @docs-private
  */
 function coerceToString(value) {
     return "" + (value || '');
 }
 /**
  * Converts a value that might be a string into a number.
- * TODO: internal
+ * @docs-private
  */
 function coerceToNumber(value) {
     return typeof value === 'string' ? parseInt(value, 10) : value;
@@ -7105,6 +7059,7 @@ var __extends$8 = (this && this.__extends) || function (d, b) {
 };
 /**
  * Exception thrown when cols property is missing from grid-list
+ * @docs-private
  */
 var MdGridListColsError = (function (_super) {
     __extends$8(MdGridListColsError, _super);
@@ -7115,6 +7070,7 @@ var MdGridListColsError = (function (_super) {
 }(MdError));
 /**
  * Exception thrown when a tile's colspan is longer than the number of cols in list
+ * @docs-private
  */
 var MdGridTileTooWideError = (function (_super) {
     __extends$8(MdGridTileTooWideError, _super);
@@ -7125,6 +7081,7 @@ var MdGridTileTooWideError = (function (_super) {
 }(MdError));
 /**
  * Exception thrown when an invalid ratio is passed in as a rowHeight
+ * @docs-private
  */
 var MdGridListBadRatioError = (function (_super) {
     __extends$8(MdGridListBadRatioError, _super);
@@ -7148,6 +7105,8 @@ var MdGridListBadRatioError = (function (_super) {
  * column are already occupied; zero indicates an empty cell. Moving "down" to the next row
  * decrements each value in the tracking array (indicating that the column is one cell closer to
  * being free).
+ *
+ * @docs-private
  */
 var TileCoordinator = (function () {
     function TileCoordinator(numColumns, tiles) {
@@ -7247,7 +7206,10 @@ var TileCoordinator = (function () {
     };
     return TileCoordinator;
 }());
-/** Simple data structure for tile position (row, col). */
+/**
+ * Simple data structure for tile position (row, col).
+ * @docs-private
+ */
 var TilePosition = (function () {
     function TilePosition(row, col) {
         this.row = row;
@@ -7264,7 +7226,7 @@ var __extends$9 = (this && this.__extends) || function (d, b) {
 /**
  * Sets the style properties for an individual tile, given the position calculated by the
  * Tile Coordinator.
- * TODO: internal
+ * @docs-private
  */
 var TileStyler = (function () {
     function TileStyler() {
@@ -7360,7 +7322,7 @@ var TileStyler = (function () {
 /**
  * This type of styler is instantiated when the user passes in a fixed row height.
  * Example <md-grid-list cols="3" rowHeight="100px">
- * TODO: internal
+ * @docs-private
  */
 var FixedTileStyler = (function (_super) {
     __extends$9(FixedTileStyler, _super);
@@ -7386,7 +7348,7 @@ var FixedTileStyler = (function (_super) {
 /**
  * This type of styler is instantiated when the user passes in a width:height ratio
  * for the row height.  Example <md-grid-list cols="3" rowHeight="3:1">
- * TODO: internal
+ * @docs-private
  */
 var RatioTileStyler = (function (_super) {
     __extends$9(RatioTileStyler, _super);
@@ -7417,9 +7379,13 @@ var RatioTileStyler = (function (_super) {
     };
     return RatioTileStyler;
 }(TileStyler));
-/*  This type of styler is instantiated when the user selects a "fit" row height mode.
- *  In other words, the row height will reflect the total height of the container divided
- *  by the number of rows.  Example <md-grid-list cols="3" rowHeight="fit"> */
+/**
+ * This type of styler is instantiated when the user selects a "fit" row height mode.
+ * In other words, the row height will reflect the total height of the container divided
+ * by the number of rows.  Example <md-grid-list cols="3" rowHeight="fit">
+ *
+ * @docs-private
+ */
 var FitTileStyler = (function (_super) {
     __extends$9(FitTileStyler, _super);
     function FitTileStyler() {
@@ -7497,7 +7463,6 @@ var MdGridList = (function () {
         enumerable: true,
         configurable: true
     });
-    /** TODO: internal */
     MdGridList.prototype.ngOnInit = function () {
         this._checkCols();
         this._checkRowHeight();
@@ -7505,7 +7470,6 @@ var MdGridList = (function () {
     /**
      * The layout calculation is fairly cheap if nothing changes, so there's little cost
      * to run it frequently.
-     * TODO: internal
      */
     MdGridList.prototype.ngAfterContentChecked = function () {
         this._layoutTiles();
@@ -7574,6 +7538,9 @@ var MdGridList = (function () {
         _angular_core.Component({selector: 'md-grid-list, mat-grid-list',
             template: "<div class=\"md-grid-list\"> <ng-content></ng-content> </div>",
             styles: ["md-grid-list { display: block; position: relative; } md-grid-tile { display: block; position: absolute; overflow: hidden; } md-grid-tile figure { display: flex; position: absolute; align-items: center; justify-content: center; height: 100%; top: 0; right: 0; bottom: 0; left: 0; padding: 0; margin: 0; } md-grid-tile md-grid-tile-header, md-grid-tile md-grid-tile-footer { display: flex; align-items: center; height: 48px; color: #fff; background: rgba(0, 0, 0, 0.38); overflow: hidden; padding: 0 16px; font-size: 16px; position: absolute; left: 0; right: 0; } md-grid-tile md-grid-tile-header [md-line], md-grid-tile md-grid-tile-footer [md-line] { white-space: nowrap; overflow-x: hidden; text-overflow: ellipsis; display: block; box-sizing: border-box; } md-grid-tile md-grid-tile-header [md-line]:nth-child(n+2), md-grid-tile md-grid-tile-footer [md-line]:nth-child(n+2) { font-size: 12px; } md-grid-tile md-grid-tile-header > *, md-grid-tile md-grid-tile-footer > * { margin: 0; padding: 0; font-weight: normal; font-size: inherit; } md-grid-tile md-grid-tile-header.md-2-line, md-grid-tile md-grid-tile-footer.md-2-line { height: 68px; } md-grid-tile .md-grid-list-text { display: flex; flex-direction: column; width: 100%; box-sizing: border-box; overflow: hidden; } md-grid-tile .md-grid-list-text > * { margin: 0; padding: 0; font-weight: normal; font-size: inherit; } md-grid-tile .md-grid-list-text:empty { display: none; } md-grid-tile md-grid-tile-header { top: 0; } md-grid-tile md-grid-tile-footer { bottom: 0; } md-grid-tile [md-grid-avatar] { padding-right: 16px; } [dir='rtl'] md-grid-tile [md-grid-avatar] { padding-right: 0; padding-left: 16px; } md-grid-tile [md-grid-avatar]:empty { display: none; } /*# sourceMappingURL=grid-list.css.map */ "],
+            host: {
+                'role': 'list'
+            },
             encapsulation: _angular_core.ViewEncapsulation.None,
         }),
         __param$8(2, _angular_core.Optional()), 
@@ -7896,7 +7863,10 @@ var __decorate$38 = (this && this.__decorate) || function (decorators, target, k
 var __metadata$38 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-/** Exception thrown when attempting to load an icon with a name that cannot be found. */
+/**
+ * Exception thrown when attempting to load an icon with a name that cannot be found.
+ * @docs-private
+ */
 var MdIconNameNotFoundError = (function (_super) {
     __extends$11(MdIconNameNotFoundError, _super);
     function MdIconNameNotFoundError(iconName) {
@@ -7907,6 +7877,7 @@ var MdIconNameNotFoundError = (function (_super) {
 /**
  * Exception thrown when attempting to load SVG content that does not contain the expected
  * <svg> tag.
+ * @docs-private
  */
 var MdIconSvgTagNotFoundError = (function (_super) {
     __extends$11(MdIconSvgTagNotFoundError, _super);
@@ -7915,7 +7886,10 @@ var MdIconSvgTagNotFoundError = (function (_super) {
     }
     return MdIconSvgTagNotFoundError;
 }(MdError));
-/** Configuration for an icon, including the URL and possibly the cached SVG element. */
+/**
+ * Configuration for an icon, including the URL and possibly the cached SVG element.
+ * @docs-private
+ */
 var SvgIconConfig = (function () {
     function SvgIconConfig(url) {
         this.url = url;
@@ -8354,7 +8328,6 @@ var MdIcon = (function () {
                 throw new MdIconInvalidNameError(iconName);
         }
     };
-    /** TODO: internal */
     MdIcon.prototype.ngOnChanges = function (changes) {
         var _this = this;
         var changedInputs = Object.keys(changes);
@@ -8373,7 +8346,6 @@ var MdIcon = (function () {
         }
         this._updateAriaLabel();
     };
-    /** TODO: internal */
     MdIcon.prototype.ngOnInit = function () {
         // Update font classes because ngOnChanges won't be called if none of the inputs are present,
         // e.g. <md-icon>arrow</md-icon>. In this case we need to add a CSS class for the default font.
@@ -8381,7 +8353,6 @@ var MdIcon = (function () {
             this._updateFontIconClasses();
         }
     };
-    /** TODO: internal */
     MdIcon.prototype.ngAfterViewChecked = function () {
         // Update aria label here because it may depend on the projected text content.
         // (e.g. <md-icon>home</md-icon> should use 'home').
@@ -8573,11 +8544,11 @@ var MdProgressCircle = (function () {
         configurable: true
     });
     Object.defineProperty(MdProgressCircle.prototype, "interdeterminateInterval", {
-        /** TODO: internal */
+        /** @docs-private */
         get: function () {
             return this._interdeterminateInterval;
         },
-        /** TODO: internal */
+        /** @docs-private */
         set: function (interval) {
             clearInterval(this._interdeterminateInterval);
             this._interdeterminateInterval = interval;
@@ -9624,34 +9595,22 @@ var MdInput = (function () {
     MdInput.prototype._hasPlaceholder = function () {
         return !!this.placeholder || this._placeholderChild != null;
     };
-    /**
-     * Implemented as part of ControlValueAccessor.
-     * TODO: internal
-     */
+    /** Implemented as part of ControlValueAccessor. */
     MdInput.prototype.writeValue = function (value) {
         this._value = value;
     };
-    /**
-     * Implemented as part of ControlValueAccessor.
-     * TODO: internal
-     */
+    /** Implemented as part of ControlValueAccessor. */
     MdInput.prototype.registerOnChange = function (fn) {
         this._onChangeCallback = fn;
     };
-    /**
-     * Implemented as part of ControlValueAccessor.
-     * TODO: internal
-     */
+    /** Implemented as part of ControlValueAccessor. */
     MdInput.prototype.registerOnTouched = function (fn) {
         this._onTouchedCallback = fn;
     };
-    /**
-     * Implemented as a part of ControlValueAccessor.
-     */
+    /** Implemented as a part of ControlValueAccessor. */
     MdInput.prototype.setDisabledState = function (isDisabled) {
         this.disabled = isDisabled;
     };
-    /** TODO: internal */
     MdInput.prototype.ngAfterContentInit = function () {
         var _this = this;
         this._validateConstraints();
@@ -9660,7 +9619,6 @@ var MdInput = (function () {
             _this._validateConstraints();
         });
     };
-    /** TODO: internal */
     MdInput.prototype.ngOnChanges = function (changes) {
         this._validateConstraints();
     };
@@ -11199,7 +11157,6 @@ var MdTabGroup = (function () {
     /**
      * Waits one frame for the view to update, then updates the ink bar
      * Note: This must be run outside of the zone or it will create an infinite change detection loop
-     * TODO: internal
      */
     MdTabGroup.prototype.ngAfterViewChecked = function () {
         this._isInitialized = true;
@@ -11748,6 +11705,7 @@ var __extends$20 = (this && this.__extends) || function (d, b) {
 };
 /**
  * Exception thrown when menu trigger doesn't have a valid md-menu instance
+ * @docs-private
  */
 var MdMenuMissingError = (function (_super) {
     __extends$20(MdMenuMissingError, _super);
@@ -11759,6 +11717,7 @@ var MdMenuMissingError = (function (_super) {
 /**
  * Exception thrown when menu's x-position value isn't valid.
  * In other words, it doesn't match 'before' or 'after'.
+ * @docs-private
  */
 var MdMenuInvalidPositionX = (function (_super) {
     __extends$20(MdMenuInvalidPositionX, _super);
@@ -11770,6 +11729,7 @@ var MdMenuInvalidPositionX = (function (_super) {
 /**
  * Exception thrown when menu's y-position value isn't valid.
  * In other words, it doesn't match 'above' or 'below'.
+ * @docs-private
  */
 var MdMenuInvalidPositionY = (function (_super) {
     __extends$20(MdMenuInvalidPositionY, _super);
@@ -11928,7 +11888,6 @@ var MdMenu = (function () {
         }
         this.setPositionClasses(this.positionX, this.positionY);
     }
-    // TODO: internal
     MdMenu.prototype.ngAfterContentInit = function () {
         var _this = this;
         this._keyManager = new ListKeyManager(this.items).withFocusWrap();
@@ -11936,7 +11895,6 @@ var MdMenu = (function () {
             _this._emitCloseEvent();
         });
     };
-    // TODO: internal
     MdMenu.prototype.ngOnDestroy = function () {
         this._tabSubscription.unsubscribe();
     };
@@ -11960,7 +11918,6 @@ var MdMenu = (function () {
     /**
      * Focus the first item in the menu. This method is used by the menu trigger
      * to focus the first item when the menu is opened by the ENTER key.
-     * TODO: internal
      */
     MdMenu.prototype.focusFirstItem = function () {
         this._keyManager.focusFirstItem();
@@ -12372,6 +12329,7 @@ var __metadata$62 = (this && this.__metadata) || function (k, v) {
 };
 /**
  * Internal component that wraps user-provided dialog content.
+ * @docs-private
  */
 var MdDialogContainer = (function (_super) {
     __extends$21(MdDialogContainer, _super);
@@ -12915,7 +12873,7 @@ exports.MdSelect = MdSelect;
 exports.MdDuplicatedSidenavError = MdDuplicatedSidenavError;
 exports.MdSidenavToggleResult = MdSidenavToggleResult;
 exports.MdSidenav = MdSidenav;
-exports.MdSidenavLayout = MdSidenavLayout;
+exports.MdSidenavContainer = MdSidenavContainer;
 exports.MdSidenavModule = MdSidenavModule;
 exports.MD_SLIDER_VALUE_ACCESSOR = MD_SLIDER_VALUE_ACCESSOR;
 exports.MdSliderChange = MdSliderChange;

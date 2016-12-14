@@ -39,7 +39,6 @@ export declare class MdButtonToggleGroup implements AfterViewInit, ControlValueA
     readonly change: Observable<MdButtonToggleChange>;
     /** Child button toggle buttons. */
     _buttonToggles: QueryList<MdButtonToggle>;
-    /** TODO: internal */
     ngAfterViewInit(): void;
     name: string;
     disabled: boolean;
@@ -50,20 +49,11 @@ export declare class MdButtonToggleGroup implements AfterViewInit, ControlValueA
     private _updateSelectedButtonToggleFromValue();
     /** Dispatch change event with current selection and group value. */
     private _emitChangeEvent();
-    /**
-     * Implemented as part of ControlValueAccessor.
-     * TODO: internal
-     */
+    /** Implemented as part of ControlValueAccessor. */
     writeValue(value: any): void;
-    /**
-     * Implemented as part of ControlValueAccessor.
-     * TODO: internal
-     */
+    /** Implemented as part of ControlValueAccessor. */
     registerOnChange(fn: (value: any) => void): void;
-    /**
-     * Implemented as part of ControlValueAccessor.
-     * TODO: internal
-     */
+    /** Implemented as part of ControlValueAccessor. */
     registerOnTouched(fn: any): void;
 }
 /** Multiple selection button-toggle group. `ngModel` is not supported in this mode. */
@@ -113,7 +103,6 @@ export declare class MdButtonToggle implements OnInit {
     private _toggle();
     /** Checks the button toggle due to an interaction with the underlying native input. */
     _onInputChange(event: Event): void;
-    /** TODO: internal */
     _onInputClick(event: Event): void;
     focus(): void;
 }

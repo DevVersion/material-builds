@@ -33,7 +33,6 @@ export var MdRipple = (function () {
         this._rippleRenderer = new RippleRenderer(_elementRef, eventHandlers, _ngZone);
         this._ruler = _ruler;
     }
-    /** TODO: internal */
     MdRipple.prototype.ngOnInit = function () {
         // If no trigger element was explicity set, use the host element
         if (!this.trigger) {
@@ -43,12 +42,10 @@ export var MdRipple = (function () {
             this._rippleRenderer.createBackgroundIfNeeded();
         }
     };
-    /** TODO: internal */
     MdRipple.prototype.ngOnDestroy = function () {
         // Remove event listeners on the trigger element.
         this._rippleRenderer.clearTriggerElement();
     };
-    /** TODO: internal */
     MdRipple.prototype.ngOnChanges = function (changes) {
         // If the trigger element changed (or is being initially set), add event listeners to it.
         var changedInputs = Object.keys(changes);

@@ -14,7 +14,7 @@ import { Component, ContentChildren, Directive, ElementRef, Renderer, EventEmitt
 import { CommonModule } from '@angular/common';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MdRippleModule, MdUniqueSelectionDispatcher, DefaultStyleCompatibilityModeModule } from '../core';
-import { coerceBooleanProperty } from '../core/coersion/boolean-property';
+import { coerceBooleanProperty } from '../core/coercion/boolean-property';
 import { ViewportRuler } from '../core/overlay/position/viewport-ruler';
 /**
  * Provider Expression that allows md-radio-group to register as a ControlValueAccessor. This
@@ -122,7 +122,6 @@ export var MdRadioGroup = (function () {
     /**
      * Initialize properties once content children are available.
      * This allows us to propagate relevant attributes to associated buttons.
-     * TODO: internal
      */
     MdRadioGroup.prototype.ngAfterContentInit = function () {
         // Mark this component as initialized in AfterContentInit because the initial value can
@@ -171,30 +170,19 @@ export var MdRadioGroup = (function () {
             this.change.emit(event_1);
         }
     };
-    /**
-      * Implemented as part of ControlValueAccessor.
-      * TODO: internal
-      */
+    /** Implemented as part of ControlValueAccessor. */
     MdRadioGroup.prototype.writeValue = function (value) {
         this.value = value;
     };
-    /**
-     * Implemented as part of ControlValueAccessor.
-     * TODO: internal
-     */
+    /** Implemented as part of ControlValueAccessor. */
     MdRadioGroup.prototype.registerOnChange = function (fn) {
         this._controlValueAccessorChangeFn = fn;
     };
-    /**
-     * Implemented as part of ControlValueAccessor.
-     * TODO: internal
-     */
+    /** Implemented as part of ControlValueAccessor. */
     MdRadioGroup.prototype.registerOnTouched = function (fn) {
         this.onTouched = fn;
     };
-    /**
-     * Implemented as a part of ControlValueAccessor.
-     */
+    /** Implemented as a part of ControlValueAccessor. */
     MdRadioGroup.prototype.setDisabledState = function (isDisabled) {
         this.disabled = isDisabled;
     };
@@ -341,7 +329,6 @@ export var MdRadioButton = (function () {
         enumerable: true,
         configurable: true
     });
-    /** TODO: internal */
     MdRadioButton.prototype.ngOnInit = function () {
         if (this.radioGroup) {
             // If the radio is inside a radio group, determine if it should be checked
@@ -372,14 +359,12 @@ export var MdRadioButton = (function () {
         this._renderer.invokeElementMethod(this._inputElement.nativeElement, 'focus');
         this._onInputFocus();
     };
-    /** TODO: internal */
     MdRadioButton.prototype._onInputBlur = function () {
         this._isFocused = false;
         if (this.radioGroup) {
             this.radioGroup._touch();
         }
     };
-    /** TODO: internal */
     MdRadioButton.prototype._onInputClick = function (event) {
         // We have to stop propagation for click events on the visual hidden input element.
         // By default, when a user clicks on a label element, a generated click event will be
@@ -393,7 +378,6 @@ export var MdRadioButton = (function () {
     /**
      * Triggered when the radio button received a click or the input recognized any change.
      * Clicking on a label element, will trigger a change event on the associated input.
-     * TODO: internal
      */
     MdRadioButton.prototype._onInputChange = function (event) {
         // We always have to stop propagation on the change event.

@@ -63,7 +63,6 @@ export var MdSlideToggle = (function () {
         enumerable: true,
         configurable: true
     });
-    /** TODO: internal */
     MdSlideToggle.prototype.ngAfterContentInit = function () {
         this._slideRenderer = new SlideToggleRenderer(this._elementRef);
     };
@@ -117,30 +116,19 @@ export var MdSlideToggle = (function () {
         this._hasFocus = false;
         this.onTouched();
     };
-    /**
-     * Implemented as part of ControlValueAccessor.
-     * TODO: internal
-     */
+    /** Implemented as part of ControlValueAccessor. */
     MdSlideToggle.prototype.writeValue = function (value) {
         this.checked = value;
     };
-    /**
-     * Implemented as part of ControlValueAccessor.
-     * TODO: internal
-     */
+    /** Implemented as part of ControlValueAccessor. */
     MdSlideToggle.prototype.registerOnChange = function (fn) {
         this.onChange = fn;
     };
-    /**
-     * Implemented as part of ControlValueAccessor.
-     * TODO: internal
-     */
+    /** Implemented as part of ControlValueAccessor. */
     MdSlideToggle.prototype.registerOnTouched = function (fn) {
         this.onTouched = fn;
     };
-    /**
-     * Implemented as a part of ControlValueAccessor.
-     */
+    /** Implemented as a part of ControlValueAccessor. */
     MdSlideToggle.prototype.setDisabledState = function (isDisabled) {
         this.disabled = isDisabled;
     };
@@ -191,19 +179,16 @@ export var MdSlideToggle = (function () {
         event.checked = this.checked;
         this._change.emit(event);
     };
-    /** TODO: internal */
     MdSlideToggle.prototype._onDragStart = function () {
         if (!this.disabled) {
             this._slideRenderer.startThumbDrag(this.checked);
         }
     };
-    /** TODO: internal */
     MdSlideToggle.prototype._onDrag = function (event) {
         if (this._slideRenderer.isDragging()) {
             this._slideRenderer.updateThumbPosition(event.deltaX);
         }
     };
-    /** TODO: internal */
     MdSlideToggle.prototype._onDragEnd = function () {
         var _this = this;
         if (!this._slideRenderer.isDragging()) {

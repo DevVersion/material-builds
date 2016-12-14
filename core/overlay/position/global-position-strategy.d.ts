@@ -40,7 +40,7 @@ export declare class GlobalPositionStrategy implements PositionStrategy {
     centerVertically(offset?: string): this;
     /**
      * Apply the position to the element.
-     * TODO: internal
+     * @docs-private
      */
     apply(element: HTMLElement): Promise<void>;
     /**

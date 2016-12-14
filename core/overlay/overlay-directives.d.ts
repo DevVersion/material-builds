@@ -54,7 +54,6 @@ export declare class ConnectedOverlayDirective implements OnDestroy {
     constructor(_overlay: Overlay, templateRef: TemplateRef<any>, viewContainerRef: ViewContainerRef, _dir: Dir);
     readonly overlayRef: OverlayRef;
     readonly dir: LayoutDirection;
-    /** TODO: internal */
     ngOnDestroy(): void;
     /** Creates an overlay */
     private _createOverlay();

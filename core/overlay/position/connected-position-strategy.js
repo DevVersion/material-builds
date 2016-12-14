@@ -54,7 +54,7 @@ export var ConnectedPositionStrategy = (function () {
     /**
      * Updates the position of the overlay element, using whichever preferred position relative
      * to the origin fits on-screen.
-     * TODO: internal
+     * @docs-private
      */
     ConnectedPositionStrategy.prototype.apply = function (element) {
         // We need the bounding rects for the origin and the overlay to determine how to position

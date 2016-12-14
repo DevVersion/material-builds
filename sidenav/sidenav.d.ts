@@ -24,7 +24,7 @@ export declare class MdSidenav implements AfterContentInit {
     _focusTrap: FocusTrap;
     /** Alignment of the sidenav (direction neutral); whether 'start' or 'end'. */
     private _align;
-    /** Whether this md-sidenav is part of a valid md-sidenav-layout configuration. */
+    /** Whether this md-sidenav is part of a valid md-sidenav-container configuration. */
     valid: boolean;
     private _valid;
     align: "start" | "end";
@@ -97,12 +97,12 @@ export declare class MdSidenav implements AfterContentInit {
     private _elementFocusedBeforeSidenavWasOpened;
 }
 /**
- * <md-sidenav-layout> component.
+ * <md-sidenav-container> component.
  *
  * This is the parent component to one or two <md-sidenav>s that validates the state internally
  * and coordinates the backdrop and content styling.
  */
-export declare class MdSidenavLayout implements AfterContentInit {
+export declare class MdSidenavContainer implements AfterContentInit {
     private _dir;
     private _element;
     private _renderer;
@@ -125,9 +125,9 @@ export declare class MdSidenavLayout implements AfterContentInit {
     constructor(_dir: Dir, _element: ElementRef, _renderer: Renderer);
     ngAfterContentInit(): void;
     /**
-     * Subscribes to sidenav events in order to set a class on the main layout element when the
-     * sidenav is open and the backdrop is visible. This ensures any overflow on the layout element is
-     * properly hidden.
+     * Subscribes to sidenav events in order to set a class on the main container element when the
+     * sidenav is open and the backdrop is visible. This ensures any overflow on the container element
+     * is properly hidden.
      */
     private _watchSidenavToggle(sidenav);
     /**
@@ -135,8 +135,8 @@ export declare class MdSidenavLayout implements AfterContentInit {
      * changes.
      */
     private _watchSidenavAlign(sidenav);
-    /** Toggles the 'md-sidenav-opened' class on the main 'md-sidenav-layout' element. */
-    private _setLayoutClass(sidenav, bool);
+    /** Toggles the 'md-sidenav-opened' class on the main 'md-sidenav-container' element. */
+    private _setContainerClass(sidenav, bool);
     /** Sets the valid state of the drawers. */
     private _setDrawersValid(valid);
     /** Validate the state of the sidenav children components. */

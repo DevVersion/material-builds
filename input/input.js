@@ -233,34 +233,22 @@ export var MdInput = (function () {
     MdInput.prototype._hasPlaceholder = function () {
         return !!this.placeholder || this._placeholderChild != null;
     };
-    /**
-     * Implemented as part of ControlValueAccessor.
-     * TODO: internal
-     */
+    /** Implemented as part of ControlValueAccessor. */
     MdInput.prototype.writeValue = function (value) {
         this._value = value;
     };
-    /**
-     * Implemented as part of ControlValueAccessor.
-     * TODO: internal
-     */
+    /** Implemented as part of ControlValueAccessor. */
     MdInput.prototype.registerOnChange = function (fn) {
         this._onChangeCallback = fn;
     };
-    /**
-     * Implemented as part of ControlValueAccessor.
-     * TODO: internal
-     */
+    /** Implemented as part of ControlValueAccessor. */
     MdInput.prototype.registerOnTouched = function (fn) {
         this._onTouchedCallback = fn;
     };
-    /**
-     * Implemented as a part of ControlValueAccessor.
-     */
+    /** Implemented as a part of ControlValueAccessor. */
     MdInput.prototype.setDisabledState = function (isDisabled) {
         this.disabled = isDisabled;
     };
-    /** TODO: internal */
     MdInput.prototype.ngAfterContentInit = function () {
         var _this = this;
         this._validateConstraints();
@@ -269,7 +257,6 @@ export var MdInput = (function () {
             _this._validateConstraints();
         });
     };
-    /** TODO: internal */
     MdInput.prototype.ngOnChanges = function (changes) {
         this._validateConstraints();
     };

@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Injectable } from '@angular/core';
 /**
  * Simple utility for getting the bounds of the browser viewport.
- * TODO: internal
+ * @docs-private
  */
 export var ViewportRuler = (function () {
     function ViewportRuler() {
