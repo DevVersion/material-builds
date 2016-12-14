@@ -2805,6 +2805,8 @@ var ENTER = 13;
 var SPACE = 32;
 var TAB = 9;
 var ESCAPE = 27;
+var BACKSPACE = 8;
+var DELETE = 46;
 
 /** @docs-private */
 var AnimationCurves = (function () {
@@ -4598,7 +4600,11 @@ var ListKeyManager = (function () {
         this._wrap = true;
         return this;
     };
-    /** Sets the focus of the list to the item at the index specified. */
+    /**
+     * Sets the focus of the list to the item at the index specified.
+     *
+     * @param index The index of the item to be focused.
+     */
     ListKeyManager.prototype.setFocus = function (index) {
         this._focusedItemIndex = index;
         this._items.toArray()[index].focus();
@@ -4651,6 +4657,10 @@ var ListKeyManager = (function () {
         enumerable: true,
         configurable: true
     });
+    /** Allows setting of the focusedItemIndex without focusing the item. */
+    ListKeyManager.prototype.updateFocusedItemIndex = function (index) {
+        this._focusedItemIndex = index;
+    };
     Object.defineProperty(ListKeyManager.prototype, "tabOut", {
         /**
          * Observable that emits any time the TAB key is pressed, so components can react
@@ -7776,21 +7786,87 @@ var __decorate$36 = (this && this.__decorate) || function (decorators, target, k
 var __metadata$36 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+/**
+ * A material design styled Chip component. Used inside the ChipList component.
+ */
 var MdChip = (function () {
     function MdChip(_renderer, _elementRef) {
         this._renderer = _renderer;
         this._elementRef = _elementRef;
+        /* Whether or not the chip is disabled. */
+        this._disabled = null;
+        /**
+         * Emitted when the chip is focused.
+         */
+        this.onFocus = new _angular_core.EventEmitter();
+        /**
+         * Emitted when the chip is destroyed.
+         */
+        this.destroy = new _angular_core.EventEmitter();
     }
-    MdChip.prototype.ngAfterContentInit = function () { };
+    MdChip.prototype.ngOnInit = function () {
+        var el = this._elementRef.nativeElement;
+        if (el.nodeName.toLowerCase() == 'md-chip' || el.hasAttribute('md-chip')) {
+            el.classList.add('md-chip');
+        }
+    };
+    MdChip.prototype.ngOnDestroy = function () {
+        this.destroy.emit({ chip: this });
+    };
+    Object.defineProperty(MdChip.prototype, "disabled", {
+        /** Whether or not the chip is disabled. */
+        get: function () {
+            return this._disabled;
+        },
+        /** Sets the disabled state of the chip. */
+        set: function (value) {
+            this._disabled = coerceBooleanProperty(value) ? true : null;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdChip.prototype, "_isAriaDisabled", {
+        /** A String representation of the current disabled state. */
+        get: function () {
+            return String(coerceBooleanProperty(this.disabled));
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /** Allows for programmatic focusing of the chip. */
+    MdChip.prototype.focus = function () {
+        this._renderer.invokeElementMethod(this._elementRef.nativeElement, 'focus');
+        this.onFocus.emit({ chip: this });
+    };
+    /** Ensures events fire properly upon click. */
+    MdChip.prototype._handleClick = function (event) {
+        // Check disabled
+        if (this.disabled) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+        else {
+            this.focus();
+        }
+    };
+    __decorate$36([
+        _angular_core.Output(), 
+        __metadata$36('design:type', Object)
+    ], MdChip.prototype, "destroy", void 0);
+    __decorate$36([
+        _angular_core.Input(), 
+        __metadata$36('design:type', Boolean)
+    ], MdChip.prototype, "disabled", null);
     MdChip = __decorate$36([
         _angular_core.Component({
-            selector: 'md-chip, [md-chip]',
+            selector: 'md-basic-chip, [md-basic-chip], md-chip, [md-chip]',
             template: "<ng-content></ng-content>",
             host: {
-                // Properties
-                'class': 'md-chip',
                 'tabindex': '-1',
-                'role': 'option'
+                'role': 'option',
+                '[attr.disabled]': 'disabled',
+                '[attr.aria-disabled]': '_isAriaDisabled',
+                '(click)': '_handleClick($event)'
             }
         }), 
         __metadata$36('design:paramtypes', [_angular_core.Renderer, _angular_core.ElementRef])
@@ -7807,21 +7883,109 @@ var __decorate$35 = (this && this.__decorate) || function (decorators, target, k
 var __metadata$35 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+/**
+ * A material design chips component (named ChipList for it's similarity to the List component).
+ *
+ * Example:
+ *
+ *     <md-chip-list>
+ *       <md-chip>Chip 1<md-chip>
+ *       <md-chip>Chip 2<md-chip>
+ *     </md-chip-list>
+ */
 var MdChipList = (function () {
     function MdChipList(_elementRef) {
         this._elementRef = _elementRef;
+        /** Track which chips we're listening to for focus/destruction. */
+        this._subscribed = new WeakMap();
     }
-    MdChipList.prototype.ngAfterContentInit = function () { };
+    MdChipList.prototype.ngAfterContentInit = function () {
+        var _this = this;
+        this._keyManager = new ListKeyManager(this.chips).withFocusWrap();
+        // Go ahead and subscribe all of the initial chips
+        this.subscribeChips(this.chips);
+        // When the list changes, re-subscribe
+        this.chips.changes.subscribe(function (chips) {
+            _this.subscribeChips(chips);
+        });
+    };
+    /** Pass relevant key presses to our key manager. */
+    MdChipList.prototype.keydown = function (event) {
+        this._keyManager.onKeydown(event);
+    };
+    /**
+     * Iterate through the list of chips and add them to our list of
+     * subscribed chips.
+     *
+     * @param chips The list of chips to be subscribed.
+     */
+    MdChipList.prototype.subscribeChips = function (chips) {
+        var _this = this;
+        chips.forEach(function (chip) { return _this.addChip(chip); });
+    };
+    /**
+     * Add a specific chip to our subscribed list. If the chip has
+     * already been subscribed, this ensures it is only subscribed
+     * once.
+     *
+     * @param chip The chip to be subscribed (or checked for existing
+     * subscription).
+     */
+    MdChipList.prototype.addChip = function (chip) {
+        var _this = this;
+        // If we've already been subscribed to a parent, do nothing
+        if (this._subscribed.has(chip)) {
+            return;
+        }
+        // Watch for focus events outside of the keyboard navigation
+        chip.onFocus.subscribe(function () {
+            var chipIndex = _this.chips.toArray().indexOf(chip);
+            if (_this.isValidIndex(chipIndex)) {
+                _this._keyManager.updateFocusedItemIndex(chipIndex);
+            }
+        });
+        // On destroy, remove the item from our list, and check focus
+        chip.destroy.subscribe(function () {
+            var chipIndex = _this.chips.toArray().indexOf(chip);
+            if (_this.isValidIndex(chipIndex)) {
+                // Check whether the chip is the last item
+                if (chipIndex < _this.chips.length - 1) {
+                    _this._keyManager.setFocus(chipIndex);
+                }
+                else if (chipIndex - 1 >= 0) {
+                    _this._keyManager.setFocus(chipIndex - 1);
+                }
+            }
+            _this._subscribed.delete(chip);
+            chip.destroy.unsubscribe();
+        });
+        this._subscribed.set(chip, true);
+    };
+    /**
+     * Utility to ensure all indexes are valid.
+     *
+     * @param index The index to be checked.
+     * @returns {boolean} True if the index is valid for our list of chips.
+     */
+    MdChipList.prototype.isValidIndex = function (index) {
+        return index >= 0 && index < this.chips.length;
+    };
     MdChipList = __decorate$35([
         _angular_core.Component({selector: 'md-chip-list',
-            template: "<ng-content></ng-content>",
+            template: "<div class=\"md-chip-list-wrapper\"><ng-content></ng-content></div>",
             host: {
                 // Properties
                 'tabindex': '0',
                 'role': 'listbox',
-                'class': 'md-chip-list'
+                'class': 'md-chip-list',
+                // Events
+                '(focus)': '_keyManager.focusFirstItem()',
+                '(keydown)': 'keydown($event)'
             },
-            styles: [".md-chip-list { padding: 12px; } .md-chip { display: inline-block; padding: 8px 12px 8px 12px; border-radius: 24px; font-size: 13px; line-height: 16px; } /*# sourceMappingURL=chips.css.map */ "],
+            queries: {
+                chips: new _angular_core.ContentChildren(MdChip)
+            },
+            styles: [".md-chip-list-wrapper { display: flex; flex-direction: row; flex-wrap: wrap; align-items: flex-start; /* * Only apply the margins to chips */ } .md-chip-list-wrapper .md-chip { margin: 0 3px 0 3px; } .md-chip-list-wrapper .md-chip:first-child { margin-left: 0; margin-right: 3px; } [dir='rtl'] .md-chip-list-wrapper .md-chip:first-child { margin-left: 3px; margin-right: 0; } .md-chip-list-wrapper .md-chip:last-child { margin-left: 3px; margin-right: 0; } [dir='rtl'] .md-chip-list-wrapper .md-chip:last-child { margin-left: 0; margin-right: 3px; } .md-chip { display: inline-block; padding: 8px 12px 8px 12px; border-radius: 24px; font-size: 13px; line-height: 16px; } .md-chip-list-stacked .md-chip-list-wrapper { display: block; } .md-chip-list-stacked .md-chip-list-wrapper .md-chip { display: block; margin: 0; margin-bottom: 8px; } [dir='rtl'] .md-chip-list-stacked .md-chip-list-wrapper .md-chip { margin: 0; margin-bottom: 8px; } .md-chip-list-stacked .md-chip-list-wrapper .md-chip:last-child, [dir='rtl'] .md-chip-list-stacked .md-chip-list-wrapper .md-chip:last-child { margin-bottom: 0; } /*# sourceMappingURL=chips.css.map */ "],
             encapsulation: _angular_core.ViewEncapsulation.None,
             changeDetection: _angular_core.ChangeDetectionStrategy.OnPush
         }), 
@@ -12778,6 +12942,8 @@ exports.ENTER = ENTER;
 exports.SPACE = SPACE;
 exports.TAB = TAB;
 exports.ESCAPE = ESCAPE;
+exports.BACKSPACE = BACKSPACE;
+exports.DELETE = DELETE;
 exports.MATERIAL_COMPATIBILITY_MODE = MATERIAL_COMPATIBILITY_MODE;
 exports.MAT_ELEMENTS_SELECTOR = MAT_ELEMENTS_SELECTOR;
 exports.MatPrefixEnforcer = MatPrefixEnforcer;
