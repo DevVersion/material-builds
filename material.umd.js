@@ -1435,10 +1435,10 @@ var ConnectedPositionStrategy = (function () {
      */
     ConnectedPositionStrategy.prototype._willOverlayFitWithinViewport = function (overlayPoint, overlayRect, viewportRect) {
         // TODO(jelbourn): probably also want some space between overlay edge and viewport edge.
-        return overlayPoint.x >= viewportRect.left &&
-            overlayPoint.x + overlayRect.width <= viewportRect.right &&
-            overlayPoint.y >= viewportRect.top &&
-            overlayPoint.y + overlayRect.height <= viewportRect.bottom;
+        return overlayPoint.x >= 0 &&
+            overlayPoint.x + overlayRect.width <= viewportRect.width &&
+            overlayPoint.y >= 0 &&
+            overlayPoint.y + overlayRect.height <= viewportRect.height;
     };
     /**
      * Physically positions the overlay element to the given coordinate.
@@ -2494,7 +2494,10 @@ var A11yModule = (function () {
     A11yModule.forRoot = function () {
         return {
             ngModule: A11yModule,
-            providers: A11Y_PROVIDERS,
+            providers: [
+                PlatformModule.forRoot().providers,
+                A11Y_PROVIDERS,
+            ],
         };
     };
     A11yModule = __decorate$10([
@@ -5241,8 +5244,8 @@ var MdSelect = (function () {
     MdSelect.prototype._checkOverlayWithinViewport = function (maxScroll) {
         var viewportRect = this._viewportRuler.getViewportRect();
         var triggerRect = this._getTriggerRect();
-        var topSpaceAvailable = triggerRect.top - viewportRect.top - SELECT_PANEL_VIEWPORT_PADDING;
-        var bottomSpaceAvailable = viewportRect.bottom - triggerRect.bottom - SELECT_PANEL_VIEWPORT_PADDING;
+        var topSpaceAvailable = triggerRect.top - SELECT_PANEL_VIEWPORT_PADDING;
+        var bottomSpaceAvailable = viewportRect.height - triggerRect.bottom - SELECT_PANEL_VIEWPORT_PADDING;
         var panelHeightTop = Math.abs(this._offsetY);
         var totalPanelHeight = Math.min(this.options.length * SELECT_OPTION_HEIGHT, SELECT_PANEL_MAX_HEIGHT);
         var panelHeightBottom = totalPanelHeight - panelHeightTop - triggerRect.height;
@@ -9300,7 +9303,7 @@ var MdInputDirective = (function () {
         ].filter(function (t) { return getSupportedInputTypes().has(t); });
         // Force setter to be called in case id was not specified.
         this.id = this.id;
-        if (this._ngControl) {
+        if (this._ngControl && this._ngControl.valueChanges) {
             this._ngControl.valueChanges.subscribe(function (value) {
                 _this.value = value;
             });
@@ -9448,11 +9451,17 @@ var MdInputContainer = (function () {
             _this._validatePlaceholders();
         });
     };
+    MdInputContainer.prototype._isUntouched = function () { return this._hasNgControl() && this._mdInputChild._ngControl.untouched; };
+    MdInputContainer.prototype._isTouched = function () { return this._hasNgControl() && this._mdInputChild._ngControl.touched; };
+    MdInputContainer.prototype._isPristine = function () { return this._hasNgControl() && this._mdInputChild._ngControl.pristine; };
+    MdInputContainer.prototype._isDirty = function () { return this._hasNgControl() && this._mdInputChild._ngControl.dirty; };
+    MdInputContainer.prototype._isValid = function () { return this._hasNgControl() && this._mdInputChild._ngControl.valid; };
+    MdInputContainer.prototype._isInvalid = function () { return this._hasNgControl() && this._mdInputChild._ngControl.invalid; };
+    MdInputContainer.prototype._isPending = function () { return this._hasNgControl() && this._mdInputChild._ngControl.pending; };
     /** Whether the input has a placeholder. */
-    MdInputContainer.prototype._hasPlaceholder = function () {
-        return !!this._mdInputChild.placeholder || !!this._placeholderChild;
-    };
+    MdInputContainer.prototype._hasPlaceholder = function () { return !!(this._mdInputChild.placeholder || this._placeholderChild); };
     MdInputContainer.prototype._focusInput = function () { this._mdInputChild.focus(); };
+    MdInputContainer.prototype._hasNgControl = function () { return !!(this._mdInputChild && this._mdInputChild._ngControl); };
     /**
      * Ensure that there is only one placeholder (either `input` attribute or child element with the
      * `md-placeholder` attribute.
@@ -9523,6 +9532,13 @@ var MdInputContainer = (function () {
             host: {
                 // Remove align attribute to prevent it from interfering with layout.
                 '[attr.align]': 'null',
+                '[class.ng-untouched]': '_isUntouched()',
+                '[class.ng-touched]': '_isTouched()',
+                '[class.ng-pristine]': '_isPristine()',
+                '[class.ng-dirty]': '_isDirty()',
+                '[class.ng-valid]': '_isValid()',
+                '[class.ng-invalid]': '_isInvalid()',
+                '[class.ng-pending]': '_isPending()',
                 '(click)': '_focusInput()',
             },
             encapsulation: _angular_core.ViewEncapsulation.None,
@@ -10071,16 +10087,12 @@ var MdSnackBarRef = (function () {
         this.containerInstance = containerInstance;
         // Dismiss snackbar on action.
         this.onAction().subscribe(function () { return _this.dismiss(); });
+        containerInstance._onExit().subscribe(function () { return _this._finishDismiss(); });
     }
     /** Dismisses the snack bar. */
     MdSnackBarRef.prototype.dismiss = function () {
-        var _this = this;
         if (!this._afterClosed.closed) {
-            this.containerInstance.exit().subscribe(function () {
-                _this._overlayRef.dispose();
-                _this._afterClosed.next();
-                _this._afterClosed.complete();
-            });
+            this.containerInstance.exit();
         }
     };
     /** Marks the snackbar action clicked. */
@@ -10096,6 +10108,12 @@ var MdSnackBarRef = (function () {
             this._afterOpened.next();
             this._afterOpened.complete();
         }
+    };
+    /** Cleans up the DOM after closing. */
+    MdSnackBarRef.prototype._finishDismiss = function () {
+        this._overlayRef.dispose();
+        this._afterClosed.next();
+        this._afterClosed.complete();
     };
     /** Gets an observable that is notified when the snack bar is finished closing. */
     MdSnackBarRef.prototype.afterDismissed = function () {
@@ -10169,11 +10187,6 @@ var MdSnackBarContainer = (function (_super) {
     MdSnackBarContainer.prototype.attachTemplatePortal = function (portal) {
         throw Error('Not yet implemented');
     };
-    /** Begin animation of the snack bar exiting from view. */
-    MdSnackBarContainer.prototype.exit = function () {
-        this.animationState = 'complete';
-        return this.onExit.asObservable();
-    };
     /** Handle end of animations, updating the state of the snackbar. */
     MdSnackBarContainer.prototype.onAnimationEnd = function (event) {
         var _this = this;
@@ -10196,7 +10209,27 @@ var MdSnackBarContainer = (function (_super) {
     };
     /** Returns an observable resolving when the enter animation completes.  */
     MdSnackBarContainer.prototype._onEnter = function () {
+        this.animationState = 'visible';
         return this.onEnter.asObservable();
+    };
+    /** Begin animation of the snack bar exiting from view. */
+    MdSnackBarContainer.prototype.exit = function () {
+        this.animationState = 'complete';
+        return this._onExit();
+    };
+    /** Returns an observable that completes after the closing animation is done. */
+    MdSnackBarContainer.prototype._onExit = function () {
+        return this.onExit.asObservable();
+    };
+    /** Makes sure the exit callbacks have been invoked when the element is destroyed. */
+    MdSnackBarContainer.prototype.ngOnDestroy = function () {
+        var _this = this;
+        // Wait for the zone to settle before removing the element. Helps prevent
+        // errors where we end up removing an element which is in the middle of an animation.
+        this._ngZone.onMicrotaskEmpty.first().subscribe(function () {
+            _this.onExit.next();
+            _this.onExit.complete();
+        });
     };
     __decorate$45([
         _angular_core.ViewChild(PortalHostDirective), 
@@ -11477,7 +11510,7 @@ var MdToolbar = (function () {
     MdToolbar = __decorate$55([
         _angular_core.Component({selector: 'md-toolbar, mat-toolbar',
             template: "<div class=\"md-toolbar-layout\"> <md-toolbar-row> <ng-content></ng-content> </md-toolbar-row> <ng-content select=\"md-toolbar-row, mat-toolbar-row\"></ng-content> </div> ",
-            styles: ["md-toolbar { display: flex; box-sizing: border-box; width: 100%; min-height: 64px; font-size: 20px; font-weight: 400; font-family: Roboto, \"Helvetica Neue\", sans-serif; padding: 0 16px; flex-direction: column; } md-toolbar md-toolbar-row { display: flex; box-sizing: border-box; width: 100%; height: 64px; flex-direction: row; align-items: center; } /*# sourceMappingURL=toolbar.css.map */ "],
+            styles: ["md-toolbar { display: flex; box-sizing: border-box; width: 100%; font-size: 20px; font-weight: 400; font-family: Roboto, \"Helvetica Neue\", sans-serif; padding: 0 16px; flex-direction: column; } md-toolbar md-toolbar-row { display: flex; box-sizing: border-box; width: 100%; flex-direction: row; align-items: center; } md-toolbar { min-height: 64px; } md-toolbar-row { height: 64px; } @media (max-width: 600px) and (orientation: portrait) { md-toolbar { min-height: 56px; } md-toolbar-row { height: 56px; } } @media (max-width: 960px) and (orientation: landscape) { md-toolbar { min-height: 48px; } md-toolbar-row { height: 48px; } } /*# sourceMappingURL=toolbar.css.map */ "],
             changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
             encapsulation: _angular_core.ViewEncapsulation.None
         }), 

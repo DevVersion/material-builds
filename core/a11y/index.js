@@ -20,7 +20,10 @@ export var A11yModule = (function () {
     A11yModule.forRoot = function () {
         return {
             ngModule: A11yModule,
-            providers: A11Y_PROVIDERS,
+            providers: [
+                PlatformModule.forRoot().providers,
+                A11Y_PROVIDERS,
+            ],
         };
     };
     A11yModule = __decorate([

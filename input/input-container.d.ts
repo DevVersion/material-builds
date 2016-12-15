@@ -14,7 +14,7 @@ export declare class MdHint {
 export declare class MdInputDirective implements AfterContentInit {
     private _elementRef;
     private _renderer;
-    private _ngControl;
+    _ngControl: NgControl;
     disabled: any;
     private _disabled;
     id: string;
@@ -61,9 +61,17 @@ export declare class MdInputContainer implements AfterContentInit {
     _placeholderChild: MdPlaceholder;
     _hintChildren: QueryList<MdHint>;
     ngAfterContentInit(): void;
+    _isUntouched(): boolean;
+    _isTouched(): boolean;
+    _isPristine(): boolean;
+    _isDirty(): boolean;
+    _isValid(): boolean;
+    _isInvalid(): boolean;
+    _isPending(): boolean;
     /** Whether the input has a placeholder. */
     _hasPlaceholder(): boolean;
     _focusInput(): void;
+    private _hasNgControl();
     /**
      * Ensure that there is only one placeholder (either `input` attribute or child element with the
      * `md-placeholder` attribute.

@@ -46,11 +46,6 @@ export var MdSnackBarContainer = (function (_super) {
     MdSnackBarContainer.prototype.attachTemplatePortal = function (portal) {
         throw Error('Not yet implemented');
     };
-    /** Begin animation of the snack bar exiting from view. */
-    MdSnackBarContainer.prototype.exit = function () {
-        this.animationState = 'complete';
-        return this.onExit.asObservable();
-    };
     /** Handle end of animations, updating the state of the snackbar. */
     MdSnackBarContainer.prototype.onAnimationEnd = function (event) {
         var _this = this;
@@ -73,7 +68,27 @@ export var MdSnackBarContainer = (function (_super) {
     };
     /** Returns an observable resolving when the enter animation completes.  */
     MdSnackBarContainer.prototype._onEnter = function () {
+        this.animationState = 'visible';
         return this.onEnter.asObservable();
+    };
+    /** Begin animation of the snack bar exiting from view. */
+    MdSnackBarContainer.prototype.exit = function () {
+        this.animationState = 'complete';
+        return this._onExit();
+    };
+    /** Returns an observable that completes after the closing animation is done. */
+    MdSnackBarContainer.prototype._onExit = function () {
+        return this.onExit.asObservable();
+    };
+    /** Makes sure the exit callbacks have been invoked when the element is destroyed. */
+    MdSnackBarContainer.prototype.ngOnDestroy = function () {
+        var _this = this;
+        // Wait for the zone to settle before removing the element. Helps prevent
+        // errors where we end up removing an element which is in the middle of an animation.
+        this._ngZone.onMicrotaskEmpty.first().subscribe(function () {
+            _this.onExit.next();
+            _this.onExit.complete();
+        });
     };
     __decorate([
         ViewChild(PortalHostDirective), 
