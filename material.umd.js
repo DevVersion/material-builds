@@ -4982,7 +4982,11 @@ var MdSelect = (function () {
             Promise.resolve(null).then(function () { return _this.writeValue(value); });
             return;
         }
-        this._setSelectionByValue(value);
+        this.options.forEach(function (option) {
+            if (option.value === value) {
+                option.select();
+            }
+        });
     };
     /**
      * Saves a callback function to be invoked when the select's value
@@ -5073,26 +5077,6 @@ var MdSelect = (function () {
         var scrollContainer = this.overlayDir.overlayRef.overlayElement.querySelector('.md-select-panel');
         scrollContainer.scrollTop = this._scrollTop;
     };
-    /**
-     * Sets the selected option based on a value. If no option can be
-     * found with the designated value, the select trigger is cleared.
-     */
-    MdSelect.prototype._setSelectionByValue = function (value) {
-        var options = this.options.toArray();
-        for (var i = 0; i < this.options.length; i++) {
-            if (options[i].value === value) {
-                options[i].select();
-                return;
-            }
-        }
-        // Clear selection if no item was selected.
-        this._clearSelection();
-    };
-    /** Clears the select trigger and deselects every option in the list. */
-    MdSelect.prototype._clearSelection = function () {
-        this._selected = null;
-        this._updateOptions();
-    };
     MdSelect.prototype._getTriggerRect = function () {
         return this.trigger.nativeElement.getBoundingClientRect();
     };
@@ -5137,7 +5121,6 @@ var MdSelect = (function () {
         this._selected = option;
         this._updateOptions();
         this._setValueWidth();
-        this._placeholderState = '';
         if (this.panelOpen) {
             this.close();
         }

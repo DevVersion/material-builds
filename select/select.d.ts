@@ -174,13 +174,6 @@ export declare class MdSelect implements AfterContentInit, ControlValueAccessor,
      * present in the DOM.
      */
     _setScrollTop(): void;
-    /**
-     * Sets the selected option based on a value. If no option can be
-     * found with the designated value, the select trigger is cleared.
-     */
-    private _setSelectionByValue(value);
-    /** Clears the select trigger and deselects every option in the list. */
-    private _clearSelection();
     private _getTriggerRect();
     /** Sets up a key manager to listen to keyboard events on the overlay panel. */
     private _initKeyManager();
