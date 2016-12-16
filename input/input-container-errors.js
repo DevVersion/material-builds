@@ -25,5 +25,13 @@ export var MdInputContainerDuplicatedHintError = (function (_super) {
     }
     return MdInputContainerDuplicatedHintError;
 }(MdError));
+export var MdInputContainerMissingMdInputError = (function (_super) {
+    __extends(MdInputContainerMissingMdInputError, _super);
+    function MdInputContainerMissingMdInputError() {
+        _super.call(this, 'md-input-container must contain an md-input directive. Did you forget to add md-input ' +
+            'to the native input or textarea element?');
+    }
+    return MdInputContainerMissingMdInputError;
+}(MdError));
 
 //# sourceMappingURL=input-container-errors.js.map

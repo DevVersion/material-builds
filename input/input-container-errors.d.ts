@@ -8,3 +8,6 @@ export declare class MdInputContainerUnsupportedTypeError extends MdError {
 export declare class MdInputContainerDuplicatedHintError extends MdError {
     constructor(align: string);
 }
+export declare class MdInputContainerMissingMdInputError extends MdError {
+    constructor();
+}

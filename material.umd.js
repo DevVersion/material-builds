@@ -9230,6 +9230,14 @@ var MdInputContainerDuplicatedHintError = (function (_super) {
     }
     return MdInputContainerDuplicatedHintError;
 }(MdError));
+var MdInputContainerMissingMdInputError = (function (_super) {
+    __extends$14(MdInputContainerMissingMdInputError, _super);
+    function MdInputContainerMissingMdInputError() {
+        _super.call(this, 'md-input-container must contain an md-input directive. Did you forget to add md-input ' +
+            'to the native input or textarea element?');
+    }
+    return MdInputContainerMissingMdInputError;
+}(MdError));
 
 var __decorate$43 = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -9458,6 +9466,9 @@ var MdInputContainer = (function () {
     });
     MdInputContainer.prototype.ngAfterContentInit = function () {
         var _this = this;
+        if (!this._mdInputChild) {
+            throw new MdInputContainerMissingMdInputError();
+        }
         this._validateHints();
         this._validatePlaceholders();
         // Re-validate when things change.
@@ -13160,6 +13171,7 @@ exports.MdInputContainer = MdInputContainer;
 exports.MdInputContainerPlaceholderConflictError = MdInputContainerPlaceholderConflictError;
 exports.MdInputContainerUnsupportedTypeError = MdInputContainerUnsupportedTypeError;
 exports.MdInputContainerDuplicatedHintError = MdInputContainerDuplicatedHintError;
+exports.MdInputContainerMissingMdInputError = MdInputContainerMissingMdInputError;
 exports.MdListDivider = MdListDivider;
 exports.MdList = MdList;
 exports.MdListAvatar = MdListAvatar;

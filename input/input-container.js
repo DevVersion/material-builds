@@ -14,7 +14,7 @@ import { Component, Input, Directive, ContentChild, ContentChildren, ElementRef,
 import { coerceBooleanProperty } from '../core';
 import { NgControl } from '@angular/forms';
 import { getSupportedInputTypes } from '../core/platform/features';
-import { MdInputContainerUnsupportedTypeError, MdInputContainerPlaceholderConflictError, MdInputContainerDuplicatedHintError } from './input-container-errors';
+import { MdInputContainerUnsupportedTypeError, MdInputContainerPlaceholderConflictError, MdInputContainerDuplicatedHintError, MdInputContainerMissingMdInputError } from './input-container-errors';
 // Invalid input type. Using one of these will throw an MdInputContainerUnsupportedTypeError.
 var MD_INPUT_INVALID_TYPES = [
     'button',
@@ -230,6 +230,9 @@ export var MdInputContainer = (function () {
     });
     MdInputContainer.prototype.ngAfterContentInit = function () {
         var _this = this;
+        if (!this._mdInputChild) {
+            throw new MdInputContainerMissingMdInputError();
+        }
         this._validateHints();
         this._validatePlaceholders();
         // Re-validate when things change.
