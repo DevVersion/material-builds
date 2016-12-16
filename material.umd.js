@@ -4982,11 +4982,7 @@ var MdSelect = (function () {
             Promise.resolve(null).then(function () { return _this.writeValue(value); });
             return;
         }
-        this.options.forEach(function (option) {
-            if (option.value === value) {
-                option.select();
-            }
-        });
+        this._setSelectionByValue(value);
     };
     /**
      * Saves a callback function to be invoked when the select's value
@@ -5077,6 +5073,26 @@ var MdSelect = (function () {
         var scrollContainer = this.overlayDir.overlayRef.overlayElement.querySelector('.md-select-panel');
         scrollContainer.scrollTop = this._scrollTop;
     };
+    /**
+     * Sets the selected option based on a value. If no option can be
+     * found with the designated value, the select trigger is cleared.
+     */
+    MdSelect.prototype._setSelectionByValue = function (value) {
+        var options = this.options.toArray();
+        for (var i = 0; i < this.options.length; i++) {
+            if (options[i].value === value) {
+                options[i].select();
+                return;
+            }
+        }
+        // Clear selection if no item was selected.
+        this._clearSelection();
+    };
+    /** Clears the select trigger and deselects every option in the list. */
+    MdSelect.prototype._clearSelection = function () {
+        this._selected = null;
+        this._updateOptions();
+    };
     MdSelect.prototype._getTriggerRect = function () {
         return this.trigger.nativeElement.getBoundingClientRect();
     };
@@ -5121,6 +5137,7 @@ var MdSelect = (function () {
         this._selected = option;
         this._updateOptions();
         this._setValueWidth();
+        this._placeholderState = '';
         if (this.panelOpen) {
             this.close();
         }
@@ -12436,24 +12453,6 @@ var MdMenuModule = (function () {
     return MdMenuModule;
 }());
 
-;
-/**
- * Configuration for opening a modal dialog with the MdDialog service.
- */
-var MdDialogConfig = (function () {
-    function MdDialogConfig() {
-        /** The ARIA role of the dialog element. */
-        this.role = 'dialog';
-        /** Whether the user can use escape or clicking outside to close a modal. */
-        this.disableClose = false;
-        /** Width of the dialog. */
-        this.width = '';
-        /** Height of the dialog. */
-        this.height = '';
-    }
-    return MdDialogConfig;
-}());
-
 // TODO(jelbourn): resizing
 // TODO(jelbourn): afterOpen and beforeClose
 /**
@@ -12496,6 +12495,24 @@ var DialogInjector = (function () {
     return DialogInjector;
 }());
 
+;
+/**
+ * Configuration for opening a modal dialog with the MdDialog service.
+ */
+var MdDialogConfig = (function () {
+    function MdDialogConfig() {
+        /** The ARIA role of the dialog element. */
+        this.role = 'dialog';
+        /** Whether the user can use escape or clicking outside to close a modal. */
+        this.disableClose = false;
+        /** Width of the dialog. */
+        this.width = '';
+        /** Height of the dialog. */
+        this.height = '';
+    }
+    return MdDialogConfig;
+}());
+
 var __extends$22 = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -12515,13 +12532,13 @@ var __extends$21 = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var __decorate$62 = (this && this.__decorate) || function (decorators, target, key, desc) {
+var __decorate$63 = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$62 = (this && this.__metadata) || function (k, v) {
+var __metadata$63 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 /**
@@ -12570,18 +12587,18 @@ var MdDialogContainer = (function (_super) {
             _this._elementFocusedBeforeDialogWasOpened.focus();
         });
     };
-    __decorate$62([
+    __decorate$63([
         _angular_core.ViewChild(PortalHostDirective), 
-        __metadata$62('design:type', PortalHostDirective)
+        __metadata$63('design:type', PortalHostDirective)
     ], MdDialogContainer.prototype, "_portalHost", void 0);
-    __decorate$62([
+    __decorate$63([
         _angular_core.ViewChild(FocusTrap), 
-        __metadata$62('design:type', FocusTrap)
+        __metadata$63('design:type', FocusTrap)
     ], MdDialogContainer.prototype, "_focusTrap", void 0);
-    MdDialogContainer = __decorate$62([
+    MdDialogContainer = __decorate$63([
         _angular_core.Component({selector: 'md-dialog-container, mat-dialog-container',
             template: "<focus-trap> <template portalHost></template> </focus-trap> ",
-            styles: ["/** * Applies styles for users in high contrast mode. Note that this only applies * to Microsoft browsers. Chrome can be included by checking for the `html[hc]` * attribute, however Chrome handles high contrast differently. */ md-dialog-container { box-shadow: 0px 11px 15px -7px rgba(0, 0, 0, 0.2), 0px 24px 38px 3px rgba(0, 0, 0, 0.14), 0px 9px 46px 8px rgba(0, 0, 0, 0.12); display: block; padding: 24px; border-radius: 2px; box-sizing: border-box; overflow: auto; width: 100%; height: 100%; } @media screen and (-ms-high-contrast: active) { md-dialog-container { outline: solid 1px; } } /*# sourceMappingURL=dialog-container.css.map */ "],
+            styles: ["/** * Applies styles for users in high contrast mode. Note that this only applies * to Microsoft browsers. Chrome can be included by checking for the `html[hc]` * attribute, however Chrome handles high contrast differently. */ md-dialog-container { box-shadow: 0px 11px 15px -7px rgba(0, 0, 0, 0.2), 0px 24px 38px 3px rgba(0, 0, 0, 0.14), 0px 9px 46px 8px rgba(0, 0, 0, 0.12); display: block; padding: 24px; border-radius: 2px; box-sizing: border-box; overflow: auto; max-width: 80vw; width: 100%; height: 100%; } @media screen and (-ms-high-contrast: active) { md-dialog-container { outline: solid 1px; } } md-dialog-content, [md-dialog-content], mat-dialog-content, [mat-dialog-content] { display: block; margin: 0 -24px; padding: 0 24px; max-height: 65vh; overflow: auto; } [md-dialog-title], [mat-dialog-title] { font-size: 20px; font-weight: bold; margin: 0 0 20px; display: block; } md-dialog-actions, [md-dialog-actions], mat-dialog-actions, [mat-dialog-actions] { padding: 12px 0; display: block; } md-dialog-actions:last-child, [md-dialog-actions]:last-child, mat-dialog-actions:last-child, [mat-dialog-actions]:last-child { margin-bottom: -24px; } /*# sourceMappingURL=dialog.css.map */ "],
             host: {
                 'class': 'md-dialog-container',
                 '[attr.role]': 'dialogConfig?.role',
@@ -12589,22 +12606,21 @@ var MdDialogContainer = (function (_super) {
             },
             encapsulation: _angular_core.ViewEncapsulation.None,
         }), 
-        __metadata$62('design:paramtypes', [_angular_core.NgZone])
+        __metadata$63('design:paramtypes', [_angular_core.NgZone])
     ], MdDialogContainer);
     return MdDialogContainer;
 }(BasePortalHost));
 
-var __decorate$61 = (this && this.__decorate) || function (decorators, target, key, desc) {
+var __decorate$62 = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$61 = (this && this.__metadata) || function (k, v) {
+var __metadata$62 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 // TODO(jelbourn): add support for opening with a TemplateRef
-// TODO(jelbourn): dialog content directives (e.g., md-dialog-header)
 // TODO(jelbourn): animations
 /**
  * Service to open Material Design modal dialogs.
@@ -12727,9 +12743,9 @@ var MdDialog = (function () {
             this._openDialogs.splice(index, 1);
         }
     };
-    MdDialog = __decorate$61([
+    MdDialog = __decorate$62([
         _angular_core.Injectable(), 
-        __metadata$61('design:paramtypes', [Overlay, _angular_core.Injector])
+        __metadata$62('design:paramtypes', [Overlay, _angular_core.Injector])
     ], MdDialog);
     return MdDialog;
 }());
@@ -12741,6 +12757,94 @@ var MdDialog = (function () {
 function _applyConfigDefaults$1(dialogConfig) {
     return extendObject(new MdDialogConfig(), dialogConfig);
 }
+
+var __decorate$64 = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata$64 = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+/**
+ * Button that will close the current dialog.
+ */
+var MdDialogClose = (function () {
+    function MdDialogClose(dialogRef) {
+        this.dialogRef = dialogRef;
+        /** Screenreader label for the button. */
+        this.ariaLabel = 'Close dialog';
+    }
+    __decorate$64([
+        _angular_core.Input('aria-label'), 
+        __metadata$64('design:type', String)
+    ], MdDialogClose.prototype, "ariaLabel", void 0);
+    MdDialogClose = __decorate$64([
+        _angular_core.Directive({
+            selector: 'button[md-dialog-close], button[mat-dialog-close]',
+            host: {
+                '(click)': 'dialogRef.close()',
+                '[attr.aria-label]': 'ariaLabel'
+            }
+        }), 
+        __metadata$64('design:paramtypes', [MdDialogRef])
+    ], MdDialogClose);
+    return MdDialogClose;
+}());
+/**
+ * Title of a dialog element. Stays fixed to the top of the dialog when scrolling.
+ */
+var MdDialogTitle = (function () {
+    function MdDialogTitle() {
+    }
+    MdDialogTitle = __decorate$64([
+        _angular_core.Directive({
+            selector: '[md-dialog-title], [mat-dialog-title]'
+        }), 
+        __metadata$64('design:paramtypes', [])
+    ], MdDialogTitle);
+    return MdDialogTitle;
+}());
+/**
+ * Scrollable content container of a dialog.
+ */
+var MdDialogContent = (function () {
+    function MdDialogContent() {
+    }
+    MdDialogContent = __decorate$64([
+        _angular_core.Directive({
+            selector: '[md-dialog-content], md-dialog-content, [mat-dialog-content], mat-dialog-content'
+        }), 
+        __metadata$64('design:paramtypes', [])
+    ], MdDialogContent);
+    return MdDialogContent;
+}());
+/**
+ * Container for the bottom action buttons in a dialog.
+ * Stays fixed to the bottom when scrolling.
+ */
+var MdDialogActions = (function () {
+    function MdDialogActions() {
+    }
+    MdDialogActions = __decorate$64([
+        _angular_core.Directive({
+            selector: '[md-dialog-actions], md-dialog-actions, [mat-dialog-actions], mat-dialog-actions'
+        }), 
+        __metadata$64('design:paramtypes', [])
+    ], MdDialogActions);
+    return MdDialogActions;
+}());
+
+var __decorate$61 = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata$61 = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
 var MdDialogModule = (function () {
     function MdDialogModule() {
     }
@@ -12752,9 +12856,27 @@ var MdDialogModule = (function () {
     };
     MdDialogModule = __decorate$61([
         _angular_core.NgModule({
-            imports: [OverlayModule, PortalModule, A11yModule, DefaultStyleCompatibilityModeModule],
-            exports: [MdDialogContainer, DefaultStyleCompatibilityModeModule],
-            declarations: [MdDialogContainer],
+            imports: [
+                OverlayModule,
+                PortalModule,
+                A11yModule,
+                DefaultStyleCompatibilityModeModule
+            ],
+            exports: [
+                MdDialogContainer,
+                MdDialogClose,
+                MdDialogTitle,
+                MdDialogContent,
+                MdDialogActions,
+                DefaultStyleCompatibilityModeModule
+            ],
+            declarations: [
+                MdDialogContainer,
+                MdDialogClose,
+                MdDialogTitle,
+                MdDialogActions,
+                MdDialogContent
+            ],
             entryComponents: [MdDialogContainer],
         }), 
         __metadata$61('design:paramtypes', [])
@@ -12762,36 +12884,36 @@ var MdDialogModule = (function () {
     return MdDialogModule;
 }());
 
-var __decorate$64 = (this && this.__decorate) || function (decorators, target, key, desc) {
+var __decorate$66 = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$64 = (this && this.__metadata) || function (k, v) {
+var __metadata$66 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var MdAutocomplete = (function () {
     function MdAutocomplete() {
     }
-    MdAutocomplete = __decorate$64([
+    MdAutocomplete = __decorate$66([
         _angular_core.Component({selector: 'md-autocomplete, mat-autocomplete',
             template: "I'm an autocomplete!",
             styles: [" /*# sourceMappingURL=autocomplete.css.map */ "],
             encapsulation: _angular_core.ViewEncapsulation.None,
         }), 
-        __metadata$64('design:paramtypes', [])
+        __metadata$66('design:paramtypes', [])
     ], MdAutocomplete);
     return MdAutocomplete;
 }());
 
-var __decorate$63 = (this && this.__decorate) || function (decorators, target, key, desc) {
+var __decorate$65 = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$63 = (this && this.__metadata) || function (k, v) {
+var __metadata$65 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var MdAutocompleteModule = (function () {
@@ -12803,13 +12925,13 @@ var MdAutocompleteModule = (function () {
             providers: []
         };
     };
-    MdAutocompleteModule = __decorate$63([
+    MdAutocompleteModule = __decorate$65([
         _angular_core.NgModule({
             imports: [DefaultStyleCompatibilityModeModule],
             exports: [MdAutocomplete, DefaultStyleCompatibilityModeModule],
             declarations: [MdAutocomplete],
         }), 
-        __metadata$63('design:paramtypes', [])
+        __metadata$65('design:paramtypes', [])
     ], MdAutocompleteModule);
     return MdAutocompleteModule;
 }());
@@ -13009,11 +13131,15 @@ exports.MD_CHECKBOX_CONTROL_VALUE_ACCESSOR = MD_CHECKBOX_CONTROL_VALUE_ACCESSOR;
 exports.MdCheckboxChange = MdCheckboxChange;
 exports.MdCheckbox = MdCheckbox;
 exports.MdCheckboxModule = MdCheckboxModule;
-exports.MdDialog = MdDialog;
 exports.MdDialogModule = MdDialogModule;
+exports.MdDialog = MdDialog;
+exports.MdDialogContainer = MdDialogContainer;
+exports.MdDialogClose = MdDialogClose;
+exports.MdDialogTitle = MdDialogTitle;
+exports.MdDialogContent = MdDialogContent;
+exports.MdDialogActions = MdDialogActions;
 exports.MdDialogConfig = MdDialogConfig;
 exports.MdDialogRef = MdDialogRef;
-exports.MdDialogContainer = MdDialogContainer;
 exports.MdGridList = MdGridList;
 exports.MdGridListModule = MdGridListModule;
 exports.MdIconInvalidNameError = MdIconInvalidNameError;
