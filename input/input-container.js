@@ -138,7 +138,7 @@ export var MdInputDirective = (function () {
         configurable: true
     });
     Object.defineProperty(MdInputDirective.prototype, "empty", {
-        get: function () { return (this.value == null || this.value == '') && !this._isNeverEmpty(); },
+        get: function () { return (this.value == null || this.value === '') && !this._isNeverEmpty(); },
         enumerable: true,
         configurable: true
     });
