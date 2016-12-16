@@ -2927,6 +2927,7 @@ var __param$3 = (this && this.__param) || function (paramIndex, decorator) {
 /**
  * Provider Expression that allows md-button-toggle-group to register as a ControlValueAccessor.
  * This allows it to support [(ngModel)].
+ * @docs-private
  */
 var MD_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR = {
     provide: _angular_forms.NG_VALUE_ACCESSOR,
@@ -2934,7 +2935,7 @@ var MD_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR = {
     multi: true
 };
 var _uniqueIdCounter = 0;
-/** A simple change event emitted by either MdButtonToggle or MdButtonToggleGroup. */
+/** Change event object emitted by MdButtonToggle. */
 var MdButtonToggleChange = (function () {
     function MdButtonToggleChange() {
     }
@@ -3414,24 +3415,23 @@ var MdButton = (function () {
         this._disabled = null;
     }
     Object.defineProperty(MdButton.prototype, "disableRipple", {
+        /** Whether the ripple effect for this button is disabled. */
         get: function () { return this._disableRipple; },
         set: function (v) { this._disableRipple = coerceBooleanProperty(v); },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MdButton.prototype, "disabled", {
+        /** Whether the button is disabled. */
         get: function () { return this._disabled; },
         set: function (value) { this._disabled = coerceBooleanProperty(value) ? true : null; },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MdButton.prototype, "color", {
-        get: function () {
-            return this._color;
-        },
-        set: function (value) {
-            this._updateColor(value);
-        },
+        /** The color of the button. Can be `primary`, `accent`, or `warn`. */
+        get: function () { return this._color; },
+        set: function (value) { this._updateColor(value); },
         enumerable: true,
         configurable: true
     });
@@ -3460,14 +3460,14 @@ var MdButton = (function () {
     MdButton.prototype._removeKeyboardFocus = function () {
         this._isKeyboardFocused = false;
     };
-    /** TODO(hansl): e2e test this function. */
+    /** Focuses the button. */
     MdButton.prototype.focus = function () {
         this._renderer.invokeElementMethod(this._elementRef.nativeElement, 'focus');
     };
-    MdButton.prototype.getHostElement = function () {
+    MdButton.prototype._getHostElement = function () {
         return this._elementRef.nativeElement;
     };
-    MdButton.prototype.isRoundButton = function () {
+    MdButton.prototype._isRoundButton = function () {
         var el = this._elementRef.nativeElement;
         return el.hasAttribute('md-icon-button') ||
             el.hasAttribute('md-fab') ||
@@ -3498,7 +3498,7 @@ var MdButton = (function () {
                 '(focus)': '_setKeyboardFocus()',
                 '(blur)': '_removeKeyboardFocus()',
             },
-            template: "<span class=\"md-button-wrapper\"><ng-content></ng-content></span> <div md-ripple *ngIf=\"!_isRippleDisabled()\" class=\"md-button-ripple\" [class.md-button-ripple-round]=\"isRoundButton()\" [md-ripple-trigger]=\"getHostElement()\" [md-ripple-color]=\"isRoundButton() ? 'rgba(255, 255, 255, 0.2)' : ''\" md-ripple-background-color=\"rgba(0, 0, 0, 0)\"></div> <!-- the touchstart handler prevents the overlay from capturing the initial tap on touch devices --> <div class=\"md-button-focus-overlay\" (touchstart)=\"$event.preventDefault()\"></div> ",
+            template: "<span class=\"md-button-wrapper\"><ng-content></ng-content></span> <div md-ripple *ngIf=\"!_isRippleDisabled()\" class=\"md-button-ripple\" [class.md-button-ripple-round]=\"_isRoundButton()\" [md-ripple-trigger]=\"_getHostElement()\" [md-ripple-color]=\"_isRoundButton() ? 'rgba(255, 255, 255, 0.2)' : ''\" md-ripple-background-color=\"rgba(0, 0, 0, 0)\"></div> <!-- the touchstart handler prevents the overlay from capturing the initial tap on touch devices --> <div class=\"md-button-focus-overlay\" (touchstart)=\"$event.preventDefault()\"></div> ",
             styles: ["[md-raised-button], [md-fab], [md-mini-fab], [md-button], [md-icon-button] { box-sizing: border-box; position: relative; cursor: pointer; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; outline: none; border: none; display: inline-block; white-space: nowrap; text-decoration: none; vertical-align: baseline; font-size: 14px; font-family: Roboto, \"Helvetica Neue\", sans-serif; font-weight: 500; color: currentColor; text-align: center; margin: 0; min-width: 88px; line-height: 36px; padding: 0 16px; border-radius: 2px; } [disabled][md-raised-button], [disabled][md-fab], [disabled][md-mini-fab], [disabled][md-button], [disabled][md-icon-button] { cursor: default; } .md-button-focus[md-raised-button] .md-button-focus-overlay, .md-button-focus[md-fab] .md-button-focus-overlay, .md-button-focus[md-mini-fab] .md-button-focus-overlay, .md-button-focus[md-button] .md-button-focus-overlay, .md-button-focus[md-icon-button] .md-button-focus-overlay { opacity: 1; } [md-raised-button], [md-fab], [md-mini-fab] { box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12); transform: translate3d(0, 0, 0); transition: background 400ms cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1); } [md-raised-button]:active, [md-fab]:active, [md-mini-fab]:active { box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12); } [disabled][md-raised-button], [disabled][md-fab], [disabled][md-mini-fab] { box-shadow: none; } /** * Applies styles for users in high contrast mode. Note that this only applies * to Microsoft browsers. Chrome can be included by checking for the `html[hc]` * attribute, however Chrome handles high contrast differently. */ [md-button]:hover .md-button-focus-overlay, [md-icon-button]:hover .md-button-focus-overlay { opacity: 1; } [md-button][disabled]:hover.md-primary, [md-button][disabled]:hover.md-accent, [md-button][disabled]:hover.md-warn, [md-button][disabled]:hover .md-button-focus-overlay, [md-icon-button][disabled]:hover.md-primary, [md-icon-button][disabled]:hover.md-accent, [md-icon-button][disabled]:hover.md-warn, [md-icon-button][disabled]:hover .md-button-focus-overlay { background-color: transparent; } [md-fab] { box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12); min-width: 0; border-radius: 50%; width: 56px; height: 56px; padding: 0; flex-shrink: 0; } [md-fab]:active { box-shadow: 0px 7px 8px -4px rgba(0, 0, 0, 0.2), 0px 12px 17px 2px rgba(0, 0, 0, 0.14), 0px 5px 22px 4px rgba(0, 0, 0, 0.12); } [md-fab] i, [md-fab] md-icon { padding: 16px 0; line-height: 24px; } [md-mini-fab] { box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12); min-width: 0; border-radius: 50%; width: 40px; height: 40px; padding: 0; flex-shrink: 0; } [md-mini-fab]:active { box-shadow: 0px 7px 8px -4px rgba(0, 0, 0, 0.2), 0px 12px 17px 2px rgba(0, 0, 0, 0.14), 0px 5px 22px 4px rgba(0, 0, 0, 0.12); } [md-mini-fab] i, [md-mini-fab] md-icon { padding: 8px 0; line-height: 24px; } [md-icon-button] { padding: 0; min-width: 0; width: 40px; height: 40px; flex-shrink: 0; line-height: 40px; border-radius: 50%; } [md-icon-button] i, [md-icon-button] md-icon { line-height: 24px; } [md-button] .md-button-wrapper > *, [md-raised-button] .md-button-wrapper > *, [md-icon-button] .md-button-wrapper > * { vertical-align: middle; } .md-button-ripple, .md-button-focus-overlay { position: absolute; top: 0; left: 0; bottom: 0; right: 0; } .md-button-focus-overlay { background-color: rgba(0, 0, 0, 0.12); border-radius: inherit; pointer-events: none; opacity: 0; } @media screen and (-ms-high-contrast: active) { .md-button-focus-overlay { background-color: rgba(255, 255, 255, 0.5); } } .md-button-ripple-round { border-radius: 50%; z-index: 1; } @media screen and (-ms-high-contrast: active) { [md-button], [md-raised-button], [md-icon-button], [md-fab], [md-mini-fab] { outline: solid 1px; } } /*# sourceMappingURL=button.css.map */ "],
             encapsulation: _angular_core.ViewEncapsulation.None,
             changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
@@ -3513,14 +3513,14 @@ var MdAnchor = (function (_super) {
         _super.call(this, elementRef, renderer);
     }
     Object.defineProperty(MdAnchor.prototype, "tabIndex", {
+        /** @docs-private */
         get: function () {
             return this.disabled ? -1 : 0;
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdAnchor.prototype, "isAriaDisabled", {
-        /** Gets the aria-disabled value for the component, which must be a string for Dart. */
+    Object.defineProperty(MdAnchor.prototype, "_isAriaDisabled", {
         get: function () {
             return this.disabled ? 'true' : 'false';
         },
@@ -3538,22 +3538,19 @@ var MdAnchor = (function (_super) {
         _angular_core.HostBinding('tabIndex'), 
         __metadata$22('design:type', Number)
     ], MdAnchor.prototype, "tabIndex", null);
-    __decorate$22([
-        _angular_core.HostBinding('attr.aria-disabled'), 
-        __metadata$22('design:type', String)
-    ], MdAnchor.prototype, "isAriaDisabled", null);
     MdAnchor = __decorate$22([
         _angular_core.Component({selector: 'a[md-button], a[md-raised-button], a[md-icon-button], a[md-fab], a[md-mini-fab]',
             inputs: ['color', 'disabled', 'disableRipple'],
             host: {
                 '[attr.disabled]': 'disabled',
+                '[attr.aria-disabled]': '_isAriaDisabled',
                 '[class.md-button-focus]': '_isKeyboardFocused',
                 '(mousedown)': '_setMousedown()',
                 '(focus)': '_setKeyboardFocus()',
                 '(blur)': '_removeKeyboardFocus()',
                 '(click)': '_haltDisabledEvents($event)',
             },
-            template: "<span class=\"md-button-wrapper\"><ng-content></ng-content></span> <div md-ripple *ngIf=\"!_isRippleDisabled()\" class=\"md-button-ripple\" [class.md-button-ripple-round]=\"isRoundButton()\" [md-ripple-trigger]=\"getHostElement()\" [md-ripple-color]=\"isRoundButton() ? 'rgba(255, 255, 255, 0.2)' : ''\" md-ripple-background-color=\"rgba(0, 0, 0, 0)\"></div> <!-- the touchstart handler prevents the overlay from capturing the initial tap on touch devices --> <div class=\"md-button-focus-overlay\" (touchstart)=\"$event.preventDefault()\"></div> ",
+            template: "<span class=\"md-button-wrapper\"><ng-content></ng-content></span> <div md-ripple *ngIf=\"!_isRippleDisabled()\" class=\"md-button-ripple\" [class.md-button-ripple-round]=\"_isRoundButton()\" [md-ripple-trigger]=\"_getHostElement()\" [md-ripple-color]=\"_isRoundButton() ? 'rgba(255, 255, 255, 0.2)' : ''\" md-ripple-background-color=\"rgba(0, 0, 0, 0)\"></div> <!-- the touchstart handler prevents the overlay from capturing the initial tap on touch devices --> <div class=\"md-button-focus-overlay\" (touchstart)=\"$event.preventDefault()\"></div> ",
             styles: ["[md-raised-button], [md-fab], [md-mini-fab], [md-button], [md-icon-button] { box-sizing: border-box; position: relative; cursor: pointer; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; outline: none; border: none; display: inline-block; white-space: nowrap; text-decoration: none; vertical-align: baseline; font-size: 14px; font-family: Roboto, \"Helvetica Neue\", sans-serif; font-weight: 500; color: currentColor; text-align: center; margin: 0; min-width: 88px; line-height: 36px; padding: 0 16px; border-radius: 2px; } [disabled][md-raised-button], [disabled][md-fab], [disabled][md-mini-fab], [disabled][md-button], [disabled][md-icon-button] { cursor: default; } .md-button-focus[md-raised-button] .md-button-focus-overlay, .md-button-focus[md-fab] .md-button-focus-overlay, .md-button-focus[md-mini-fab] .md-button-focus-overlay, .md-button-focus[md-button] .md-button-focus-overlay, .md-button-focus[md-icon-button] .md-button-focus-overlay { opacity: 1; } [md-raised-button], [md-fab], [md-mini-fab] { box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12); transform: translate3d(0, 0, 0); transition: background 400ms cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1); } [md-raised-button]:active, [md-fab]:active, [md-mini-fab]:active { box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12); } [disabled][md-raised-button], [disabled][md-fab], [disabled][md-mini-fab] { box-shadow: none; } /** * Applies styles for users in high contrast mode. Note that this only applies * to Microsoft browsers. Chrome can be included by checking for the `html[hc]` * attribute, however Chrome handles high contrast differently. */ [md-button]:hover .md-button-focus-overlay, [md-icon-button]:hover .md-button-focus-overlay { opacity: 1; } [md-button][disabled]:hover.md-primary, [md-button][disabled]:hover.md-accent, [md-button][disabled]:hover.md-warn, [md-button][disabled]:hover .md-button-focus-overlay, [md-icon-button][disabled]:hover.md-primary, [md-icon-button][disabled]:hover.md-accent, [md-icon-button][disabled]:hover.md-warn, [md-icon-button][disabled]:hover .md-button-focus-overlay { background-color: transparent; } [md-fab] { box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12); min-width: 0; border-radius: 50%; width: 56px; height: 56px; padding: 0; flex-shrink: 0; } [md-fab]:active { box-shadow: 0px 7px 8px -4px rgba(0, 0, 0, 0.2), 0px 12px 17px 2px rgba(0, 0, 0, 0.14), 0px 5px 22px 4px rgba(0, 0, 0, 0.12); } [md-fab] i, [md-fab] md-icon { padding: 16px 0; line-height: 24px; } [md-mini-fab] { box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12); min-width: 0; border-radius: 50%; width: 40px; height: 40px; padding: 0; flex-shrink: 0; } [md-mini-fab]:active { box-shadow: 0px 7px 8px -4px rgba(0, 0, 0, 0.2), 0px 12px 17px 2px rgba(0, 0, 0, 0.14), 0px 5px 22px 4px rgba(0, 0, 0, 0.12); } [md-mini-fab] i, [md-mini-fab] md-icon { padding: 8px 0; line-height: 24px; } [md-icon-button] { padding: 0; min-width: 0; width: 40px; height: 40px; flex-shrink: 0; line-height: 40px; border-radius: 50%; } [md-icon-button] i, [md-icon-button] md-icon { line-height: 24px; } [md-button] .md-button-wrapper > *, [md-raised-button] .md-button-wrapper > *, [md-icon-button] .md-button-wrapper > * { vertical-align: middle; } .md-button-ripple, .md-button-focus-overlay { position: absolute; top: 0; left: 0; bottom: 0; right: 0; } .md-button-focus-overlay { background-color: rgba(0, 0, 0, 0.12); border-radius: inherit; pointer-events: none; opacity: 0; } @media screen and (-ms-high-contrast: active) { .md-button-focus-overlay { background-color: rgba(255, 255, 255, 0.5); } } .md-button-ripple-round { border-radius: 50%; z-index: 1; } @media screen and (-ms-high-contrast: active) { [md-button], [md-raised-button], [md-icon-button], [md-fab], [md-mini-fab] { outline: solid 1px; } } /*# sourceMappingURL=button.css.map */ "],
             encapsulation: _angular_core.ViewEncapsulation.None
         }), 
@@ -3590,13 +3587,12 @@ var __decorate$23 = (this && this.__decorate) || function (decorators, target, k
 var __metadata$23 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-/**
- * Monotonically increasing integer used to auto-generate unique ids for checkbox components.
- */
+/** Monotonically increasing integer used to auto-generate unique ids for checkbox components. */
 var nextId = 0;
 /**
- * Provider Expression that allows md-checkbox to register as a ControlValueAccessor. This allows it
- * to support [(ngModel)].
+ * Provider Expression that allows md-checkbox to register as a ControlValueAccessor.
+ * This allows it to support [(ngModel)].
+ * @docs-private
  */
 var MD_CHECKBOX_CONTROL_VALUE_ACCESSOR = {
     provide: _angular_forms.NG_VALUE_ACCESSOR,
@@ -3605,6 +3601,7 @@ var MD_CHECKBOX_CONTROL_VALUE_ACCESSOR = {
 };
 /**
  * Represents the different states that require custom transitions between them.
+ * @docs-private
  */
 (function (TransitionCheckState) {
     /** The initial state of the component before any user interaction. */
@@ -3616,7 +3613,7 @@ var MD_CHECKBOX_CONTROL_VALUE_ACCESSOR = {
     /** The state representing the component when it's becoming indeterminate. */
     TransitionCheckState[TransitionCheckState["Indeterminate"] = 3] = "Indeterminate";
 })(exports.TransitionCheckState || (exports.TransitionCheckState = {}));
-// A simple change event emitted by the MdCheckbox component.
+/** Change event object emitted by MdCheckbox. */
 var MdCheckboxChange = (function () {
     function MdCheckboxChange() {
     }
@@ -3649,33 +3646,34 @@ var MdCheckbox = (function () {
         /** Whether or not the checkbox should come before or after the label. */
         this.align = 'start';
         this._disabled = false;
-        /**
-         * The tabindex attribute for the checkbox. Note that when the checkbox is disabled, the attribute
-         * on the host element will be removed. It will be placed back when the checkbox is re-enabled.
-         */
+        /** @docs-private */
         this.tabindex = 0;
         /** Name value will be applied to the input element if present */
         this.name = null;
         /** Event emitted when the checkbox's `checked` value changes. */
         this.change = new _angular_core.EventEmitter();
-        /** Called when the checkbox is blurred. Needed to properly implement ControlValueAccessor. */
+        /**
+         * Called when the checkbox is blurred. Needed to properly implement ControlValueAccessor.
+         * @docs-private
+         */
         this.onTouched = function () { };
         this._currentAnimationClass = '';
         this._currentCheckState = exports.TransitionCheckState.Init;
         this._checked = false;
         this._indeterminate = false;
         this._controlValueAccessorChangeFn = function (value) { };
-        this.hasFocus = false;
+        this._hasFocus = false;
         this.color = 'accent';
     }
     Object.defineProperty(MdCheckbox.prototype, "disableRipple", {
+        /** Whether the ripple effect for this checkbox is disabled. */
         get: function () { return this._disableRipple; },
         set: function (value) { this._disableRipple = coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MdCheckbox.prototype, "inputId", {
-        /** ID to be applied to the `input` element */
+        /** ID of the native input element inside `<md-checkbox>` */
         get: function () {
             return "input-" + this.id;
         },
@@ -3683,17 +3681,14 @@ var MdCheckbox = (function () {
         configurable: true
     });
     Object.defineProperty(MdCheckbox.prototype, "required", {
-        /** Whether the checkbox is required or not. */
+        /** Whether the checkbox is required. */
         get: function () { return this._required; },
         set: function (value) { this._required = coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MdCheckbox.prototype, "disabled", {
-        /**
-         * Whether the checkbox is disabled. When the checkbox is disabled it cannot be interacted with.
-         * The correct ARIA attributes are applied to denote this to assistive technology.
-         */
+        /** Whether the checkbox is disabled. */
         get: function () { return this._disabled; },
         set: function (value) { this._disabled = coerceBooleanProperty(value); },
         enumerable: true,
@@ -3744,13 +3739,9 @@ var MdCheckbox = (function () {
         configurable: true
     });
     Object.defineProperty(MdCheckbox.prototype, "color", {
-        /** Sets the color of the checkbox */
-        get: function () {
-            return this._color;
-        },
-        set: function (value) {
-            this._updateColor(value);
-        },
+        /** The color of the button. Can be `primary`, `accent`, or `warn`. */
+        get: function () { return this._color; },
+        set: function (value) { this._updateColor(value); },
         enumerable: true,
         configurable: true
     });
@@ -3808,16 +3799,14 @@ var MdCheckbox = (function () {
     };
     /** Informs the component when the input has focus so that we can style accordingly */
     MdCheckbox.prototype._onInputFocus = function () {
-        this.hasFocus = true;
+        this._hasFocus = true;
     };
     /** Informs the component when we lose focus in order to style accordingly */
     MdCheckbox.prototype._onInputBlur = function () {
-        this.hasFocus = false;
+        this._hasFocus = false;
         this.onTouched();
     };
-    /**
-     * Toggles the `checked` value between true and false
-     */
+    /** Toggles the `checked` state of the checkbox. */
     MdCheckbox.prototype.toggle = function () {
         this.checked = !this.checked;
     };
@@ -3839,6 +3828,7 @@ var MdCheckbox = (function () {
             this._emitChangeEvent();
         }
     };
+    /** Focuses the checkbox. */
     MdCheckbox.prototype.focus = function () {
         this._renderer.invokeElementMethod(this._inputElement.nativeElement, 'focus');
         this._onInputFocus();
@@ -3880,7 +3870,7 @@ var MdCheckbox = (function () {
         }
         return "md-checkbox-anim-" + animSuffix;
     };
-    MdCheckbox.prototype.getHostElement = function () {
+    MdCheckbox.prototype._getHostElement = function () {
         return this._elementRef.nativeElement;
     };
     __decorate$23([
@@ -3941,14 +3931,14 @@ var MdCheckbox = (function () {
     ], MdCheckbox.prototype, "color", null);
     MdCheckbox = __decorate$23([
         _angular_core.Component({selector: 'md-checkbox, mat-checkbox',
-            template: "<label class=\"md-checkbox-layout\"> <div class=\"md-checkbox-inner-container\"> <input #input class=\"md-checkbox-input md-visually-hidden\" type=\"checkbox\" [id]=\"inputId\" [required]=\"required\" [checked]=\"checked\" [disabled]=\"disabled\" [name]=\"name\" [tabIndex]=\"tabindex\" [indeterminate]=\"indeterminate\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (focus)=\"_onInputFocus()\" (blur)=\"_onInputBlur()\" (change)=\"_onInteractionEvent($event)\" (click)=\"_onInputClick($event)\"> <div md-ripple *ngIf=\"!_isRippleDisabled()\" class=\"md-checkbox-ripple\" [md-ripple-trigger]=\"getHostElement()\" [md-ripple-centered]=\"true\" [md-ripple-speed-factor]=\"0.3\" md-ripple-background-color=\"rgba(0, 0, 0, 0)\"></div> <div class=\"md-checkbox-frame\"></div> <div class=\"md-checkbox-background\"> <svg version=\"1.1\" class=\"md-checkbox-checkmark\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" xml:space=\"preserve\"> <path class=\"md-checkbox-checkmark-path\" fill=\"none\" stroke=\"white\" d=\"M4.1,12.7 9,17.6 20.3,6.3\"/> </svg> <!-- Element for rendering the indeterminate state checkbox. --> <div class=\"md-checkbox-mixedmark\"></div> </div> </div> <span class=\"md-checkbox-label\"> <ng-content></ng-content> </span> </label> ",
+            template: "<label class=\"md-checkbox-layout\"> <div class=\"md-checkbox-inner-container\"> <input #input class=\"md-checkbox-input md-visually-hidden\" type=\"checkbox\" [id]=\"inputId\" [required]=\"required\" [checked]=\"checked\" [disabled]=\"disabled\" [name]=\"name\" [tabIndex]=\"tabindex\" [indeterminate]=\"indeterminate\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (focus)=\"_onInputFocus()\" (blur)=\"_onInputBlur()\" (change)=\"_onInteractionEvent($event)\" (click)=\"_onInputClick($event)\"> <div md-ripple *ngIf=\"!_isRippleDisabled()\" class=\"md-checkbox-ripple\" [md-ripple-trigger]=\"_getHostElement()\" [md-ripple-centered]=\"true\" [md-ripple-speed-factor]=\"0.3\" md-ripple-background-color=\"rgba(0, 0, 0, 0)\"></div> <div class=\"md-checkbox-frame\"></div> <div class=\"md-checkbox-background\"> <svg version=\"1.1\" class=\"md-checkbox-checkmark\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" xml:space=\"preserve\"> <path class=\"md-checkbox-checkmark-path\" fill=\"none\" stroke=\"white\" d=\"M4.1,12.7 9,17.6 20.3,6.3\"/> </svg> <!-- Element for rendering the indeterminate state checkbox. --> <div class=\"md-checkbox-mixedmark\"></div> </div> </div> <span class=\"md-checkbox-label\"> <ng-content></ng-content> </span> </label> ",
             styles: ["@keyframes md-checkbox-fade-in-background { 0% { opacity: 0; } 50% { opacity: 1; } } @keyframes md-checkbox-fade-out-background { 0%, 50% { opacity: 1; } 100% { opacity: 0; } } @keyframes md-checkbox-unchecked-checked-checkmark-path { 0%, 50% { stroke-dashoffset: 22.91026; } 50% { animation-timing-function: cubic-bezier(0, 0, 0.2, 0.1); } 100% { stroke-dashoffset: 0; } } @keyframes md-checkbox-unchecked-indeterminate-mixedmark { 0%, 68.2% { transform: scaleX(0); } 68.2% { animation-timing-function: cubic-bezier(0, 0, 0, 1); } 100% { transform: scaleX(1); } } @keyframes md-checkbox-checked-unchecked-checkmark-path { from { animation-timing-function: cubic-bezier(0.4, 0, 1, 1); stroke-dashoffset: 0; } to { stroke-dashoffset: -22.91026; } } @keyframes md-checkbox-checked-indeterminate-checkmark { from { animation-timing-function: cubic-bezier(0, 0, 0.2, 0.1); opacity: 1; transform: rotate(0deg); } to { opacity: 0; transform: rotate(45deg); } } @keyframes md-checkbox-indeterminate-checked-checkmark { from { animation-timing-function: cubic-bezier(0.14, 0, 0, 1); opacity: 0; transform: rotate(45deg); } to { opacity: 1; transform: rotate(360deg); } } @keyframes md-checkbox-checked-indeterminate-mixedmark { from { animation-timing-function: cubic-bezier(0, 0, 0.2, 0.1); opacity: 0; transform: rotate(-45deg); } to { opacity: 1; transform: rotate(0deg); } } @keyframes md-checkbox-indeterminate-checked-mixedmark { from { animation-timing-function: cubic-bezier(0.14, 0, 0, 1); opacity: 1; transform: rotate(0deg); } to { opacity: 0; transform: rotate(315deg); } } @keyframes md-checkbox-indeterminate-unchecked-mixedmark { 0% { animation-timing-function: linear; opacity: 1; transform: scaleX(1); } 32.8%, 100% { opacity: 0; transform: scaleX(0); } } .md-checkbox-frame, .md-checkbox-background, .md-checkbox-checkmark { bottom: 0; left: 0; position: absolute; right: 0; top: 0; } .md-checkbox-checkmark, .md-checkbox-mixedmark { width: calc(100% - 4px); } .md-checkbox-frame, .md-checkbox-background { border-radius: 2px; box-sizing: border-box; pointer-events: none; } md-checkbox { cursor: pointer; transition: background 400ms cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1); } .md-checkbox-layout { cursor: inherit; align-items: baseline; vertical-align: middle; display: inline-flex; } .md-checkbox-inner-container { display: inline-block; height: 20px; line-height: 0; margin: auto; margin-right: 8px; order: 0; position: relative; vertical-align: middle; white-space: nowrap; width: 20px; flex-shrink: 0; } [dir='rtl'] .md-checkbox-inner-container { margin-left: 8px; margin-right: auto; } .md-checkbox-layout .md-checkbox-label { line-height: 24px; } .md-checkbox-frame { background-color: transparent; border: 2px solid; transition: border-color 90ms cubic-bezier(0, 0, 0.2, 0.1); will-change: border-color; } .md-checkbox-background { align-items: center; display: inline-flex; justify-content: center; transition: background-color 90ms cubic-bezier(0, 0, 0.2, 0.1), opacity 90ms cubic-bezier(0, 0, 0.2, 0.1); will-change: background-color, opacity; } .md-checkbox-checkmark { width: 100%; } .md-checkbox-checkmark-path { stroke-dashoffset: 22.91026; stroke-dasharray: 22.91026; stroke-width: 2.66667px; } .md-checkbox-mixedmark { height: 2px; opacity: 0; transform: scaleX(0) rotate(0deg); } .md-checkbox-align-end .md-checkbox-inner-container { order: 1; margin-left: 8px; margin-right: auto; } [dir='rtl'] .md-checkbox-align-end .md-checkbox-inner-container { margin-left: auto; margin-right: 8px; } .md-checkbox-checked .md-checkbox-checkmark { opacity: 1; } .md-checkbox-checked .md-checkbox-checkmark-path { stroke-dashoffset: 0; } .md-checkbox-checked .md-checkbox-mixedmark { transform: scaleX(1) rotate(-45deg); } .md-checkbox-indeterminate .md-checkbox-checkmark { opacity: 0; transform: rotate(45deg); } .md-checkbox-indeterminate .md-checkbox-checkmark-path { stroke-dashoffset: 0; } .md-checkbox-indeterminate .md-checkbox-mixedmark { opacity: 1; transform: scaleX(1) rotate(0deg); } .md-checkbox-unchecked .md-checkbox-background { background-color: transparent; } .md-checkbox-disabled { cursor: default; } .md-checkbox-anim-unchecked-checked .md-checkbox-background { animation: 180ms linear 0ms md-checkbox-fade-in-background; } .md-checkbox-anim-unchecked-checked .md-checkbox-checkmark-path { animation: 180ms linear 0ms md-checkbox-unchecked-checked-checkmark-path; } .md-checkbox-anim-unchecked-indeterminate .md-checkbox-background { animation: 180ms linear 0ms md-checkbox-fade-in-background; } .md-checkbox-anim-unchecked-indeterminate .md-checkbox-mixedmark { animation: 90ms linear 0ms md-checkbox-unchecked-indeterminate-mixedmark; } .md-checkbox-anim-checked-unchecked .md-checkbox-background { animation: 180ms linear 0ms md-checkbox-fade-out-background; } .md-checkbox-anim-checked-unchecked .md-checkbox-checkmark-path { animation: 90ms linear 0ms md-checkbox-checked-unchecked-checkmark-path; } .md-checkbox-anim-checked-indeterminate .md-checkbox-checkmark { animation: 90ms linear 0ms md-checkbox-checked-indeterminate-checkmark; } .md-checkbox-anim-checked-indeterminate .md-checkbox-mixedmark { animation: 90ms linear 0ms md-checkbox-checked-indeterminate-mixedmark; } .md-checkbox-anim-indeterminate-checked .md-checkbox-checkmark { animation: 500ms linear 0ms md-checkbox-indeterminate-checked-checkmark; } .md-checkbox-anim-indeterminate-checked .md-checkbox-mixedmark { animation: 500ms linear 0ms md-checkbox-indeterminate-checked-mixedmark; } .md-checkbox-anim-indeterminate-unchecked .md-checkbox-background { animation: 180ms linear 0ms md-checkbox-fade-out-background; } .md-checkbox-anim-indeterminate-unchecked .md-checkbox-mixedmark { animation: 300ms linear 0ms md-checkbox-indeterminate-unchecked-mixedmark; } .md-checkbox-input { bottom: 0; left: 50%; } .md-checkbox-ripple { position: absolute; left: -15px; top: -15px; right: -15px; bottom: -15px; border-radius: 50%; z-index: 1; pointer-events: none; } /*# sourceMappingURL=checkbox.css.map */ "],
             host: {
                 '[class.md-checkbox-indeterminate]': 'indeterminate',
                 '[class.md-checkbox-checked]': 'checked',
                 '[class.md-checkbox-disabled]': 'disabled',
                 '[class.md-checkbox-align-end]': 'align == "end"',
-                '[class.md-checkbox-focused]': 'hasFocus',
+                '[class.md-checkbox-focused]': '_hasFocus',
             },
             providers: [MD_CHECKBOX_CONTROL_VALUE_ACCESSOR],
             encapsulation: _angular_core.ViewEncapsulation.None,
@@ -3993,26 +3983,23 @@ var __param$4 = (this && this.__param) || function (paramIndex, decorator) {
 /**
  * Provider Expression that allows md-radio-group to register as a ControlValueAccessor. This
  * allows it to support [(ngModel)] and ngControl.
+ * @docs-private
  */
 var MD_RADIO_GROUP_CONTROL_VALUE_ACCESSOR = {
     provide: _angular_forms.NG_VALUE_ACCESSOR,
     useExisting: _angular_core.forwardRef(function () { return MdRadioGroup; }),
     multi: true
 };
-// TODO(mtlin):
-// Ink ripple is currently placeholder.
-// Determine motion spec for button transitions.
-// Design review.
-// RTL
-// Support forms API.
-// Use ChangeDetectionStrategy.OnPush
 var _uniqueIdCounter$1 = 0;
-/** A simple change event emitted by either MdRadioButton or MdRadioGroup. */
+/** Change event object emitted by MdRadio and MdRadioGroup. */
 var MdRadioChange = (function () {
     function MdRadioChange() {
     }
     return MdRadioChange;
 }());
+/**
+ * A group of radio buttons. May contain one or more `<md-radio-button>` elements.
+ */
 var MdRadioGroup = (function () {
     function MdRadioGroup() {
         /**
@@ -4032,14 +4019,22 @@ var MdRadioGroup = (function () {
         this._isInitialized = false;
         /** The method to be called in order to update ngModel */
         this._controlValueAccessorChangeFn = function (value) { };
-        /** onTouch function registered via registerOnTouch (ControlValueAccessor). */
+        /**
+         * onTouch function registered via registerOnTouch (ControlValueAccessor).
+         * @docs-private
+         */
         this.onTouched = function () { };
-        /** Event emitted when the group value changes. */
+        /**
+         * Event emitted when the group value changes.
+         * Change events are only emitted when the value changes due to user interaction with
+         * a radio button (the same behavior as `<input type-"radio">`).
+         */
         this.change = new _angular_core.EventEmitter();
         /** Child radio buttons. */
         this._radios = null;
     }
     Object.defineProperty(MdRadioGroup.prototype, "name", {
+        /** Name of the radio button group. All radio buttons inside this group will use this name. */
         get: function () {
             return this._name;
         },
@@ -4200,6 +4195,9 @@ var MdRadioGroup = (function () {
     ], MdRadioGroup);
     return MdRadioGroup;
 }());
+/**
+ * A radio-button. May be inside of
+ */
 var MdRadioButton = (function () {
     function MdRadioButton(radioGroup, _elementRef, _renderer, radioDispatcher) {
         // Assertions. Ideally these should be stripped out by the compiler.
@@ -4214,7 +4212,11 @@ var MdRadioButton = (function () {
         this.id = "md-radio-" + _uniqueIdCounter$1++;
         /** Value assigned to this radio.*/
         this._value = null;
-        /** Event emitted when the group value changes. */
+        /**
+         * Event emitted when the checked state of this radio button changes.
+         * Change events are only emitted when the value changes due to user interaction with
+         * the radio button (the same behavior as `<input type-"radio">`).
+         */
         this.change = new _angular_core.EventEmitter();
         this.radioGroup = radioGroup;
         radioDispatcher.listen(function (id, name) {
@@ -4224,12 +4226,14 @@ var MdRadioButton = (function () {
         });
     }
     Object.defineProperty(MdRadioButton.prototype, "disableRipple", {
+        /** Whether the ripple effect for this radio button is disabled. */
         get: function () { return this._disableRipple; },
         set: function (value) { this._disableRipple = coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MdRadioButton.prototype, "inputId", {
+        /** ID of the native input element inside `<md-radio-button>` */
         get: function () {
             return this.id + "-input";
         },
@@ -4237,6 +4241,7 @@ var MdRadioButton = (function () {
         configurable: true
     });
     Object.defineProperty(MdRadioButton.prototype, "checked", {
+        /** Whether this radio button is checked. */
         get: function () {
             return this._checked;
         },
@@ -4261,7 +4266,7 @@ var MdRadioButton = (function () {
         configurable: true
     });
     Object.defineProperty(MdRadioButton.prototype, "value", {
-        /** MdRadioGroup reads this to assign its own value. */
+        /** The value of this radio button. */
         get: function () {
             return this._value;
         },
@@ -4283,8 +4288,9 @@ var MdRadioButton = (function () {
         configurable: true
     });
     Object.defineProperty(MdRadioButton.prototype, "align", {
+        /** Alignment of the radio-button relative to their labels. Can be 'before' or 'after'. */
         get: function () {
-            return this._align || (this.radioGroup != null && this.radioGroup.align) || 'start';
+            return this._align || (this.radioGroup != null && this.radioGroup.align) || 'before';
         },
         set: function (value) {
             this._align = value;
@@ -4293,6 +4299,7 @@ var MdRadioButton = (function () {
         configurable: true
     });
     Object.defineProperty(MdRadioButton.prototype, "disabled", {
+        /** Whether the radio button is disabled. */
         get: function () {
             return this._disabled || (this.radioGroup != null && this.radioGroup.disabled);
         },
@@ -4329,6 +4336,7 @@ var MdRadioButton = (function () {
     MdRadioButton.prototype._onInputFocus = function () {
         this._isFocused = true;
     };
+    /** Focuses the radio button. */
     MdRadioButton.prototype.focus = function () {
         this._renderer.invokeElementMethod(this._inputElement.nativeElement, 'focus');
         this._onInputFocus();
@@ -4369,7 +4377,7 @@ var MdRadioButton = (function () {
             }
         }
     };
-    MdRadioButton.prototype.getHostElement = function () {
+    MdRadioButton.prototype._getHostElement = function () {
         return this._elementRef.nativeElement;
     };
     __decorate$24([
@@ -4425,7 +4433,7 @@ var MdRadioButton = (function () {
     ], MdRadioButton.prototype, "disabled", null);
     MdRadioButton = __decorate$24([
         _angular_core.Component({selector: 'md-radio-button, mat-radio-button',
-            template: "<!-- TODO(jelbourn): render the radio on either side of the content --> <!-- TODO(mtlin): Evaluate trade-offs of using native radio vs. cost of additional bindings. --> <label [attr.for]=\"inputId\" class=\"md-radio-label\"> <!-- The actual 'radio' part of the control. --> <div class=\"md-radio-container\"> <div class=\"md-radio-outer-circle\"></div> <div class=\"md-radio-inner-circle\"></div> <div md-ripple *ngIf=\"!_isRippleDisabled()\" class=\"md-radio-ripple\" [md-ripple-trigger]=\"getHostElement()\" [md-ripple-centered]=\"true\" [md-ripple-speed-factor]=\"0.3\" md-ripple-background-color=\"rgba(0, 0, 0, 0)\"></div> </div> <input #input class=\"md-radio-input md-visually-hidden\" type=\"radio\" [id]=\"inputId\" [checked]=\"checked\" [disabled]=\"disabled\" [name]=\"name\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (change)=\"_onInputChange($event)\" (focus)=\"_onInputFocus()\" (blur)=\"_onInputBlur()\" (click)=\"_onInputClick($event)\"> <!-- The label content for radio control. --> <div class=\"md-radio-label-content\" [class.md-radio-align-end]=\"align == 'end'\"> <ng-content></ng-content> </div> </label> ",
+            template: "<!-- TODO(jelbourn): render the radio on either side of the content --> <!-- TODO(mtlin): Evaluate trade-offs of using native radio vs. cost of additional bindings. --> <label [attr.for]=\"inputId\" class=\"md-radio-label\"> <!-- The actual 'radio' part of the control. --> <div class=\"md-radio-container\"> <div class=\"md-radio-outer-circle\"></div> <div class=\"md-radio-inner-circle\"></div> <div md-ripple *ngIf=\"!_isRippleDisabled()\" class=\"md-radio-ripple\" [md-ripple-trigger]=\"_getHostElement()\" [md-ripple-centered]=\"true\" [md-ripple-speed-factor]=\"0.3\" md-ripple-background-color=\"rgba(0, 0, 0, 0)\"></div> </div> <input #input class=\"md-radio-input md-visually-hidden\" type=\"radio\" [id]=\"inputId\" [checked]=\"checked\" [disabled]=\"disabled\" [name]=\"name\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (change)=\"_onInputChange($event)\" (focus)=\"_onInputFocus()\" (blur)=\"_onInputBlur()\" (click)=\"_onInputClick($event)\"> <!-- The label content for radio control. --> <div class=\"md-radio-label-content\" [class.md-radio-align-end]=\"align == 'after'\"> <ng-content></ng-content> </div> </label> ",
             styles: ["md-radio-button { display: inline-block; } .md-radio-label { cursor: pointer; display: inline-flex; align-items: baseline; white-space: nowrap; } .md-radio-container { box-sizing: border-box; display: inline-block; height: 20px; position: relative; width: 20px; top: 2px; } .md-radio-outer-circle { border: solid 2px; border-radius: 50%; box-sizing: border-box; height: 20px; left: 0; position: absolute; top: 0; transition: border-color ease 280ms; width: 20px; } .md-radio-inner-circle { border-radius: 50%; box-sizing: border-box; height: 20px; left: 0; position: absolute; top: 0; transition: transform ease 280ms, background-color ease 280ms; transform: scale(0); width: 20px; } .md-radio-checked .md-radio-inner-circle { transform: scale(0.5); } .md-radio-label-content { display: inline-block; order: 0; line-height: inherit; padding-left: 8px; padding-right: 0; } [dir='rtl'] .md-radio-label-content { padding-right: 8px; padding-left: 0; } .md-radio-label-content.md-radio-align-end { order: -1; padding-left: 0; padding-right: 8px; } [dir='rtl'] .md-radio-label-content.md-radio-align-end { padding-right: 0; padding-left: 8px; } .md-radio-disabled, .md-radio-disabled .md-radio-label { cursor: default; } .md-radio-ripple { position: absolute; left: -15px; top: -15px; right: -15px; bottom: -15px; border-radius: 50%; z-index: 1; pointer-events: none; } /*# sourceMappingURL=radio.css.map */ "],
             encapsulation: _angular_core.ViewEncapsulation.None
         }),

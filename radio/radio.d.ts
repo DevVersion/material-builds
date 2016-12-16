@@ -4,13 +4,17 @@ import { MdUniqueSelectionDispatcher } from '../core';
 /**
  * Provider Expression that allows md-radio-group to register as a ControlValueAccessor. This
  * allows it to support [(ngModel)] and ngControl.
+ * @docs-private
  */
 export declare const MD_RADIO_GROUP_CONTROL_VALUE_ACCESSOR: any;
-/** A simple change event emitted by either MdRadioButton or MdRadioGroup. */
+/** Change event object emitted by MdRadio and MdRadioGroup. */
 export declare class MdRadioChange {
     source: MdRadioButton;
     value: any;
 }
+/**
+ * A group of radio buttons. May contain one or more `<md-radio-button>` elements.
+ */
 export declare class MdRadioGroup implements AfterContentInit, ControlValueAccessor {
     /**
      * Selected value for group. Should equal the value of the selected radio button if there *is*
@@ -29,14 +33,23 @@ export declare class MdRadioGroup implements AfterContentInit, ControlValueAcces
     private _isInitialized;
     /** The method to be called in order to update ngModel */
     _controlValueAccessorChangeFn: (value: any) => void;
-    /** onTouch function registered via registerOnTouch (ControlValueAccessor). */
+    /**
+     * onTouch function registered via registerOnTouch (ControlValueAccessor).
+     * @docs-private
+     */
     onTouched: () => any;
-    /** Event emitted when the group value changes. */
+    /**
+     * Event emitted when the group value changes.
+     * Change events are only emitted when the value changes due to user interaction with
+     * a radio button (the same behavior as `<input type-"radio">`).
+     */
     change: EventEmitter<MdRadioChange>;
     /** Child radio buttons. */
     _radios: QueryList<MdRadioButton>;
+    /** Name of the radio button group. All radio buttons inside this group will use this name. */
     name: string;
-    align: 'start' | 'end';
+    /** Alignment of the radio-buttons relative to their labels. Can be 'before' or 'after'. */
+    align: 'before' | 'after';
     disabled: boolean;
     value: any;
     _checkSelectedRadioButton(): void;
@@ -65,6 +78,9 @@ export declare class MdRadioGroup implements AfterContentInit, ControlValueAcces
     /** Implemented as a part of ControlValueAccessor. */
     setDisabledState(isDisabled: boolean): void;
 }
+/**
+ * A radio-button. May be inside of
+ */
 export declare class MdRadioButton implements OnInit {
     private _elementRef;
     private _renderer;
@@ -88,18 +104,27 @@ export declare class MdRadioButton implements OnInit {
     private _disableRipple;
     /** The parent radio group. May or may not be present. */
     radioGroup: MdRadioGroup;
+    /** Whether the ripple effect for this radio button is disabled. */
     disableRipple: boolean;
-    /** Event emitted when the group value changes. */
+    /**
+     * Event emitted when the checked state of this radio button changes.
+     * Change events are only emitted when the value changes due to user interaction with
+     * the radio button (the same behavior as `<input type-"radio">`).
+     */
     change: EventEmitter<MdRadioChange>;
-    /** The native `<input type=radio> element */
+    /** The native `<input type=radio>` element */
     _inputElement: ElementRef;
     constructor(radioGroup: MdRadioGroup, _elementRef: ElementRef, _renderer: Renderer, radioDispatcher: MdUniqueSelectionDispatcher);
+    /** ID of the native input element inside `<md-radio-button>` */
     readonly inputId: string;
+    /** Whether this radio button is checked. */
     checked: boolean;
-    /** MdRadioGroup reads this to assign its own value. */
+    /** The value of this radio button. */
     value: any;
     private _align;
-    align: 'start' | 'end';
+    /** Alignment of the radio-button relative to their labels. Can be 'before' or 'after'. */
+    align: 'before' | 'after';
+    /** Whether the radio button is disabled. */
     disabled: boolean;
     ngOnInit(): void;
     /** Dispatch change event with current value. */
@@ -111,6 +136,7 @@ export declare class MdRadioButton implements OnInit {
      * state of the component.
      */
     _onInputFocus(): void;
+    /** Focuses the radio button. */
     focus(): void;
     _onInputBlur(): void;
     _onInputClick(event: Event): void;
@@ -119,7 +145,7 @@ export declare class MdRadioButton implements OnInit {
      * Clicking on a label element, will trigger a change event on the associated input.
      */
     _onInputChange(event: Event): void;
-    getHostElement(): any;
+    _getHostElement(): any;
 }
 export declare class MdRadioModule {
     static forRoot(): ModuleWithProviders;

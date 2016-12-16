@@ -19,26 +19,23 @@ import { ViewportRuler } from '../core/overlay/position/viewport-ruler';
 /**
  * Provider Expression that allows md-radio-group to register as a ControlValueAccessor. This
  * allows it to support [(ngModel)] and ngControl.
+ * @docs-private
  */
 export var MD_RADIO_GROUP_CONTROL_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(function () { return MdRadioGroup; }),
     multi: true
 };
-// TODO(mtlin):
-// Ink ripple is currently placeholder.
-// Determine motion spec for button transitions.
-// Design review.
-// RTL
-// Support forms API.
-// Use ChangeDetectionStrategy.OnPush
 var _uniqueIdCounter = 0;
-/** A simple change event emitted by either MdRadioButton or MdRadioGroup. */
+/** Change event object emitted by MdRadio and MdRadioGroup. */
 export var MdRadioChange = (function () {
     function MdRadioChange() {
     }
     return MdRadioChange;
 }());
+/**
+ * A group of radio buttons. May contain one or more `<md-radio-button>` elements.
+ */
 export var MdRadioGroup = (function () {
     function MdRadioGroup() {
         /**
@@ -58,14 +55,22 @@ export var MdRadioGroup = (function () {
         this._isInitialized = false;
         /** The method to be called in order to update ngModel */
         this._controlValueAccessorChangeFn = function (value) { };
-        /** onTouch function registered via registerOnTouch (ControlValueAccessor). */
+        /**
+         * onTouch function registered via registerOnTouch (ControlValueAccessor).
+         * @docs-private
+         */
         this.onTouched = function () { };
-        /** Event emitted when the group value changes. */
+        /**
+         * Event emitted when the group value changes.
+         * Change events are only emitted when the value changes due to user interaction with
+         * a radio button (the same behavior as `<input type-"radio">`).
+         */
         this.change = new EventEmitter();
         /** Child radio buttons. */
         this._radios = null;
     }
     Object.defineProperty(MdRadioGroup.prototype, "name", {
+        /** Name of the radio button group. All radio buttons inside this group will use this name. */
         get: function () {
             return this._name;
         },
@@ -226,6 +231,9 @@ export var MdRadioGroup = (function () {
     ], MdRadioGroup);
     return MdRadioGroup;
 }());
+/**
+ * A radio-button. May be inside of
+ */
 export var MdRadioButton = (function () {
     function MdRadioButton(radioGroup, _elementRef, _renderer, radioDispatcher) {
         // Assertions. Ideally these should be stripped out by the compiler.
@@ -240,7 +248,11 @@ export var MdRadioButton = (function () {
         this.id = "md-radio-" + _uniqueIdCounter++;
         /** Value assigned to this radio.*/
         this._value = null;
-        /** Event emitted when the group value changes. */
+        /**
+         * Event emitted when the checked state of this radio button changes.
+         * Change events are only emitted when the value changes due to user interaction with
+         * the radio button (the same behavior as `<input type-"radio">`).
+         */
         this.change = new EventEmitter();
         this.radioGroup = radioGroup;
         radioDispatcher.listen(function (id, name) {
@@ -250,12 +262,14 @@ export var MdRadioButton = (function () {
         });
     }
     Object.defineProperty(MdRadioButton.prototype, "disableRipple", {
+        /** Whether the ripple effect for this radio button is disabled. */
         get: function () { return this._disableRipple; },
         set: function (value) { this._disableRipple = coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MdRadioButton.prototype, "inputId", {
+        /** ID of the native input element inside `<md-radio-button>` */
         get: function () {
             return this.id + "-input";
         },
@@ -263,6 +277,7 @@ export var MdRadioButton = (function () {
         configurable: true
     });
     Object.defineProperty(MdRadioButton.prototype, "checked", {
+        /** Whether this radio button is checked. */
         get: function () {
             return this._checked;
         },
@@ -287,7 +302,7 @@ export var MdRadioButton = (function () {
         configurable: true
     });
     Object.defineProperty(MdRadioButton.prototype, "value", {
-        /** MdRadioGroup reads this to assign its own value. */
+        /** The value of this radio button. */
         get: function () {
             return this._value;
         },
@@ -309,8 +324,9 @@ export var MdRadioButton = (function () {
         configurable: true
     });
     Object.defineProperty(MdRadioButton.prototype, "align", {
+        /** Alignment of the radio-button relative to their labels. Can be 'before' or 'after'. */
         get: function () {
-            return this._align || (this.radioGroup != null && this.radioGroup.align) || 'start';
+            return this._align || (this.radioGroup != null && this.radioGroup.align) || 'before';
         },
         set: function (value) {
             this._align = value;
@@ -319,6 +335,7 @@ export var MdRadioButton = (function () {
         configurable: true
     });
     Object.defineProperty(MdRadioButton.prototype, "disabled", {
+        /** Whether the radio button is disabled. */
         get: function () {
             return this._disabled || (this.radioGroup != null && this.radioGroup.disabled);
         },
@@ -355,6 +372,7 @@ export var MdRadioButton = (function () {
     MdRadioButton.prototype._onInputFocus = function () {
         this._isFocused = true;
     };
+    /** Focuses the radio button. */
     MdRadioButton.prototype.focus = function () {
         this._renderer.invokeElementMethod(this._inputElement.nativeElement, 'focus');
         this._onInputFocus();
@@ -395,7 +413,7 @@ export var MdRadioButton = (function () {
             }
         }
     };
-    MdRadioButton.prototype.getHostElement = function () {
+    MdRadioButton.prototype._getHostElement = function () {
         return this._elementRef.nativeElement;
     };
     __decorate([
@@ -451,7 +469,7 @@ export var MdRadioButton = (function () {
     ], MdRadioButton.prototype, "disabled", null);
     MdRadioButton = __decorate([
         Component({selector: 'md-radio-button, mat-radio-button',
-            template: "<!-- TODO(jelbourn): render the radio on either side of the content --> <!-- TODO(mtlin): Evaluate trade-offs of using native radio vs. cost of additional bindings. --> <label [attr.for]=\"inputId\" class=\"md-radio-label\"> <!-- The actual 'radio' part of the control. --> <div class=\"md-radio-container\"> <div class=\"md-radio-outer-circle\"></div> <div class=\"md-radio-inner-circle\"></div> <div md-ripple *ngIf=\"!_isRippleDisabled()\" class=\"md-radio-ripple\" [md-ripple-trigger]=\"getHostElement()\" [md-ripple-centered]=\"true\" [md-ripple-speed-factor]=\"0.3\" md-ripple-background-color=\"rgba(0, 0, 0, 0)\"></div> </div> <input #input class=\"md-radio-input md-visually-hidden\" type=\"radio\" [id]=\"inputId\" [checked]=\"checked\" [disabled]=\"disabled\" [name]=\"name\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (change)=\"_onInputChange($event)\" (focus)=\"_onInputFocus()\" (blur)=\"_onInputBlur()\" (click)=\"_onInputClick($event)\"> <!-- The label content for radio control. --> <div class=\"md-radio-label-content\" [class.md-radio-align-end]=\"align == 'end'\"> <ng-content></ng-content> </div> </label> ",
+            template: "<!-- TODO(jelbourn): render the radio on either side of the content --> <!-- TODO(mtlin): Evaluate trade-offs of using native radio vs. cost of additional bindings. --> <label [attr.for]=\"inputId\" class=\"md-radio-label\"> <!-- The actual 'radio' part of the control. --> <div class=\"md-radio-container\"> <div class=\"md-radio-outer-circle\"></div> <div class=\"md-radio-inner-circle\"></div> <div md-ripple *ngIf=\"!_isRippleDisabled()\" class=\"md-radio-ripple\" [md-ripple-trigger]=\"_getHostElement()\" [md-ripple-centered]=\"true\" [md-ripple-speed-factor]=\"0.3\" md-ripple-background-color=\"rgba(0, 0, 0, 0)\"></div> </div> <input #input class=\"md-radio-input md-visually-hidden\" type=\"radio\" [id]=\"inputId\" [checked]=\"checked\" [disabled]=\"disabled\" [name]=\"name\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (change)=\"_onInputChange($event)\" (focus)=\"_onInputFocus()\" (blur)=\"_onInputBlur()\" (click)=\"_onInputClick($event)\"> <!-- The label content for radio control. --> <div class=\"md-radio-label-content\" [class.md-radio-align-end]=\"align == 'after'\"> <ng-content></ng-content> </div> </label> ",
             styles: ["md-radio-button { display: inline-block; } .md-radio-label { cursor: pointer; display: inline-flex; align-items: baseline; white-space: nowrap; } .md-radio-container { box-sizing: border-box; display: inline-block; height: 20px; position: relative; width: 20px; top: 2px; } .md-radio-outer-circle { border: solid 2px; border-radius: 50%; box-sizing: border-box; height: 20px; left: 0; position: absolute; top: 0; transition: border-color ease 280ms; width: 20px; } .md-radio-inner-circle { border-radius: 50%; box-sizing: border-box; height: 20px; left: 0; position: absolute; top: 0; transition: transform ease 280ms, background-color ease 280ms; transform: scale(0); width: 20px; } .md-radio-checked .md-radio-inner-circle { transform: scale(0.5); } .md-radio-label-content { display: inline-block; order: 0; line-height: inherit; padding-left: 8px; padding-right: 0; } [dir='rtl'] .md-radio-label-content { padding-right: 8px; padding-left: 0; } .md-radio-label-content.md-radio-align-end { order: -1; padding-left: 0; padding-right: 8px; } [dir='rtl'] .md-radio-label-content.md-radio-align-end { padding-right: 0; padding-left: 8px; } .md-radio-disabled, .md-radio-disabled .md-radio-label { cursor: default; } .md-radio-ripple { position: absolute; left: -15px; top: -15px; right: -15px; bottom: -15px; border-radius: 50%; z-index: 1; pointer-events: none; } /*# sourceMappingURL=radio.css.map */ "],
             encapsulation: ViewEncapsulation.None
         }),

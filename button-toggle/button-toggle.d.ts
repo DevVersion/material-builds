@@ -6,9 +6,10 @@ export declare type ToggleType = 'checkbox' | 'radio';
 /**
  * Provider Expression that allows md-button-toggle-group to register as a ControlValueAccessor.
  * This allows it to support [(ngModel)].
+ * @docs-private
  */
 export declare const MD_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR: any;
-/** A simple change event emitted by either MdButtonToggle or MdButtonToggleGroup. */
+/** Change event object emitted by MdButtonToggle. */
 export declare class MdButtonToggleChange {
     source: MdButtonToggle;
     value: any;
