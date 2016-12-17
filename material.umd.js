@@ -2043,7 +2043,9 @@ var __metadata$13 = (this && this.__metadata) || function (k, v) {
 };
 // Whether the current platform supports the V8 Break Iterator. The V8 check
 // is necessary to detect all Blink based browsers.
-var hasV8BreakIterator = (window.Intl && window.Intl.v8BreakIterator);
+var hasV8BreakIterator = typeof (window) !== 'undefined' ?
+    (window.Intl && window.Intl.v8BreakIterator) :
+    (typeof (Intl) !== 'undefined' && Intl.v8BreakIterator);
 /**
  * Service to detect the current platform by comparing the userAgent strings and
  * checking browser-specific global properties.
