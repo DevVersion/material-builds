@@ -13236,6 +13236,7 @@ exports.PortalHostDirective = PortalHostDirective;
 exports.TemplatePortalDirective = TemplatePortalDirective;
 exports.PortalModule = PortalModule;
 exports.DomPortalHost = DomPortalHost;
+exports.PlatformModule = PlatformModule;
 exports.Overlay = Overlay;
 exports.OVERLAY_PROVIDERS = OVERLAY_PROVIDERS;
 exports.OverlayContainer = OverlayContainer;
