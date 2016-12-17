@@ -468,6 +468,78 @@ var MdRipple = (function () {
         this._rippleRenderer = new RippleRenderer(_elementRef, eventHandlers, _ngZone);
         this._ruler = _ruler;
     }
+    Object.defineProperty(MdRipple.prototype, "_triggerDeprecated", {
+        /** @deprecated */
+        get: function () { return this.trigger; },
+        set: function (value) { this.trigger = value; },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(MdRipple.prototype, "_centeredDeprecated", {
+        /** @deprecated */
+        get: function () { return this.centered; },
+        set: function (value) { this.centered = value; },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(MdRipple.prototype, "_disabledDeprecated", {
+        /** @deprecated */
+        get: function () { return this.disabled; },
+        set: function (value) { this.disabled = value; },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(MdRipple.prototype, "_maxRadiusDeprecated", {
+        /** @deprecated */
+        get: function () { return this.maxRadius; },
+        set: function (value) { this.maxRadius = value; },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(MdRipple.prototype, "_speedFactorDeprecated", {
+        /** @deprecated */
+        get: function () { return this.speedFactor; },
+        set: function (value) { this.speedFactor = value; },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(MdRipple.prototype, "_colorDeprecated", {
+        /** @deprecated */
+        get: function () { return this.color; },
+        set: function (value) { this.color = value; },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(MdRipple.prototype, "_backgroundColorDeprecated", {
+        /** @deprecated */
+        get: function () { return this.backgroundColor; },
+        set: function (value) { this.backgroundColor = value; },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(MdRipple.prototype, "_focusedDeprecated", {
+        /** @deprecated */
+        get: function () { return this.focused; },
+        set: function (value) { this.focused = value; },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(MdRipple.prototype, "_unboundedDeprecated", {
+        /** @deprecated */
+        get: function () { return this.unbounded; },
+        set: function (value) { this.unbounded = value; },
+        enumerable: true,
+        configurable: true
+    });
+    ;
     MdRipple.prototype.ngOnInit = function () {
         // If no trigger element was explicity set, use the host element
         if (!this.trigger) {
@@ -554,43 +626,79 @@ var MdRipple = (function () {
         this._rippleRenderer.fadeOutRippleBackground();
     };
     __decorate$4([
-        _angular_core.Input('md-ripple-trigger'), 
+        _angular_core.Input('mdRippleTrigger'), 
         __metadata$4('design:type', Object)
     ], MdRipple.prototype, "trigger", void 0);
     __decorate$4([
-        _angular_core.Input('md-ripple-centered'), 
+        _angular_core.Input('md-ripple-trigger'), 
+        __metadata$4('design:type', Object)
+    ], MdRipple.prototype, "_triggerDeprecated", null);
+    __decorate$4([
+        _angular_core.Input('mdRippleCentered'), 
         __metadata$4('design:type', Boolean)
     ], MdRipple.prototype, "centered", void 0);
     __decorate$4([
-        _angular_core.Input('md-ripple-disabled'), 
+        _angular_core.Input('md-ripple-centered'), 
+        __metadata$4('design:type', Object)
+    ], MdRipple.prototype, "_centeredDeprecated", null);
+    __decorate$4([
+        _angular_core.Input('mdRippleDisabled'), 
         __metadata$4('design:type', Boolean)
     ], MdRipple.prototype, "disabled", void 0);
     __decorate$4([
-        _angular_core.Input('md-ripple-max-radius'), 
+        _angular_core.Input('md-ripple-disabled'), 
+        __metadata$4('design:type', Object)
+    ], MdRipple.prototype, "_disabledDeprecated", null);
+    __decorate$4([
+        _angular_core.Input('mdRippleMaxRadius'), 
         __metadata$4('design:type', Number)
     ], MdRipple.prototype, "maxRadius", void 0);
     __decorate$4([
-        _angular_core.Input('md-ripple-speed-factor'), 
+        _angular_core.Input('md-ripple-max-radius'), 
+        __metadata$4('design:type', Object)
+    ], MdRipple.prototype, "_maxRadiusDeprecated", null);
+    __decorate$4([
+        _angular_core.Input('mdRippleSpeedFactor'), 
         __metadata$4('design:type', Number)
     ], MdRipple.prototype, "speedFactor", void 0);
     __decorate$4([
-        _angular_core.Input('md-ripple-color'), 
+        _angular_core.Input('md-ripple-speed-factor'), 
+        __metadata$4('design:type', Object)
+    ], MdRipple.prototype, "_speedFactorDeprecated", null);
+    __decorate$4([
+        _angular_core.Input('mdRippleColor'), 
         __metadata$4('design:type', String)
     ], MdRipple.prototype, "color", void 0);
     __decorate$4([
-        _angular_core.Input('md-ripple-background-color'), 
+        _angular_core.Input('md-ripple-color'), 
+        __metadata$4('design:type', Object)
+    ], MdRipple.prototype, "_colorDeprecated", null);
+    __decorate$4([
+        _angular_core.Input('mdRippleBackgroundColor'), 
         __metadata$4('design:type', String)
     ], MdRipple.prototype, "backgroundColor", void 0);
     __decorate$4([
+        _angular_core.Input('md-ripple-background-color'), 
+        __metadata$4('design:type', Object)
+    ], MdRipple.prototype, "_backgroundColorDeprecated", null);
+    __decorate$4([
         _angular_core.HostBinding('class.md-ripple-focused'),
-        _angular_core.Input('md-ripple-focused'), 
+        _angular_core.Input('mdRippleFocused'), 
         __metadata$4('design:type', Boolean)
     ], MdRipple.prototype, "focused", void 0);
     __decorate$4([
+        _angular_core.Input('md-ripple-focused'), 
+        __metadata$4('design:type', Boolean)
+    ], MdRipple.prototype, "_focusedDeprecated", null);
+    __decorate$4([
         _angular_core.HostBinding('class.md-ripple-unbounded'),
-        _angular_core.Input('md-ripple-unbounded'), 
+        _angular_core.Input('mdRippleUnbounded'), 
         __metadata$4('design:type', Boolean)
     ], MdRipple.prototype, "unbounded", void 0);
+    __decorate$4([
+        _angular_core.Input('md-ripple-unbounded'), 
+        __metadata$4('design:type', Boolean)
+    ], MdRipple.prototype, "_unboundedDeprecated", null);
     MdRipple = __decorate$4([
         _angular_core.Directive({
             selector: '[md-ripple], [mat-ripple]',
@@ -3500,7 +3608,7 @@ var MdButton = (function () {
                 '(focus)': '_setKeyboardFocus()',
                 '(blur)': '_removeKeyboardFocus()',
             },
-            template: "<span class=\"md-button-wrapper\"><ng-content></ng-content></span> <div md-ripple *ngIf=\"!_isRippleDisabled()\" class=\"md-button-ripple\" [class.md-button-ripple-round]=\"_isRoundButton()\" [md-ripple-trigger]=\"_getHostElement()\" [md-ripple-color]=\"_isRoundButton() ? 'rgba(255, 255, 255, 0.2)' : ''\" md-ripple-background-color=\"rgba(0, 0, 0, 0)\"></div> <!-- the touchstart handler prevents the overlay from capturing the initial tap on touch devices --> <div class=\"md-button-focus-overlay\" (touchstart)=\"$event.preventDefault()\"></div> ",
+            template: "<span class=\"md-button-wrapper\"><ng-content></ng-content></span> <div md-ripple *ngIf=\"!_isRippleDisabled()\" class=\"md-button-ripple\" [class.md-button-ripple-round]=\"_isRoundButton()\" [mdRippleTrigger]=\"_getHostElement()\" [mdRippleColor]=\"_isRoundButton() ? 'rgba(255, 255, 255, 0.2)' : ''\" mdRippleBackgroundColor=\"rgba(0, 0, 0, 0)\"></div> <!-- the touchstart handler prevents the overlay from capturing the initial tap on touch devices --> <div class=\"md-button-focus-overlay\" (touchstart)=\"$event.preventDefault()\"></div> ",
             styles: ["[md-raised-button], [md-fab], [md-mini-fab], [md-button], [md-icon-button] { box-sizing: border-box; position: relative; cursor: pointer; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; outline: none; border: none; display: inline-block; white-space: nowrap; text-decoration: none; vertical-align: baseline; font-size: 14px; font-family: Roboto, \"Helvetica Neue\", sans-serif; font-weight: 500; color: currentColor; text-align: center; margin: 0; min-width: 88px; line-height: 36px; padding: 0 16px; border-radius: 2px; } [disabled][md-raised-button], [disabled][md-fab], [disabled][md-mini-fab], [disabled][md-button], [disabled][md-icon-button] { cursor: default; } .md-button-focus[md-raised-button] .md-button-focus-overlay, .md-button-focus[md-fab] .md-button-focus-overlay, .md-button-focus[md-mini-fab] .md-button-focus-overlay, .md-button-focus[md-button] .md-button-focus-overlay, .md-button-focus[md-icon-button] .md-button-focus-overlay { opacity: 1; } [md-raised-button], [md-fab], [md-mini-fab] { box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12); transform: translate3d(0, 0, 0); transition: background 400ms cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1); } [md-raised-button]:active, [md-fab]:active, [md-mini-fab]:active { box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12); } [disabled][md-raised-button], [disabled][md-fab], [disabled][md-mini-fab] { box-shadow: none; } /** * Applies styles for users in high contrast mode. Note that this only applies * to Microsoft browsers. Chrome can be included by checking for the `html[hc]` * attribute, however Chrome handles high contrast differently. */ [md-button]:hover .md-button-focus-overlay, [md-icon-button]:hover .md-button-focus-overlay { opacity: 1; } [md-button][disabled]:hover.md-primary, [md-button][disabled]:hover.md-accent, [md-button][disabled]:hover.md-warn, [md-button][disabled]:hover .md-button-focus-overlay, [md-icon-button][disabled]:hover.md-primary, [md-icon-button][disabled]:hover.md-accent, [md-icon-button][disabled]:hover.md-warn, [md-icon-button][disabled]:hover .md-button-focus-overlay { background-color: transparent; } [md-fab] { box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12); min-width: 0; border-radius: 50%; width: 56px; height: 56px; padding: 0; flex-shrink: 0; } [md-fab]:active { box-shadow: 0px 7px 8px -4px rgba(0, 0, 0, 0.2), 0px 12px 17px 2px rgba(0, 0, 0, 0.14), 0px 5px 22px 4px rgba(0, 0, 0, 0.12); } [md-fab] i, [md-fab] md-icon { padding: 16px 0; line-height: 24px; } [md-mini-fab] { box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12); min-width: 0; border-radius: 50%; width: 40px; height: 40px; padding: 0; flex-shrink: 0; } [md-mini-fab]:active { box-shadow: 0px 7px 8px -4px rgba(0, 0, 0, 0.2), 0px 12px 17px 2px rgba(0, 0, 0, 0.14), 0px 5px 22px 4px rgba(0, 0, 0, 0.12); } [md-mini-fab] i, [md-mini-fab] md-icon { padding: 8px 0; line-height: 24px; } [md-icon-button] { padding: 0; min-width: 0; width: 40px; height: 40px; flex-shrink: 0; line-height: 40px; border-radius: 50%; } [md-icon-button] i, [md-icon-button] md-icon { line-height: 24px; } [md-button] .md-button-wrapper > *, [md-raised-button] .md-button-wrapper > *, [md-icon-button] .md-button-wrapper > * { vertical-align: middle; } .md-button-ripple, .md-button-focus-overlay { position: absolute; top: 0; left: 0; bottom: 0; right: 0; } .md-button-focus-overlay { background-color: rgba(0, 0, 0, 0.12); border-radius: inherit; pointer-events: none; opacity: 0; } @media screen and (-ms-high-contrast: active) { .md-button-focus-overlay { background-color: rgba(255, 255, 255, 0.5); } } .md-button-ripple-round { border-radius: 50%; z-index: 1; } @media screen and (-ms-high-contrast: active) { [md-button], [md-raised-button], [md-icon-button], [md-fab], [md-mini-fab] { outline: solid 1px; } } /*# sourceMappingURL=button.css.map */ "],
             encapsulation: _angular_core.ViewEncapsulation.None,
             changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
@@ -3552,7 +3660,7 @@ var MdAnchor = (function (_super) {
                 '(blur)': '_removeKeyboardFocus()',
                 '(click)': '_haltDisabledEvents($event)',
             },
-            template: "<span class=\"md-button-wrapper\"><ng-content></ng-content></span> <div md-ripple *ngIf=\"!_isRippleDisabled()\" class=\"md-button-ripple\" [class.md-button-ripple-round]=\"_isRoundButton()\" [md-ripple-trigger]=\"_getHostElement()\" [md-ripple-color]=\"_isRoundButton() ? 'rgba(255, 255, 255, 0.2)' : ''\" md-ripple-background-color=\"rgba(0, 0, 0, 0)\"></div> <!-- the touchstart handler prevents the overlay from capturing the initial tap on touch devices --> <div class=\"md-button-focus-overlay\" (touchstart)=\"$event.preventDefault()\"></div> ",
+            template: "<span class=\"md-button-wrapper\"><ng-content></ng-content></span> <div md-ripple *ngIf=\"!_isRippleDisabled()\" class=\"md-button-ripple\" [class.md-button-ripple-round]=\"_isRoundButton()\" [mdRippleTrigger]=\"_getHostElement()\" [mdRippleColor]=\"_isRoundButton() ? 'rgba(255, 255, 255, 0.2)' : ''\" mdRippleBackgroundColor=\"rgba(0, 0, 0, 0)\"></div> <!-- the touchstart handler prevents the overlay from capturing the initial tap on touch devices --> <div class=\"md-button-focus-overlay\" (touchstart)=\"$event.preventDefault()\"></div> ",
             styles: ["[md-raised-button], [md-fab], [md-mini-fab], [md-button], [md-icon-button] { box-sizing: border-box; position: relative; cursor: pointer; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; outline: none; border: none; display: inline-block; white-space: nowrap; text-decoration: none; vertical-align: baseline; font-size: 14px; font-family: Roboto, \"Helvetica Neue\", sans-serif; font-weight: 500; color: currentColor; text-align: center; margin: 0; min-width: 88px; line-height: 36px; padding: 0 16px; border-radius: 2px; } [disabled][md-raised-button], [disabled][md-fab], [disabled][md-mini-fab], [disabled][md-button], [disabled][md-icon-button] { cursor: default; } .md-button-focus[md-raised-button] .md-button-focus-overlay, .md-button-focus[md-fab] .md-button-focus-overlay, .md-button-focus[md-mini-fab] .md-button-focus-overlay, .md-button-focus[md-button] .md-button-focus-overlay, .md-button-focus[md-icon-button] .md-button-focus-overlay { opacity: 1; } [md-raised-button], [md-fab], [md-mini-fab] { box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12); transform: translate3d(0, 0, 0); transition: background 400ms cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1); } [md-raised-button]:active, [md-fab]:active, [md-mini-fab]:active { box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12); } [disabled][md-raised-button], [disabled][md-fab], [disabled][md-mini-fab] { box-shadow: none; } /** * Applies styles for users in high contrast mode. Note that this only applies * to Microsoft browsers. Chrome can be included by checking for the `html[hc]` * attribute, however Chrome handles high contrast differently. */ [md-button]:hover .md-button-focus-overlay, [md-icon-button]:hover .md-button-focus-overlay { opacity: 1; } [md-button][disabled]:hover.md-primary, [md-button][disabled]:hover.md-accent, [md-button][disabled]:hover.md-warn, [md-button][disabled]:hover .md-button-focus-overlay, [md-icon-button][disabled]:hover.md-primary, [md-icon-button][disabled]:hover.md-accent, [md-icon-button][disabled]:hover.md-warn, [md-icon-button][disabled]:hover .md-button-focus-overlay { background-color: transparent; } [md-fab] { box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12); min-width: 0; border-radius: 50%; width: 56px; height: 56px; padding: 0; flex-shrink: 0; } [md-fab]:active { box-shadow: 0px 7px 8px -4px rgba(0, 0, 0, 0.2), 0px 12px 17px 2px rgba(0, 0, 0, 0.14), 0px 5px 22px 4px rgba(0, 0, 0, 0.12); } [md-fab] i, [md-fab] md-icon { padding: 16px 0; line-height: 24px; } [md-mini-fab] { box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12); min-width: 0; border-radius: 50%; width: 40px; height: 40px; padding: 0; flex-shrink: 0; } [md-mini-fab]:active { box-shadow: 0px 7px 8px -4px rgba(0, 0, 0, 0.2), 0px 12px 17px 2px rgba(0, 0, 0, 0.14), 0px 5px 22px 4px rgba(0, 0, 0, 0.12); } [md-mini-fab] i, [md-mini-fab] md-icon { padding: 8px 0; line-height: 24px; } [md-icon-button] { padding: 0; min-width: 0; width: 40px; height: 40px; flex-shrink: 0; line-height: 40px; border-radius: 50%; } [md-icon-button] i, [md-icon-button] md-icon { line-height: 24px; } [md-button] .md-button-wrapper > *, [md-raised-button] .md-button-wrapper > *, [md-icon-button] .md-button-wrapper > * { vertical-align: middle; } .md-button-ripple, .md-button-focus-overlay { position: absolute; top: 0; left: 0; bottom: 0; right: 0; } .md-button-focus-overlay { background-color: rgba(0, 0, 0, 0.12); border-radius: inherit; pointer-events: none; opacity: 0; } @media screen and (-ms-high-contrast: active) { .md-button-focus-overlay { background-color: rgba(255, 255, 255, 0.5); } } .md-button-ripple-round { border-radius: 50%; z-index: 1; } @media screen and (-ms-high-contrast: active) { [md-button], [md-raised-button], [md-icon-button], [md-fab], [md-mini-fab] { outline: solid 1px; } } /*# sourceMappingURL=button.css.map */ "],
             encapsulation: _angular_core.ViewEncapsulation.None
         }), 
@@ -3933,7 +4041,7 @@ var MdCheckbox = (function () {
     ], MdCheckbox.prototype, "color", null);
     MdCheckbox = __decorate$23([
         _angular_core.Component({selector: 'md-checkbox, mat-checkbox',
-            template: "<label class=\"md-checkbox-layout\"> <div class=\"md-checkbox-inner-container\"> <input #input class=\"md-checkbox-input md-visually-hidden\" type=\"checkbox\" [id]=\"inputId\" [required]=\"required\" [checked]=\"checked\" [disabled]=\"disabled\" [name]=\"name\" [tabIndex]=\"tabindex\" [indeterminate]=\"indeterminate\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (focus)=\"_onInputFocus()\" (blur)=\"_onInputBlur()\" (change)=\"_onInteractionEvent($event)\" (click)=\"_onInputClick($event)\"> <div md-ripple *ngIf=\"!_isRippleDisabled()\" class=\"md-checkbox-ripple\" [md-ripple-trigger]=\"_getHostElement()\" [md-ripple-centered]=\"true\" [md-ripple-speed-factor]=\"0.3\" md-ripple-background-color=\"rgba(0, 0, 0, 0)\"></div> <div class=\"md-checkbox-frame\"></div> <div class=\"md-checkbox-background\"> <svg version=\"1.1\" class=\"md-checkbox-checkmark\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" xml:space=\"preserve\"> <path class=\"md-checkbox-checkmark-path\" fill=\"none\" stroke=\"white\" d=\"M4.1,12.7 9,17.6 20.3,6.3\"/> </svg> <!-- Element for rendering the indeterminate state checkbox. --> <div class=\"md-checkbox-mixedmark\"></div> </div> </div> <span class=\"md-checkbox-label\"> <ng-content></ng-content> </span> </label> ",
+            template: "<label class=\"md-checkbox-layout\"> <div class=\"md-checkbox-inner-container\"> <input #input class=\"md-checkbox-input md-visually-hidden\" type=\"checkbox\" [id]=\"inputId\" [required]=\"required\" [checked]=\"checked\" [disabled]=\"disabled\" [name]=\"name\" [tabIndex]=\"tabindex\" [indeterminate]=\"indeterminate\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (focus)=\"_onInputFocus()\" (blur)=\"_onInputBlur()\" (change)=\"_onInteractionEvent($event)\" (click)=\"_onInputClick($event)\"> <div md-ripple *ngIf=\"!_isRippleDisabled()\" class=\"md-checkbox-ripple\" [mdRippleTrigger]=\"_getHostElement()\" [mdRippleCentered]=\"true\" [mdRippleSpeedFactor]=\"0.3\" mdRippleBackgroundColor=\"rgba(0, 0, 0, 0)\"></div> <div class=\"md-checkbox-frame\"></div> <div class=\"md-checkbox-background\"> <svg version=\"1.1\" class=\"md-checkbox-checkmark\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" xml:space=\"preserve\"> <path class=\"md-checkbox-checkmark-path\" fill=\"none\" stroke=\"white\" d=\"M4.1,12.7 9,17.6 20.3,6.3\"/> </svg> <!-- Element for rendering the indeterminate state checkbox. --> <div class=\"md-checkbox-mixedmark\"></div> </div> </div> <span class=\"md-checkbox-label\"> <ng-content></ng-content> </span> </label> ",
             styles: ["@keyframes md-checkbox-fade-in-background { 0% { opacity: 0; } 50% { opacity: 1; } } @keyframes md-checkbox-fade-out-background { 0%, 50% { opacity: 1; } 100% { opacity: 0; } } @keyframes md-checkbox-unchecked-checked-checkmark-path { 0%, 50% { stroke-dashoffset: 22.91026; } 50% { animation-timing-function: cubic-bezier(0, 0, 0.2, 0.1); } 100% { stroke-dashoffset: 0; } } @keyframes md-checkbox-unchecked-indeterminate-mixedmark { 0%, 68.2% { transform: scaleX(0); } 68.2% { animation-timing-function: cubic-bezier(0, 0, 0, 1); } 100% { transform: scaleX(1); } } @keyframes md-checkbox-checked-unchecked-checkmark-path { from { animation-timing-function: cubic-bezier(0.4, 0, 1, 1); stroke-dashoffset: 0; } to { stroke-dashoffset: -22.91026; } } @keyframes md-checkbox-checked-indeterminate-checkmark { from { animation-timing-function: cubic-bezier(0, 0, 0.2, 0.1); opacity: 1; transform: rotate(0deg); } to { opacity: 0; transform: rotate(45deg); } } @keyframes md-checkbox-indeterminate-checked-checkmark { from { animation-timing-function: cubic-bezier(0.14, 0, 0, 1); opacity: 0; transform: rotate(45deg); } to { opacity: 1; transform: rotate(360deg); } } @keyframes md-checkbox-checked-indeterminate-mixedmark { from { animation-timing-function: cubic-bezier(0, 0, 0.2, 0.1); opacity: 0; transform: rotate(-45deg); } to { opacity: 1; transform: rotate(0deg); } } @keyframes md-checkbox-indeterminate-checked-mixedmark { from { animation-timing-function: cubic-bezier(0.14, 0, 0, 1); opacity: 1; transform: rotate(0deg); } to { opacity: 0; transform: rotate(315deg); } } @keyframes md-checkbox-indeterminate-unchecked-mixedmark { 0% { animation-timing-function: linear; opacity: 1; transform: scaleX(1); } 32.8%, 100% { opacity: 0; transform: scaleX(0); } } .md-checkbox-frame, .md-checkbox-background, .md-checkbox-checkmark { bottom: 0; left: 0; position: absolute; right: 0; top: 0; } .md-checkbox-checkmark, .md-checkbox-mixedmark { width: calc(100% - 4px); } .md-checkbox-frame, .md-checkbox-background { border-radius: 2px; box-sizing: border-box; pointer-events: none; } md-checkbox { cursor: pointer; transition: background 400ms cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1); } .md-checkbox-layout { cursor: inherit; align-items: baseline; vertical-align: middle; display: inline-flex; } .md-checkbox-inner-container { display: inline-block; height: 20px; line-height: 0; margin: auto; margin-right: 8px; order: 0; position: relative; vertical-align: middle; white-space: nowrap; width: 20px; flex-shrink: 0; } [dir='rtl'] .md-checkbox-inner-container { margin-left: 8px; margin-right: auto; } .md-checkbox-layout .md-checkbox-label { line-height: 24px; } .md-checkbox-frame { background-color: transparent; border: 2px solid; transition: border-color 90ms cubic-bezier(0, 0, 0.2, 0.1); will-change: border-color; } .md-checkbox-background { align-items: center; display: inline-flex; justify-content: center; transition: background-color 90ms cubic-bezier(0, 0, 0.2, 0.1), opacity 90ms cubic-bezier(0, 0, 0.2, 0.1); will-change: background-color, opacity; } .md-checkbox-checkmark { width: 100%; } .md-checkbox-checkmark-path { stroke-dashoffset: 22.91026; stroke-dasharray: 22.91026; stroke-width: 2.66667px; } .md-checkbox-mixedmark { height: 2px; opacity: 0; transform: scaleX(0) rotate(0deg); } .md-checkbox-align-end .md-checkbox-inner-container { order: 1; margin-left: 8px; margin-right: auto; } [dir='rtl'] .md-checkbox-align-end .md-checkbox-inner-container { margin-left: auto; margin-right: 8px; } .md-checkbox-checked .md-checkbox-checkmark { opacity: 1; } .md-checkbox-checked .md-checkbox-checkmark-path { stroke-dashoffset: 0; } .md-checkbox-checked .md-checkbox-mixedmark { transform: scaleX(1) rotate(-45deg); } .md-checkbox-indeterminate .md-checkbox-checkmark { opacity: 0; transform: rotate(45deg); } .md-checkbox-indeterminate .md-checkbox-checkmark-path { stroke-dashoffset: 0; } .md-checkbox-indeterminate .md-checkbox-mixedmark { opacity: 1; transform: scaleX(1) rotate(0deg); } .md-checkbox-unchecked .md-checkbox-background { background-color: transparent; } .md-checkbox-disabled { cursor: default; } .md-checkbox-anim-unchecked-checked .md-checkbox-background { animation: 180ms linear 0ms md-checkbox-fade-in-background; } .md-checkbox-anim-unchecked-checked .md-checkbox-checkmark-path { animation: 180ms linear 0ms md-checkbox-unchecked-checked-checkmark-path; } .md-checkbox-anim-unchecked-indeterminate .md-checkbox-background { animation: 180ms linear 0ms md-checkbox-fade-in-background; } .md-checkbox-anim-unchecked-indeterminate .md-checkbox-mixedmark { animation: 90ms linear 0ms md-checkbox-unchecked-indeterminate-mixedmark; } .md-checkbox-anim-checked-unchecked .md-checkbox-background { animation: 180ms linear 0ms md-checkbox-fade-out-background; } .md-checkbox-anim-checked-unchecked .md-checkbox-checkmark-path { animation: 90ms linear 0ms md-checkbox-checked-unchecked-checkmark-path; } .md-checkbox-anim-checked-indeterminate .md-checkbox-checkmark { animation: 90ms linear 0ms md-checkbox-checked-indeterminate-checkmark; } .md-checkbox-anim-checked-indeterminate .md-checkbox-mixedmark { animation: 90ms linear 0ms md-checkbox-checked-indeterminate-mixedmark; } .md-checkbox-anim-indeterminate-checked .md-checkbox-checkmark { animation: 500ms linear 0ms md-checkbox-indeterminate-checked-checkmark; } .md-checkbox-anim-indeterminate-checked .md-checkbox-mixedmark { animation: 500ms linear 0ms md-checkbox-indeterminate-checked-mixedmark; } .md-checkbox-anim-indeterminate-unchecked .md-checkbox-background { animation: 180ms linear 0ms md-checkbox-fade-out-background; } .md-checkbox-anim-indeterminate-unchecked .md-checkbox-mixedmark { animation: 300ms linear 0ms md-checkbox-indeterminate-unchecked-mixedmark; } .md-checkbox-input { bottom: 0; left: 50%; } .md-checkbox-ripple { position: absolute; left: -15px; top: -15px; right: -15px; bottom: -15px; border-radius: 50%; z-index: 1; pointer-events: none; } /*# sourceMappingURL=checkbox.css.map */ "],
             host: {
                 '[class.md-checkbox-indeterminate]': 'indeterminate',
@@ -4435,7 +4543,7 @@ var MdRadioButton = (function () {
     ], MdRadioButton.prototype, "disabled", null);
     MdRadioButton = __decorate$24([
         _angular_core.Component({selector: 'md-radio-button, mat-radio-button',
-            template: "<!-- TODO(jelbourn): render the radio on either side of the content --> <!-- TODO(mtlin): Evaluate trade-offs of using native radio vs. cost of additional bindings. --> <label [attr.for]=\"inputId\" class=\"md-radio-label\"> <!-- The actual 'radio' part of the control. --> <div class=\"md-radio-container\"> <div class=\"md-radio-outer-circle\"></div> <div class=\"md-radio-inner-circle\"></div> <div md-ripple *ngIf=\"!_isRippleDisabled()\" class=\"md-radio-ripple\" [md-ripple-trigger]=\"_getHostElement()\" [md-ripple-centered]=\"true\" [md-ripple-speed-factor]=\"0.3\" md-ripple-background-color=\"rgba(0, 0, 0, 0)\"></div> </div> <input #input class=\"md-radio-input md-visually-hidden\" type=\"radio\" [id]=\"inputId\" [checked]=\"checked\" [disabled]=\"disabled\" [name]=\"name\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (change)=\"_onInputChange($event)\" (focus)=\"_onInputFocus()\" (blur)=\"_onInputBlur()\" (click)=\"_onInputClick($event)\"> <!-- The label content for radio control. --> <div class=\"md-radio-label-content\" [class.md-radio-align-end]=\"align == 'after'\"> <ng-content></ng-content> </div> </label> ",
+            template: "<!-- TODO(jelbourn): render the radio on either side of the content --> <!-- TODO(mtlin): Evaluate trade-offs of using native radio vs. cost of additional bindings. --> <label [attr.for]=\"inputId\" class=\"md-radio-label\"> <!-- The actual 'radio' part of the control. --> <div class=\"md-radio-container\"> <div class=\"md-radio-outer-circle\"></div> <div class=\"md-radio-inner-circle\"></div> <div md-ripple *ngIf=\"!_isRippleDisabled()\" class=\"md-radio-ripple\" [mdRippleTrigger]=\"_getHostElement()\" [mdRippleCentered]=\"true\" [mdRippleSpeedFactor]=\"0.3\" mdRippleBackgroundColor=\"rgba(0, 0, 0, 0)\"></div> </div> <input #input class=\"md-radio-input md-visually-hidden\" type=\"radio\" [id]=\"inputId\" [checked]=\"checked\" [disabled]=\"disabled\" [name]=\"name\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (change)=\"_onInputChange($event)\" (focus)=\"_onInputFocus()\" (blur)=\"_onInputBlur()\" (click)=\"_onInputClick($event)\"> <!-- The label content for radio control. --> <div class=\"md-radio-label-content\" [class.md-radio-align-end]=\"align == 'after'\"> <ng-content></ng-content> </div> </label> ",
             styles: ["md-radio-button { display: inline-block; } .md-radio-label { cursor: pointer; display: inline-flex; align-items: baseline; white-space: nowrap; } .md-radio-container { box-sizing: border-box; display: inline-block; height: 20px; position: relative; width: 20px; top: 2px; } .md-radio-outer-circle { border: solid 2px; border-radius: 50%; box-sizing: border-box; height: 20px; left: 0; position: absolute; top: 0; transition: border-color ease 280ms; width: 20px; } .md-radio-inner-circle { border-radius: 50%; box-sizing: border-box; height: 20px; left: 0; position: absolute; top: 0; transition: transform ease 280ms, background-color ease 280ms; transform: scale(0); width: 20px; } .md-radio-checked .md-radio-inner-circle { transform: scale(0.5); } .md-radio-label-content { display: inline-block; order: 0; line-height: inherit; padding-left: 8px; padding-right: 0; } [dir='rtl'] .md-radio-label-content { padding-right: 8px; padding-left: 0; } .md-radio-label-content.md-radio-align-end { order: -1; padding-left: 0; padding-right: 8px; } [dir='rtl'] .md-radio-label-content.md-radio-align-end { padding-right: 0; padding-left: 8px; } .md-radio-disabled, .md-radio-disabled .md-radio-label { cursor: default; } .md-radio-ripple { position: absolute; left: -15px; top: -15px; right: -15px; bottom: -15px; border-radius: 50%; z-index: 1; pointer-events: none; } /*# sourceMappingURL=radio.css.map */ "],
             encapsulation: _angular_core.ViewEncapsulation.None
         }),
@@ -4586,7 +4694,7 @@ var MdOption = (function () {
                 '(click)': '_selectViaInteraction()',
                 '(keydown)': '_handleKeydown($event)'
             },
-            template: "<ng-content></ng-content> <div class=\"md-option-ripple\" *ngIf=\"!disabled\" md-ripple md-ripple-background-color=\"rgba(0,0,0,0)\" [md-ripple-trigger]=\"_getHostElement()\"></div>",
+            template: "<ng-content></ng-content> <div class=\"md-option-ripple\" *ngIf=\"!disabled\" md-ripple mdRippleBackgroundColor=\"rgba(0,0,0,0)\" [mdRippleTrigger]=\"_getHostElement()\"></div> ",
             styles: ["/** The mixins below are shared between md-menu and md-select */ /** * This mixin adds the correct panel transform styles based * on the direction that the menu panel opens. */ /** * Applies styles for users in high contrast mode. Note that this only applies * to Microsoft browsers. Chrome can be included by checking for the `html[hc]` * attribute, however Chrome handles high contrast differently. */ md-select { display: inline-block; outline: none; } .md-select-trigger { display: flex; justify-content: space-between; align-items: center; height: 30px; min-width: 112px; cursor: pointer; position: relative; box-sizing: border-box; } [aria-disabled='true'] .md-select-trigger { background-image: linear-gradient(to right, rgba(0, 0, 0, 0.26) 0%, rgba(0, 0, 0, 0.26) 33%, transparent 0%); background-size: 4px 1px; background-repeat: repeat-x; border-bottom: transparent; background-position: 0 bottom; cursor: default; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; } .md-select-placeholder { position: relative; padding: 0 2px; transform-origin: left top; } .md-select-placeholder.md-floating-placeholder { top: -22px; left: -2px; transform: scale(0.75); } [dir='rtl'] .md-select-placeholder { transform-origin: right top; } [dir='rtl'] .md-select-placeholder.md-floating-placeholder { left: 2px; } [aria-required=true] .md-select-placeholder::after { content: '*'; } .md-select-value { position: absolute; white-space: nowrap; overflow-x: hidden; text-overflow: ellipsis; left: 0; top: 6px; } [dir='rtl'] .md-select-value { left: auto; right: 0; } .md-select-arrow { width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 5px solid; margin: 0 4px; } .md-select-panel { box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12); min-width: 112px; max-width: 280px; overflow: auto; -webkit-overflow-scrolling: touch; padding-top: 0; padding-bottom: 0; max-height: 256px; } @media screen and (-ms-high-contrast: active) { .md-select-panel { outline: solid 1px; } } md-option { white-space: nowrap; overflow-x: hidden; text-overflow: ellipsis; display: flex; flex-direction: row; align-items: center; height: 48px; padding: 0 16px; font-size: 16px; font-family: Roboto, \"Helvetica Neue\", sans-serif; text-align: start; text-decoration: none; position: relative; cursor: pointer; outline: none; } md-option[disabled] { cursor: default; } md-option md-icon { margin-right: 16px; } [dir='rtl'] md-option md-icon { margin-left: 16px; } md-option[aria-disabled='true'] { cursor: default; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; } .md-option-ripple { position: absolute; top: 0; left: 0; bottom: 0; right: 0; } @media screen and (-ms-high-contrast: active) { .md-option-ripple { opacity: 0.5; } } /*# sourceMappingURL=select.css.map */ "],
             encapsulation: _angular_core.ViewEncapsulation.None
         }), 
@@ -5841,6 +5949,13 @@ var MdSlider = (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(MdSlider.prototype, "_thumbLabelDeprecated", {
+        /** @deprecated */
+        get: function () { return this._thumbLabel; },
+        set: function (value) { this._thumbLabel = value; },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(MdSlider.prototype, "step", {
         get: function () { return this._step; },
         set: function (v) { this._step = coerceNumberProperty(v, this._step); },
@@ -5852,6 +5967,13 @@ var MdSlider = (function () {
         set: function (v) {
             this._tickInterval = (v == 'auto') ? v : coerceNumberProperty(v, this._tickInterval);
         },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdSlider.prototype, "_tickIntervalDeprecated", {
+        /** @deprecated */
+        get: function () { return this.tickInterval; },
+        set: function (v) { this.tickInterval = v; },
         enumerable: true,
         configurable: true
     });
@@ -6189,17 +6311,25 @@ var MdSlider = (function () {
         __metadata$29('design:type', Boolean)
     ], MdSlider.prototype, "disabled", null);
     __decorate$29([
-        _angular_core.Input('thumb-label'), 
+        _angular_core.Input('thumbLabel'), 
         __metadata$29('design:type', Boolean)
     ], MdSlider.prototype, "thumbLabel", null);
+    __decorate$29([
+        _angular_core.Input('thumb-label'), 
+        __metadata$29('design:type', Boolean)
+    ], MdSlider.prototype, "_thumbLabelDeprecated", null);
     __decorate$29([
         _angular_core.Input(), 
         __metadata$29('design:type', Object)
     ], MdSlider.prototype, "step", null);
     __decorate$29([
-        _angular_core.Input('tick-interval'), 
+        _angular_core.Input(), 
         __metadata$29('design:type', Object)
     ], MdSlider.prototype, "tickInterval", null);
+    __decorate$29([
+        _angular_core.Input('tick-interval'), 
+        __metadata$29('design:type', Object)
+    ], MdSlider.prototype, "_tickIntervalDeprecated", null);
     __decorate$29([
         _angular_core.Input(), 
         __metadata$29('design:type', Object)
@@ -7475,22 +7605,14 @@ var MdGridList = (function () {
         this._gutter = '1px';
     }
     Object.defineProperty(MdGridList.prototype, "cols", {
-        get: function () {
-            return this._cols;
-        },
-        set: function (value) {
-            this._cols = coerceToNumber(value);
-        },
+        get: function () { return this._cols; },
+        set: function (value) { this._cols = coerceToNumber(value); },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MdGridList.prototype, "gutterSize", {
-        get: function () {
-            return this._gutter;
-        },
-        set: function (value) {
-            this._gutter = coerceToString(value);
-        },
+        get: function () { return this._gutter; },
+        set: function (value) { this._gutter = coerceToString(value); },
         enumerable: true,
         configurable: true
     });
@@ -7566,7 +7688,7 @@ var MdGridList = (function () {
         __metadata$32('design:type', Object)
     ], MdGridList.prototype, "cols", null);
     __decorate$32([
-        _angular_core.Input('gutterSize'), 
+        _angular_core.Input(), 
         __metadata$32('design:type', Object)
     ], MdGridList.prototype, "gutterSize", null);
     __decorate$32([
@@ -11269,7 +11391,7 @@ var MdTabHeader = (function () {
     ], MdTabHeader.prototype, "indexFocused", void 0);
     MdTabHeader = __decorate$54([
         _angular_core.Component({selector: 'md-tab-header',
-            template: "<div class=\"md-tab-header-pagination md-tab-header-pagination-before md-elevation-z4\" aria-hidden=\"true\" md-ripple [md-ripple-disabled]=\"_disableScrollBefore\" [class.md-tab-header-pagination-disabled]=\"_disableScrollBefore\" (click)=\"_scrollHeader('before')\"> <div class=\"md-tab-header-pagination-chevron\"></div> </div> <div class=\"md-tab-label-container\" #tabListContainer (keydown)=\"_handleKeydown($event)\"> <div class=\"md-tab-list\" #tabList role=\"tablist\"> <ng-content></ng-content> <md-ink-bar></md-ink-bar> </div> </div> <div class=\"md-tab-header-pagination md-tab-header-pagination-after md-elevation-z4\" aria-hidden=\"true\" md-ripple [md-ripple-disabled]=\"_disableScrollAfter\" [class.md-tab-header-pagination-disabled]=\"_disableScrollAfter\" (click)=\"_scrollHeader('after')\"> <div class=\"md-tab-header-pagination-chevron\"></div> </div>",
+            template: "<div class=\"md-tab-header-pagination md-tab-header-pagination-before md-elevation-z4\" aria-hidden=\"true\" md-ripple [mdRippleDisabled]=\"_disableScrollBefore\" [class.md-tab-header-pagination-disabled]=\"_disableScrollBefore\" (click)=\"_scrollHeader('before')\"> <div class=\"md-tab-header-pagination-chevron\"></div> </div> <div class=\"md-tab-label-container\" #tabListContainer (keydown)=\"_handleKeydown($event)\"> <div class=\"md-tab-list\" #tabList role=\"tablist\"> <ng-content></ng-content> <md-ink-bar></md-ink-bar> </div> </div> <div class=\"md-tab-header-pagination md-tab-header-pagination-after md-elevation-z4\" aria-hidden=\"true\" md-ripple [mdRippleDisabled]=\"_disableScrollAfter\" [class.md-tab-header-pagination-disabled]=\"_disableScrollAfter\" (click)=\"_scrollHeader('after')\"> <div class=\"md-tab-header-pagination-chevron\"></div> </div> ",
             styles: [".md-tab-header { overflow: hidden; position: relative; display: flex; flex-direction: row; flex-shrink: 0; } .md-tab-label { line-height: 48px; height: 48px; padding: 0 12px; font-size: 14px; font-family: Roboto, \"Helvetica Neue\", sans-serif; font-weight: 500; cursor: pointer; box-sizing: border-box; color: currentColor; opacity: 0.6; min-width: 160px; text-align: center; position: relative; } .md-tab-label:focus { outline: none; opacity: 1; } @media (max-width: 600px) { .md-tab-label { min-width: 72px; } } md-ink-bar { position: absolute; bottom: 0; height: 2px; transition: 500ms cubic-bezier(0.35, 0, 0.25, 1); } .md-tab-header-pagination { position: relative; display: none; justify-content: center; align-items: center; min-width: 32px; cursor: pointer; z-index: 2; } .md-tab-header-pagination-controls-enabled .md-tab-header-pagination { display: flex; } .md-tab-header-pagination-before, .md-tab-header-rtl .md-tab-header-pagination-after { padding-left: 4px; } .md-tab-header-pagination-before .md-tab-header-pagination-chevron, .md-tab-header-rtl .md-tab-header-pagination-after .md-tab-header-pagination-chevron { transform: rotate(-135deg); } .md-tab-header-rtl .md-tab-header-pagination-before, .md-tab-header-pagination-after { padding-right: 4px; } .md-tab-header-rtl .md-tab-header-pagination-before .md-tab-header-pagination-chevron, .md-tab-header-pagination-after .md-tab-header-pagination-chevron { transform: rotate(45deg); } .md-tab-header-pagination-chevron { border-style: solid; border-width: 2px 2px 0 0; content: ''; height: 8px; width: 8px; } .md-tab-header-pagination-disabled { box-shadow: none; cursor: default; } .md-tab-header-pagination-disabled .md-tab-header-pagination-chevron { border-color: #ccc; } .md-tab-label-container { display: flex; flex-grow: 1; overflow: hidden; z-index: 1; } .md-tab-list { display: flex; flex-grow: 1; position: relative; transition: transform 500ms cubic-bezier(0.35, 0, 0.25, 1); } /*# sourceMappingURL=tab-header.css.map */ "],
             encapsulation: _angular_core.ViewEncapsulation.None,
             host: {
@@ -11324,9 +11446,15 @@ var MdTabGroup = (function () {
         this._groupId = nextId$2++;
     }
     Object.defineProperty(MdTabGroup.prototype, "dynamicHeight", {
-        set: function (value) {
-            this._dynamicHeight = coerceBooleanProperty(value);
-        },
+        get: function () { return this._dynamicHeight; },
+        set: function (value) { this._dynamicHeight = coerceBooleanProperty(value); },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdTabGroup.prototype, "_dynamicHeightDeprecated", {
+        /** @deprecated */
+        get: function () { return this._dynamicHeight; },
+        set: function (value) { this._dynamicHeight = value; },
         enumerable: true,
         configurable: true
     });
@@ -11444,10 +11572,13 @@ var MdTabGroup = (function () {
         __metadata$47('design:type', _angular_core.ElementRef)
     ], MdTabGroup.prototype, "_tabBodyWrapper", void 0);
     __decorate$47([
-        _angular_core.Input('md-dynamic-height'), 
-        __metadata$47('design:type', Boolean), 
-        __metadata$47('design:paramtypes', [Boolean])
+        _angular_core.Input(), 
+        __metadata$47('design:type', Boolean)
     ], MdTabGroup.prototype, "dynamicHeight", null);
+    __decorate$47([
+        _angular_core.Input('md-dynamic-height'), 
+        __metadata$47('design:type', Boolean)
+    ], MdTabGroup.prototype, "_dynamicHeightDeprecated", null);
     __decorate$47([
         _angular_core.Input(), 
         __metadata$47('design:type', Number), 
@@ -11468,7 +11599,8 @@ var MdTabGroup = (function () {
     MdTabGroup = __decorate$47([
         _angular_core.Component({selector: 'md-tab-group',
             template: "<md-tab-header [selectedIndex]=\"selectedIndex\" #tabHeader (indexFocused)=\"_focusChanged($event)\" (selectFocusedIndex)=\"selectedIndex = $event\"> <div class=\"md-tab-label\" role=\"tab\" md-tab-label-wrapper md-ripple *ngFor=\"let tab of _tabs; let i = index\" [id]=\"_getTabLabelId(i)\" [tabIndex]=\"selectedIndex == i ? 0 : -1\" [attr.aria-controls]=\"_getTabContentId(i)\" [attr.aria-selected]=\"selectedIndex == i\" [class.md-tab-label-active]=\"selectedIndex == i\" [disabled]=\"tab.disabled\" (click)=\"tabHeader.focusIndex = selectedIndex = i\"> <!-- If there is a label template, use it. --> <template [ngIf]=\"tab.templateLabel\"> <template [portalHost]=\"tab.templateLabel\"></template> </template> <!-- If there is not a label template, fall back to the text label. --> <template [ngIf]=\"!tab.templateLabel\">{{tab.textLabel}}</template> </div> </md-tab-header> <div class=\"md-tab-body-wrapper\" #tabBodyWrapper> <md-tab-body role=\"tabpanel\" *ngFor=\"let tab of _tabs; let i = index\" [id]=\"_getTabContentId(i)\" [attr.aria-labelledby]=\"_getTabLabelId(i)\" [class.md-tab-body-active]=\"selectedIndex == i\" [content]=\"tab.content\" [position]=\"tab.position\" [origin]=\"tab.origin\" (onCentered)=\"_removeTabBodyWrapperHeight()\" (onCentering)=\"_setTabBodyWrapperHeight($event)\"> </md-tab-body> </div> ",
-            styles: [":host { display: flex; flex-direction: column; font-family: Roboto, \"Helvetica Neue\", sans-serif; } .md-tab-label { line-height: 48px; height: 48px; padding: 0 12px; font-size: 14px; font-family: Roboto, \"Helvetica Neue\", sans-serif; font-weight: 500; cursor: pointer; box-sizing: border-box; color: currentColor; opacity: 0.6; min-width: 160px; text-align: center; position: relative; } .md-tab-label:focus { outline: none; opacity: 1; } @media (max-width: 600px) { .md-tab-label { min-width: 72px; } } :host[md-stretch-tabs] .md-tab-label { flex-basis: 0; flex-grow: 1; } .md-tab-body-wrapper { position: relative; overflow: hidden; display: flex; transition: height 500ms cubic-bezier(0.35, 0, 0.25, 1); } md-tab-body { position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: block; overflow: hidden; } md-tab-body.md-tab-body-active { position: relative; overflow-x: hidden; overflow-y: auto; z-index: 1; flex-grow: 1; } :host[md-dynamic-height] md-tab-body.md-tab-body-active { overflow-y: hidden; } .md-tab-disabled { cursor: default; pointer-events: none; } /*# sourceMappingURL=tab-group.css.map */ "],
+            styles: [":host { display: flex; flex-direction: column; font-family: Roboto, \"Helvetica Neue\", sans-serif; } .md-tab-label { line-height: 48px; height: 48px; padding: 0 12px; font-size: 14px; font-family: Roboto, \"Helvetica Neue\", sans-serif; font-weight: 500; cursor: pointer; box-sizing: border-box; color: currentColor; opacity: 0.6; min-width: 160px; text-align: center; position: relative; } .md-tab-label:focus { outline: none; opacity: 1; } @media (max-width: 600px) { .md-tab-label { min-width: 72px; } } :host[md-stretch-tabs] .md-tab-label { flex-basis: 0; flex-grow: 1; } .md-tab-body-wrapper { position: relative; overflow: hidden; display: flex; transition: height 500ms cubic-bezier(0.35, 0, 0.25, 1); } md-tab-body { position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: block; overflow: hidden; } md-tab-body.md-tab-body-active { position: relative; overflow-x: hidden; overflow-y: auto; z-index: 1; flex-grow: 1; } :host.md-tab-group-dynamic-height md-tab-body.md-tab-body-active { overflow-y: hidden; } .md-tab-disabled { cursor: default; pointer-events: none; } /*# sourceMappingURL=tab-group.css.map */ "],
+            host: { '[class.md-tab-group-dynamic-height]': 'dynamicHeight' }
         }), 
         __metadata$47('design:paramtypes', [_angular_core.Renderer])
     ], MdTabGroup);
@@ -11641,6 +11773,13 @@ var MdTooltip = (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(MdTooltip.prototype, "_positionDeprecated", {
+        /** @deprecated */
+        get: function () { return this._position; },
+        set: function (value) { this._position = value; },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(MdTooltip.prototype, "message", {
         get: function () {
             return this._message;
@@ -11651,6 +11790,13 @@ var MdTooltip = (function () {
                 this._setTooltipMessage(this._message);
             }
         },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdTooltip.prototype, "_deprecatedMessage", {
+        /** @deprecated */
+        get: function () { return this.message; },
+        set: function (v) { this.message = v; },
         enumerable: true,
         configurable: true
     });
@@ -11768,24 +11914,32 @@ var MdTooltip = (function () {
         });
     };
     __decorate$56([
-        _angular_core.Input('tooltip-position'), 
+        _angular_core.Input('mdTooltipPosition'), 
         __metadata$56('design:type', String)
     ], MdTooltip.prototype, "position", null);
     __decorate$56([
-        _angular_core.Input('tooltipShowDelay'), 
+        _angular_core.Input('tooltip-position'), 
+        __metadata$56('design:type', String)
+    ], MdTooltip.prototype, "_positionDeprecated", null);
+    __decorate$56([
+        _angular_core.Input('mdTooltipShowDelay'), 
         __metadata$56('design:type', Object)
     ], MdTooltip.prototype, "showDelay", void 0);
     __decorate$56([
-        _angular_core.Input('tooltipHideDelay'), 
+        _angular_core.Input('mdTooltipHideDelay'), 
         __metadata$56('design:type', Object)
     ], MdTooltip.prototype, "hideDelay", void 0);
     __decorate$56([
-        _angular_core.Input('md-tooltip'), 
+        _angular_core.Input('mdTooltip'), 
         __metadata$56('design:type', Object)
     ], MdTooltip.prototype, "message", null);
+    __decorate$56([
+        _angular_core.Input('md-tooltip'), 
+        __metadata$56('design:type', String)
+    ], MdTooltip.prototype, "_deprecatedMessage", null);
     MdTooltip = __decorate$56([
         _angular_core.Directive({
-            selector: '[md-tooltip], [mat-tooltip]',
+            selector: '[md-tooltip], [mat-tooltip], [mdTooltip]',
             host: {
                 '(longpress)': 'show()',
                 '(touchend)': 'hide(' + TOUCHEND_HIDE_DELAY + ')',
@@ -11945,7 +12099,7 @@ var __extends$20 = (this && this.__extends) || function (d, b) {
 var MdMenuMissingError = (function (_super) {
     __extends$20(MdMenuMissingError, _super);
     function MdMenuMissingError() {
-        _super.call(this, "md-menu-trigger: must pass in an md-menu instance.\n\n    Example:\n      <md-menu #menu=\"mdMenu\"></md-menu>\n      <button [md-menu-trigger-for]=\"menu\"></button>\n    ");
+        _super.call(this, "md-menu-trigger: must pass in an md-menu instance.\n\n    Example:\n      <md-menu #menu=\"mdMenu\"></md-menu>\n      <button [mdMenuTriggerFor]=\"menu\"></button>\n    ");
     }
     return MdMenuMissingError;
 }(MdError));
@@ -12045,7 +12199,7 @@ var MdMenuItem = (function () {
                 '(click)': '_checkDisabled($event)',
                 '[attr.tabindex]': '_tabindex'
             },
-            template: "<ng-content></ng-content> <div class=\"md-menu-ripple\" *ngIf=\"!disabled\" md-ripple md-ripple-background-color=\"rgba(0,0,0,0)\" [md-ripple-trigger]=\"_getHostElement()\"> </div> ",
+            template: "<ng-content></ng-content> <div class=\"md-menu-ripple\" *ngIf=\"!disabled\" md-ripple mdRippleBackgroundColor=\"rgba(0,0,0,0)\" [mdRippleTrigger]=\"_getHostElement()\"> </div> ",
             exportAs: 'mdMenuItem'
         }), 
         __metadata$59('design:paramtypes', [_angular_core.Renderer, _angular_core.ElementRef])
@@ -12252,6 +12406,13 @@ var MdMenuTrigger = (function () {
         this.onMenuOpen = new _angular_core.EventEmitter();
         this.onMenuClose = new _angular_core.EventEmitter();
     }
+    Object.defineProperty(MdMenuTrigger.prototype, "_deprecatedMenuTriggerFor", {
+        /** @deprecated */
+        get: function () { return this.menu; },
+        set: function (v) { this.menu = v; },
+        enumerable: true,
+        configurable: true
+    });
     MdMenuTrigger.prototype.ngAfterViewInit = function () {
         var _this = this;
         this._checkMenu();
@@ -12345,7 +12506,7 @@ var MdMenuTrigger = (function () {
     };
     /**
      *  This method checks that a valid instance of MdMenu has been passed into
-     *  md-menu-trigger-for.  If not, an exception is thrown.
+     *  mdMenuTriggerFor. If not, an exception is thrown.
      */
     MdMenuTrigger.prototype._checkMenu = function () {
         if (!this.menu) {
@@ -12420,6 +12581,10 @@ var MdMenuTrigger = (function () {
     __decorate$60([
         _angular_core.Input('md-menu-trigger-for'), 
         __metadata$60('design:type', Object)
+    ], MdMenuTrigger.prototype, "_deprecatedMenuTriggerFor", null);
+    __decorate$60([
+        _angular_core.Input('mdMenuTriggerFor'), 
+        __metadata$60('design:type', Object)
     ], MdMenuTrigger.prototype, "menu", void 0);
     __decorate$60([
         _angular_core.Output(), 
@@ -12431,7 +12596,7 @@ var MdMenuTrigger = (function () {
     ], MdMenuTrigger.prototype, "onMenuClose", void 0);
     MdMenuTrigger = __decorate$60([
         _angular_core.Directive({
-            selector: '[md-menu-trigger-for], [mat-menu-trigger-for]',
+            selector: '[md-menu-trigger-for], [mat-menu-trigger-for], [mdMenuTriggerFor]',
             host: {
                 'aria-haspopup': 'true',
                 '(mousedown)': '_handleMousedown($event)',

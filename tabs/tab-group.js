@@ -52,9 +52,15 @@ export var MdTabGroup = (function () {
         this._groupId = nextId++;
     }
     Object.defineProperty(MdTabGroup.prototype, "dynamicHeight", {
-        set: function (value) {
-            this._dynamicHeight = coerceBooleanProperty(value);
-        },
+        get: function () { return this._dynamicHeight; },
+        set: function (value) { this._dynamicHeight = coerceBooleanProperty(value); },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdTabGroup.prototype, "_dynamicHeightDeprecated", {
+        /** @deprecated */
+        get: function () { return this._dynamicHeight; },
+        set: function (value) { this._dynamicHeight = value; },
         enumerable: true,
         configurable: true
     });
@@ -172,10 +178,13 @@ export var MdTabGroup = (function () {
         __metadata('design:type', ElementRef)
     ], MdTabGroup.prototype, "_tabBodyWrapper", void 0);
     __decorate([
-        Input('md-dynamic-height'), 
-        __metadata('design:type', Boolean), 
-        __metadata('design:paramtypes', [Boolean])
+        Input(), 
+        __metadata('design:type', Boolean)
     ], MdTabGroup.prototype, "dynamicHeight", null);
+    __decorate([
+        Input('md-dynamic-height'), 
+        __metadata('design:type', Boolean)
+    ], MdTabGroup.prototype, "_dynamicHeightDeprecated", null);
     __decorate([
         Input(), 
         __metadata('design:type', Number), 
@@ -196,7 +205,8 @@ export var MdTabGroup = (function () {
     MdTabGroup = __decorate([
         Component({selector: 'md-tab-group',
             template: "<md-tab-header [selectedIndex]=\"selectedIndex\" #tabHeader (indexFocused)=\"_focusChanged($event)\" (selectFocusedIndex)=\"selectedIndex = $event\"> <div class=\"md-tab-label\" role=\"tab\" md-tab-label-wrapper md-ripple *ngFor=\"let tab of _tabs; let i = index\" [id]=\"_getTabLabelId(i)\" [tabIndex]=\"selectedIndex == i ? 0 : -1\" [attr.aria-controls]=\"_getTabContentId(i)\" [attr.aria-selected]=\"selectedIndex == i\" [class.md-tab-label-active]=\"selectedIndex == i\" [disabled]=\"tab.disabled\" (click)=\"tabHeader.focusIndex = selectedIndex = i\"> <!-- If there is a label template, use it. --> <template [ngIf]=\"tab.templateLabel\"> <template [portalHost]=\"tab.templateLabel\"></template> </template> <!-- If there is not a label template, fall back to the text label. --> <template [ngIf]=\"!tab.templateLabel\">{{tab.textLabel}}</template> </div> </md-tab-header> <div class=\"md-tab-body-wrapper\" #tabBodyWrapper> <md-tab-body role=\"tabpanel\" *ngFor=\"let tab of _tabs; let i = index\" [id]=\"_getTabContentId(i)\" [attr.aria-labelledby]=\"_getTabLabelId(i)\" [class.md-tab-body-active]=\"selectedIndex == i\" [content]=\"tab.content\" [position]=\"tab.position\" [origin]=\"tab.origin\" (onCentered)=\"_removeTabBodyWrapperHeight()\" (onCentering)=\"_setTabBodyWrapperHeight($event)\"> </md-tab-body> </div> ",
-            styles: [":host { display: flex; flex-direction: column; font-family: Roboto, \"Helvetica Neue\", sans-serif; } .md-tab-label { line-height: 48px; height: 48px; padding: 0 12px; font-size: 14px; font-family: Roboto, \"Helvetica Neue\", sans-serif; font-weight: 500; cursor: pointer; box-sizing: border-box; color: currentColor; opacity: 0.6; min-width: 160px; text-align: center; position: relative; } .md-tab-label:focus { outline: none; opacity: 1; } @media (max-width: 600px) { .md-tab-label { min-width: 72px; } } :host[md-stretch-tabs] .md-tab-label { flex-basis: 0; flex-grow: 1; } .md-tab-body-wrapper { position: relative; overflow: hidden; display: flex; transition: height 500ms cubic-bezier(0.35, 0, 0.25, 1); } md-tab-body { position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: block; overflow: hidden; } md-tab-body.md-tab-body-active { position: relative; overflow-x: hidden; overflow-y: auto; z-index: 1; flex-grow: 1; } :host[md-dynamic-height] md-tab-body.md-tab-body-active { overflow-y: hidden; } .md-tab-disabled { cursor: default; pointer-events: none; } /*# sourceMappingURL=tab-group.css.map */ "],
+            styles: [":host { display: flex; flex-direction: column; font-family: Roboto, \"Helvetica Neue\", sans-serif; } .md-tab-label { line-height: 48px; height: 48px; padding: 0 12px; font-size: 14px; font-family: Roboto, \"Helvetica Neue\", sans-serif; font-weight: 500; cursor: pointer; box-sizing: border-box; color: currentColor; opacity: 0.6; min-width: 160px; text-align: center; position: relative; } .md-tab-label:focus { outline: none; opacity: 1; } @media (max-width: 600px) { .md-tab-label { min-width: 72px; } } :host[md-stretch-tabs] .md-tab-label { flex-basis: 0; flex-grow: 1; } .md-tab-body-wrapper { position: relative; overflow: hidden; display: flex; transition: height 500ms cubic-bezier(0.35, 0, 0.25, 1); } md-tab-body { position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: block; overflow: hidden; } md-tab-body.md-tab-body-active { position: relative; overflow-x: hidden; overflow-y: auto; z-index: 1; flex-grow: 1; } :host.md-tab-group-dynamic-height md-tab-body.md-tab-body-active { overflow-y: hidden; } .md-tab-disabled { cursor: default; pointer-events: none; } /*# sourceMappingURL=tab-group.css.map */ "],
+            host: { '[class.md-tab-group-dynamic-height]': 'dynamicHeight' }
         }), 
         __metadata('design:paramtypes', [Renderer])
     ], MdTabGroup);

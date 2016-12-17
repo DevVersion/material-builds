@@ -54,6 +54,13 @@ export var MdTooltip = (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(MdTooltip.prototype, "_positionDeprecated", {
+        /** @deprecated */
+        get: function () { return this._position; },
+        set: function (value) { this._position = value; },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(MdTooltip.prototype, "message", {
         get: function () {
             return this._message;
@@ -64,6 +71,13 @@ export var MdTooltip = (function () {
                 this._setTooltipMessage(this._message);
             }
         },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdTooltip.prototype, "_deprecatedMessage", {
+        /** @deprecated */
+        get: function () { return this.message; },
+        set: function (v) { this.message = v; },
         enumerable: true,
         configurable: true
     });
@@ -181,24 +195,32 @@ export var MdTooltip = (function () {
         });
     };
     __decorate([
-        Input('tooltip-position'), 
+        Input('mdTooltipPosition'), 
         __metadata('design:type', String)
     ], MdTooltip.prototype, "position", null);
     __decorate([
-        Input('tooltipShowDelay'), 
+        Input('tooltip-position'), 
+        __metadata('design:type', String)
+    ], MdTooltip.prototype, "_positionDeprecated", null);
+    __decorate([
+        Input('mdTooltipShowDelay'), 
         __metadata('design:type', Object)
     ], MdTooltip.prototype, "showDelay", void 0);
     __decorate([
-        Input('tooltipHideDelay'), 
+        Input('mdTooltipHideDelay'), 
         __metadata('design:type', Object)
     ], MdTooltip.prototype, "hideDelay", void 0);
     __decorate([
-        Input('md-tooltip'), 
+        Input('mdTooltip'), 
         __metadata('design:type', Object)
     ], MdTooltip.prototype, "message", null);
+    __decorate([
+        Input('md-tooltip'), 
+        __metadata('design:type', String)
+    ], MdTooltip.prototype, "_deprecatedMessage", null);
     MdTooltip = __decorate([
         Directive({
-            selector: '[md-tooltip], [mat-tooltip]',
+            selector: '[md-tooltip], [mat-tooltip], [mdTooltip]',
             host: {
                 '(longpress)': 'show()',
                 '(touchend)': 'hide(' + TOUCHEND_HIDE_DELAY + ')',

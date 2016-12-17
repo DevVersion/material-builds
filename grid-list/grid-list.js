@@ -30,22 +30,14 @@ export var MdGridList = (function () {
         this._gutter = '1px';
     }
     Object.defineProperty(MdGridList.prototype, "cols", {
-        get: function () {
-            return this._cols;
-        },
-        set: function (value) {
-            this._cols = coerceToNumber(value);
-        },
+        get: function () { return this._cols; },
+        set: function (value) { this._cols = coerceToNumber(value); },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MdGridList.prototype, "gutterSize", {
-        get: function () {
-            return this._gutter;
-        },
-        set: function (value) {
-            this._gutter = coerceToString(value);
-        },
+        get: function () { return this._gutter; },
+        set: function (value) { this._gutter = coerceToString(value); },
         enumerable: true,
         configurable: true
     });
@@ -121,7 +113,7 @@ export var MdGridList = (function () {
         __metadata('design:type', Object)
     ], MdGridList.prototype, "cols", null);
     __decorate([
-        Input('gutterSize'), 
+        Input(), 
         __metadata('design:type', Object)
     ], MdGridList.prototype, "gutterSize", null);
     __decorate([

@@ -81,7 +81,7 @@
 [md-ripple] {
   overflow: hidden; }
 
-[md-ripple].md-ripple-unbounded {
+[md-ripple].mdRippleUnbounded {
   overflow: visible; }
 
 .md-ripple-background {
@@ -94,13 +94,13 @@
   right: 0;
   bottom: 0; }
 
-.md-ripple-unbounded .md-ripple-background {
+.mdRippleUnbounded .md-ripple-background {
   display: none; }
 
 .md-ripple-background.md-ripple-active {
   opacity: 1; }
 
-.md-ripple-focused .md-ripple-background {
+.mdRippleFocused .md-ripple-background {
   opacity: 1; }
 
 .md-ripple-foreground {
@@ -170,7 +170,7 @@
 .md-overlay-transparent-backdrop {
   background: none; }
 
-.md-ripple-focused .md-ripple-background {
+.mdRippleFocused .md-ripple-background {
   background-color: rgba(105, 240, 174, 0.1); }
 
 [md-button].md-button-focus.md-primary .md-button-focus-overlay, [md-icon-button].md-button-focus.md-primary .md-button-focus-overlay, [md-raised-button].md-button-focus.md-primary .md-button-focus-overlay, [md-fab].md-button-focus.md-primary .md-button-focus-overlay, [md-mini-fab].md-button-focus.md-primary .md-button-focus-overlay {

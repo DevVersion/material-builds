@@ -23,6 +23,8 @@ export declare class MdSlider implements ControlValueAccessor {
     /** Whether or not to show the thumb label. */
     private _thumbLabel;
     thumbLabel: boolean;
+    /** @deprecated */
+    _thumbLabelDeprecated: boolean;
     private _controlValueAccessorChangeFn;
     /** The last value for which a change event was emitted. */
     private _lastEmittedValue;
@@ -47,6 +49,8 @@ export declare class MdSlider implements ControlValueAccessor {
      */
     private _tickInterval;
     tickInterval: number | "auto";
+    /** @deprecated */
+    _tickIntervalDeprecated: number | "auto";
     /** The size of a tick interval as a percentage of the size of the track. */
     private _tickIntervalPercent;
     readonly tickIntervalPercent: number;

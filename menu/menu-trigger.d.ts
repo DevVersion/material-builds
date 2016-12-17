@@ -17,6 +17,8 @@ export declare class MdMenuTrigger implements AfterViewInit, OnDestroy {
     private _backdropSubscription;
     private _positionSubscription;
     private _openedByMouse;
+    /** @deprecated */
+    _deprecatedMenuTriggerFor: MdMenuPanel;
     menu: MdMenuPanel;
     onMenuOpen: EventEmitter<void>;
     onMenuClose: EventEmitter<void>;
@@ -51,7 +53,7 @@ export declare class MdMenuTrigger implements AfterViewInit, OnDestroy {
     private _setIsMenuOpen(isOpen);
     /**
      *  This method checks that a valid instance of MdMenu has been passed into
-     *  md-menu-trigger-for.  If not, an exception is thrown.
+     *  mdMenuTriggerFor. If not, an exception is thrown.
      */
     private _checkMenu();
     /**

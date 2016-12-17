@@ -25,6 +25,8 @@ export declare class MdTabGroup {
     /** Whether the tab group should grow to the size of the active tab */
     private _dynamicHeight;
     dynamicHeight: boolean;
+    /** @deprecated */
+    _dynamicHeightDeprecated: boolean;
     /** The index of the active tab. */
     private _selectedIndex;
     selectedIndex: number;

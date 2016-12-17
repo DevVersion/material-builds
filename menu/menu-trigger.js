@@ -31,6 +31,13 @@ export var MdMenuTrigger = (function () {
         this.onMenuOpen = new EventEmitter();
         this.onMenuClose = new EventEmitter();
     }
+    Object.defineProperty(MdMenuTrigger.prototype, "_deprecatedMenuTriggerFor", {
+        /** @deprecated */
+        get: function () { return this.menu; },
+        set: function (v) { this.menu = v; },
+        enumerable: true,
+        configurable: true
+    });
     MdMenuTrigger.prototype.ngAfterViewInit = function () {
         var _this = this;
         this._checkMenu();
@@ -124,7 +131,7 @@ export var MdMenuTrigger = (function () {
     };
     /**
      *  This method checks that a valid instance of MdMenu has been passed into
-     *  md-menu-trigger-for.  If not, an exception is thrown.
+     *  mdMenuTriggerFor. If not, an exception is thrown.
      */
     MdMenuTrigger.prototype._checkMenu = function () {
         if (!this.menu) {
@@ -199,6 +206,10 @@ export var MdMenuTrigger = (function () {
     __decorate([
         Input('md-menu-trigger-for'), 
         __metadata('design:type', Object)
+    ], MdMenuTrigger.prototype, "_deprecatedMenuTriggerFor", null);
+    __decorate([
+        Input('mdMenuTriggerFor'), 
+        __metadata('design:type', Object)
     ], MdMenuTrigger.prototype, "menu", void 0);
     __decorate([
         Output(), 
@@ -210,7 +221,7 @@ export var MdMenuTrigger = (function () {
     ], MdMenuTrigger.prototype, "onMenuClose", void 0);
     MdMenuTrigger = __decorate([
         Directive({
-            selector: '[md-menu-trigger-for], [mat-menu-trigger-for]',
+            selector: '[md-menu-trigger-for], [mat-menu-trigger-for], [mdMenuTriggerFor]',
             host: {
                 'aria-haspopup': 'true',
                 '(mousedown)': '_handleMousedown($event)',

@@ -22,6 +22,8 @@ export declare class MdTooltip {
     /** Allows the user to define the position of the tooltip relative to the parent element */
     private _position;
     position: TooltipPosition;
+    /** @deprecated */
+    _positionDeprecated: TooltipPosition;
     /** The default delay in ms before showing the tooltip after show is called */
     showDelay: number;
     /** The default delay in ms before hiding the tooltip after hide is called */
@@ -29,6 +31,8 @@ export declare class MdTooltip {
     /** The message to be displayed in the tooltip */
     private _message;
     message: string;
+    /** @deprecated */
+    _deprecatedMessage: string;
     constructor(_overlay: Overlay, _elementRef: ElementRef, _viewContainerRef: ViewContainerRef, _ngZone: NgZone, _dir: Dir);
     /** Dispose the tooltip when destroyed */
     ngOnDestroy(): void;

@@ -97,6 +97,13 @@ export var MdSlider = (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(MdSlider.prototype, "_thumbLabelDeprecated", {
+        /** @deprecated */
+        get: function () { return this._thumbLabel; },
+        set: function (value) { this._thumbLabel = value; },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(MdSlider.prototype, "step", {
         get: function () { return this._step; },
         set: function (v) { this._step = coerceNumberProperty(v, this._step); },
@@ -108,6 +115,13 @@ export var MdSlider = (function () {
         set: function (v) {
             this._tickInterval = (v == 'auto') ? v : coerceNumberProperty(v, this._tickInterval);
         },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdSlider.prototype, "_tickIntervalDeprecated", {
+        /** @deprecated */
+        get: function () { return this.tickInterval; },
+        set: function (v) { this.tickInterval = v; },
         enumerable: true,
         configurable: true
     });
@@ -445,17 +459,25 @@ export var MdSlider = (function () {
         __metadata('design:type', Boolean)
     ], MdSlider.prototype, "disabled", null);
     __decorate([
-        Input('thumb-label'), 
+        Input('thumbLabel'), 
         __metadata('design:type', Boolean)
     ], MdSlider.prototype, "thumbLabel", null);
+    __decorate([
+        Input('thumb-label'), 
+        __metadata('design:type', Boolean)
+    ], MdSlider.prototype, "_thumbLabelDeprecated", null);
     __decorate([
         Input(), 
         __metadata('design:type', Object)
     ], MdSlider.prototype, "step", null);
     __decorate([
-        Input('tick-interval'), 
+        Input(), 
         __metadata('design:type', Object)
     ], MdSlider.prototype, "tickInterval", null);
+    __decorate([
+        Input('tick-interval'), 
+        __metadata('design:type', Object)
+    ], MdSlider.prototype, "_tickIntervalDeprecated", null);
     __decorate([
         Input(), 
         __metadata('design:type', Object)
