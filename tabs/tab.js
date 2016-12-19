@@ -63,7 +63,7 @@ export var MdTab = (function () {
     ], MdTab.prototype, "disabled", null);
     MdTab = __decorate([
         Component({selector: 'md-tab',
-            template: "<!-- Create a template for the content of the <md-tab> so that we can grab a reference to this TemplateRef and use it in a Portal to render the tab content in the appropriate place in the tab-group. --> <template><ng-content></ng-content></template> ",
+            template: "<template><ng-content></ng-content></template>",
         }), 
         __metadata('design:paramtypes', [ViewContainerRef])
     ], MdTab);

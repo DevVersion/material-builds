@@ -14,7 +14,7 @@ export var MdAutocomplete = (function () {
     MdAutocomplete = __decorate([
         Component({selector: 'md-autocomplete, mat-autocomplete',
             template: "I'm an autocomplete!",
-            styles: [" /*# sourceMappingURL=autocomplete.css.map */ "],
+            styles: [""],
             encapsulation: ViewEncapsulation.None,
         }), 
         __metadata('design:paramtypes', [])
